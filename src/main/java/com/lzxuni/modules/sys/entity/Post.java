@@ -1,7 +1,7 @@
 package com.lzxuni.modules.sys.entity;
 
 
-import com.lzxuni.modules.common.Tree;
+import com.lzxuni.modules.common.entity.Tree;
 
 import java.util.Date;
 import java.util.List;

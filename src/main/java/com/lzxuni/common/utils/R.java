@@ -1,7 +1,5 @@
 package com.lzxuni.common.utils;
 
-import org.apache.http.HttpStatus;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,15 +15,14 @@ public class R extends HashMap<String, Object> {
 	
 	public R() {
 		put("code", 0);
-		put("msg", "success");
 	}
 	
 	public static R error() {
-		return error(HttpStatus.SC_INTERNAL_SERVER_ERROR, "未知异常，请联系管理员");
+		return error(500, "未知异常，请联系管理员");
 	}
 	
 	public static R error(String msg) {
-		return error(HttpStatus.SC_INTERNAL_SERVER_ERROR, msg);
+		return error(500, msg);
 	}
 	
 	public static R error(int code, String msg) {
