@@ -1,7 +1,9 @@
 package com.lzxuni.modules.common.controller;
 
 
+import com.github.pagehelper.PageInfo;
 import com.lzxuni.common.utils.ShiroUtils;
+import com.lzxuni.modules.common.entity.PageData;
 import com.lzxuni.modules.sys.entity.User;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -26,15 +28,15 @@ public class BaseController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd HH:mm"), true));
 	}
 	
-//	public PageData getPageData(PageInfo<?> pageInfo){
-//		PageData pageData = new PageData() ;
-//		pageData.setRows(pageInfo.getList());
-//		pageData.setTotal(pageInfo.getPages());
-//		pageData.setPage(pageInfo.getPageNum());
-//		pageData.setRecords(pageInfo.getTotal());
-//		pageData.setCosttime(10);
-//		return pageData ;
-//	}
+	public PageData getPageData(PageInfo<?> pageInfo){
+		PageData pageData = new PageData() ;
+		pageData.setRows(pageInfo.getList());
+		pageData.setTotal(pageInfo.getPages());
+		pageData.setPage(pageInfo.getPageNum());
+		pageData.setRecords(pageInfo.getTotal());
+		pageData.setCosttime(10);
+		return pageData ;
+	}
 	
 	//用户信息
 	protected User getUser() {

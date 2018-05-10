@@ -1,5 +1,10 @@
 package com.lzxuni.modules.sys.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.lzxuni.common.utils.R;
+import com.lzxuni.modules.common.controller.BaseController;
+import com.lzxuni.modules.common.entity.PageParameter;
+import com.lzxuni.modules.sys.entity.User;
 import com.lzxuni.modules.sys.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,40 +19,44 @@ import org.springframework.web.servlet.ModelAndView;
  * @Modified BY:
  **/
 @RestController
-public class UserController {
+@RequestMapping("/admin/system/user")
+public class UserController extends BaseController {
 
 	@Autowired
 	private UserService userService;
-	@RequestMapping("list")
+	@RequestMapping("/list_v.html")
 	public ModelAndView list(){
-		ModelAndView mv = new ModelAndView("/list");
-		mv.addObject("list",userService.queryList());
+		ModelAndView mv = new ModelAndView("/admin/system/user/list");
 		return mv;
 	}
-	@RequestMapping("flist")
-	public ModelAndView flist(){
-		ModelAndView mv = new ModelAndView("/freemarker");
-		mv.addObject("list",userService.queryList());
-		mv.addObject("string","123");
+	@RequestMapping("/insert_v.html")
+	public ModelAndView insert() throws Exception {
+		ModelAndView mv = new ModelAndView("/admin/system/user/insert");
 		return mv;
 	}
-	@RequestMapping("detail")
-	public Object detail(){
-		return userService.queryObject("1");
+	@RequestMapping("insert_o.html")
+	public Object insert(User user){
+		userService.save(user);
+		return  R.ok();
 	}
-	@RequestMapping("insert")
-	public Object insert(){
-		userService.insert(null);
-		return null;
+	@RequestMapping("/list_o.html")
+	public Object listDo(PageParameter pageParameter,
+						 String queryJson,String companyId) throws Exception {
+		User user = JSON.parseObject(queryJson, User.class);
+		if (user == null) {
+			user = new User();
+		}
+		user.setCompanyId(companyId);
+		return getPageData(userService.queryPage(pageParameter, user));
 	}
 	@RequestMapping("delete")
-	public Object delete(){
-		userService.delete(null);
-		return null;
+	public Object delete(String[] userIds){
+		userService.deleteBatch(userIds);
+		return  R.ok();
 	}
 	@RequestMapping("update")
-	public Object update(){
-		userService.update(null);
-		return null;
+	public Object update(User user){
+		userService.update(user);
+		return  R.ok();
 	}
 }

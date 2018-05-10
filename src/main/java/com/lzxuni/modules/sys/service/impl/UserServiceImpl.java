@@ -1,12 +1,19 @@
 package com.lzxuni.modules.sys.service.impl;
 
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.lzxuni.common.utils.UuidUtil;
+import com.lzxuni.modules.common.entity.PageParameter;
 import com.lzxuni.modules.sys.entity.User;
 import com.lzxuni.modules.sys.mapper.UserMapper;
 import com.lzxuni.modules.sys.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,49 +24,54 @@ import java.util.List;
  * @Modified BY:
  **/
 @Service
-public class UserServiceImpl implements UserService {
-	@Autowired
-	private UserMapper userMapper;
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
 	@Override
-	//@Cacheable(value="queryList")
-	public List<User> queryList() {
-		System.out.println("是否走缓存");
-		return userMapper.selectList(null);
+	public PageInfo<User> queryPage(PageParameter pageParameter, User user) {
+		PageHelper.startPage(pageParameter.getPage(), pageParameter.getRows()).setOrderBy(
+				pageParameter.getSidx() + " " + pageParameter.getSord());
+		List<User> userList = baseMapper.queryList(user);
+		PageInfo<User> pageInfo = new PageInfo<>(userList);
+		return pageInfo;
 	}
 
 	@Override
-	public User queryObject(String id) {
-		return userMapper.selectById(id);
+	public List<String> queryAllPerms(String userId) {
+		return null;
 	}
 
 	@Override
+	public List<Long> queryAllMenuId(String userId) {
+		return null;
+	}
+
+	@Override
+	public User queryByUserName(String username) {
+		return baseMapper.queryByUserName(username);
+	}
 	@Transactional(rollbackFor = Exception.class)
-	public void insert(User user) {
-		user = new User();
-		//user.setId("3");
-		user.setUsername("admin1");
-		Integer insert = userMapper.insert(user);
-		update(null);
-		System.out.println(insert+"===");
-	}
-
 	@Override
+	public void save(User user) {
+		user.setUserId(UuidUtil.get32UUID());
+		user.setRegisterTime(new Date());
+		//sha256加密
+		String salt = RandomStringUtils.randomAlphanumeric(20);
+		user.setSalt(salt);
+		this.insert(user);
+	}
 	@Transactional(rollbackFor = Exception.class)
+	@Override
 	public void update(User user) {
-		user = new User();
-		user.setUserId("1");
-		user.setUsername("admin11");
-		Integer insert = userMapper.updateById(user);
-		System.out.println(insert+"===");
-		//System.out.println(1/0);
+		updateById(user);
 	}
-
+	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public void delete(User user) {
-		user = new User();
-		user.setUserId("1");
-		user.setUsername("admin1");
-		Integer insert = userMapper.deleteById("1");
-		System.out.println(insert+"===");
+	public void deleteBatch(String[] userIds) {
+		deleteBatchIds(Arrays.asList(userIds));
+	}
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public boolean updatePassword(String userId, String password, String newPassword) {
+		return false;
 	}
 }

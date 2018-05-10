@@ -21,5 +21,5 @@
 var ACTIVITI = ACTIVITI || {};
 
 ACTIVITI.CONFIG = {
-	'contextRoot' : 'ht/service',
+	'contextRoot' : 'ht/datasource',
 };

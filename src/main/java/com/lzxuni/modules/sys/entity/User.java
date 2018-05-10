@@ -241,7 +241,7 @@ public class User implements Serializable{
 		return encode;
 	}
 
-	public void setEncode(String enCode) {
+	public void setEncode(String encode) {
 		this.encode = encode;
 	}
 
@@ -257,7 +257,7 @@ public class User implements Serializable{
 		return wechat;
 	}
 
-	public void setWechat(String weChat) {
+	public void setWechat(String wechat) {
 		this.wechat = wechat;
 	}
 

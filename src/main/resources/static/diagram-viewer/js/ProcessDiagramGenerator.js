@@ -282,7 +282,7 @@ var ProcessDiagramGenerator = {
 			processDiagramCanvas.drawScriptTask(activityImpl.getProperty("name"), activityImpl.getX(), activityImpl.getY(), activityImpl.getWidth(), activityImpl.getHeight());
 		};
 		
-		// service task
+		// datasource task
 		this.activityDrawInstructions["serviceTask"] = function(){
 			var activityImpl = this.activity;
 			var processDiagramCanvas = this.processDiagramCanvas;

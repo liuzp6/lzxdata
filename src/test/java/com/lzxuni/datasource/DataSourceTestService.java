@@ -14,7 +14,7 @@
  * the License.
  */
 
-package com.lzxuni.service;
+package com.lzxuni.datasource;
 
 import com.lzxuni.datasources.DataSourceNames;
 import com.lzxuni.datasources.annotation.DataSource;
@@ -34,12 +34,12 @@ public class DataSourceTestService {
     @Autowired
     private UserService userService;
 
-    public User queryUser(String userId){
-        return userService.queryObject(userId);
+    public User queryUser(String username){
+        return userService.queryByUserName(username);
     }
 
     @DataSource(name = DataSourceNames.SECOND)
-    public User queryUser2(String userId){
-        return userService.queryObject(userId);
+    public User queryUser2(String username){
+        return userService.queryByUserName(username);
     }
 }

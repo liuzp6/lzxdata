@@ -1,4 +1,4 @@
-package com.lzxuni;
+package com.lzxuni.redis;
 
 import com.lzxuni.common.utils.RedisClusterUtils;
 import com.lzxuni.common.utils.RedisUtils;

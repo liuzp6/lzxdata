@@ -1,8 +1,7 @@
-package com.lzxuni;
+package com.lzxuni.datasource;
 
 
 import com.lzxuni.modules.sys.entity.User;
-import com.lzxuni.service.DataSourceTestService;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;

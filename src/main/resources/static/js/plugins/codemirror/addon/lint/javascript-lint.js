@@ -124,7 +124,7 @@
           }
         }
 
-        // Convert to format expected by validation service
+        // Convert to format expected by validation datasource
         error.description = error.reason;// + "(jshint)";
         error.start = error.character;
         error.end = end;

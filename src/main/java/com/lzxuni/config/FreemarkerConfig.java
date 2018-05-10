@@ -41,7 +41,6 @@ public class FreemarkerConfig {
         Map<String, Object> variables = new HashMap<>(1);
         variables.put("shiro", shiroTag);
         configurer.setFreemarkerVariables(variables);
-
         Properties settings = new Properties();
         settings.setProperty("default_encoding", "utf-8");
         settings.setProperty("number_format", "0.##");

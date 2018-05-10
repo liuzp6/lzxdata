@@ -1802,7 +1802,7 @@ ORYX.CONFIG.FORM_LIST_URL = 				ORYX.CONFIG.SERVER_HANDLER_ROOT + "/forms";
 ORYX.CONFIG.FORM_IMAGE_URL = 				ORYX.CONFIG.SERVER_HANDLER_ROOT + "/form";
 ORYX.CONFIG.SUB_PROCESS_LIST_URL = 			ORYX.CONFIG.SERVER_HANDLER_ROOT + "/subprocesses";
 ORYX.CONFIG.SUB_PROCESS_IMAGE_URL = 		ORYX.CONFIG.SERVER_HANDLER_ROOT + "/subprocess";
-ORYX.CONFIG.TEST_SERVICE_URL = 				ORYX.CONFIG.SERVER_HANDLER_ROOT + "/service/";
+ORYX.CONFIG.TEST_SERVICE_URL = 				ORYX.CONFIG.SERVER_HANDLER_ROOT + "/datasource/";
 
 ORYX.CONFIG.SERVICE_LIST_URL = 				ORYX.CONFIG.SERVER_HANDLER_ROOT + "/services";
 ORYX.CONFIG.CONDITION_ELEMENT_LIST_URL = 	ORYX.CONFIG.SERVER_HANDLER_ROOT + "/conditionelements";
@@ -10840,7 +10840,7 @@ function init() {
     // Else fetch the model from server and display editor
     else {
 		var modelId = window.location.search.substring(4);
-		var modelUrl = "./service/model/" + modelId + "/json";
+		var modelUrl = "./datasource/model/" + modelId + "/json";
 
         ORYX.Editor.createByUrl(modelUrl);
     }
@@ -13073,7 +13073,7 @@ ORYX.Core.Shape = {
 	  											var onclickAttr = svgElem.getAttributeNodeNS('', 'onclick');
 	  											if(onclickAttr) {
 	  												if(prop && ("" + prop).length > 0) {
-	  													onclickAttr.textContent = "window.location = '../service/editor?id=" + prop + "_form'";
+	  													onclickAttr.textContent = "window.location = '../datasource/editor?id=" + prop + "_form'";
 	  							    	   			} else {
 	  							    	   				newFormFacade = this.facade;
 	  							    	   				onclickAttr.textContent = "displayNewFormDialog('" + this.resourceId + "');";

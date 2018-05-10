@@ -17,16 +17,16 @@
 angular.mock = {};
 
 /**
- * ! This is a private undocumented service !
+ * ! This is a private undocumented datasource !
  *
  * @name ngMock.$browser
  *
  * @description
- * This service is a mock implementation of {@link ng.$browser}. It provides fake
+ * This datasource is a mock implementation of {@link ng.$browser}. It provides fake
  * implementation for commonly used browser apis that are hard to test, e.g. setTimeout, xhr,
  * cookies, etc...
  *
- * The api of this service is the same as that of the real {@link ng.$browser $browser}, except
+ * The api of this datasource is the same as that of the real {@link ng.$browser $browser}, except
  * that there are several helper methods available which can be used in tests.
  */
 angular.mock.$BrowserProvider = function() {
@@ -284,7 +284,7 @@ angular.mock.$ExceptionHandlerProvider = function() {
 
 
 /**
- * @ngdoc service
+ * @ngdoc datasource
  * @name ngMock.$log
  *
  * @description
@@ -442,11 +442,11 @@ angular.mock.$LogProvider = function() {
 
 
 /**
- * @ngdoc service
+ * @ngdoc datasource
  * @name ngMock.$interval
  *
  * @description
- * Mock implementation of the $interval service.
+ * Mock implementation of the $interval datasource.
  *
  * Use {@link ngMock.$interval#methods_flush `$interval.flush(millis)`} to
  * move forward by `millis` milliseconds and trigger any functions scheduled to run in that
@@ -882,7 +882,7 @@ angular.mock.dump = function(object) {
  * @name ngMock.$httpBackend
  * @description
  * Fake HTTP backend implementation suitable for unit testing applications that use the
- * {@link ng.$http $http service}.
+ * {@link ng.$http $http datasource}.
  *
  * *Note*: For fake HTTP backend implementation suitable for end-to-end testing or backend-less
  * development please see {@link ngMockE2E.$httpBackend e2e $httpBackend mock}.
@@ -897,8 +897,8 @@ angular.mock.dump = function(object) {
  * This mock implementation can be used to respond with static or dynamic responses via the
  * `expect` and `when` apis and their shortcuts (`expectGET`, `whenPOST`, etc).
  *
- * When an Angular application needs some data from a server, it calls the $http service, which
- * sends the request to a real server using $httpBackend service. With dependency injection, it is
+ * When an Angular application needs some data from a server, it calls the $http datasource, which
+ * sends the request to a real server using $httpBackend datasource. With dependency injection, it is
  * easy to inject $httpBackend mock (which has the same API as $httpBackend) and use it to verify
  * the requests and respond with some testing data without sending a request to real server.
  *
@@ -1011,14 +1011,14 @@ angular.mock.dump = function(object) {
        var $httpBackend, $rootScope, createController;
 
        beforeEach(inject(function($injector) {
-         // Set up the mock http service responses
+         // Set up the mock http datasource responses
          $httpBackend = $injector.get('$httpBackend');
          // backend definition common for all tests
          $httpBackend.when('GET', '/auth.py').respond({userId: 'userX'}, {'A-Token': 'xxx'});
 
          // Get hold of a scope (i.e. the root scope)
          $rootScope = $injector.get('$rootScope');
-         // The $controller service is used to create instances of controllers
+         // The $controller datasource is used to create instances of controllers
          var $controller = $injector.get('$controller');
 
          createController = function() {
@@ -1640,7 +1640,7 @@ function MockXhr() {
  * @name ngMock.$timeout
  * @description
  *
- * This service is just a simple decorator for {@link ng.$timeout $timeout} service
+ * This datasource is just a simple decorator for {@link ng.$timeout $timeout} datasource
  * that adds a "flush" and "verifyNoPendingTasks" methods.
  */
 
@@ -1741,7 +1741,7 @@ angular.module('ngMockE2E', ['ng']).config(['$provide', function($provide) {
  * @name ngMockE2E.$httpBackend
  * @description
  * Fake HTTP backend implementation suitable for end-to-end testing or backend-less development of
- * applications that use the {@link ng.$http $http service}.
+ * applications that use the {@link ng.$http $http datasource}.
  *
  * *Note*: For fake http backend implementation suitable for unit testing please see
  * {@link ngMock.$httpBackend unit-testing $httpBackend mock}.

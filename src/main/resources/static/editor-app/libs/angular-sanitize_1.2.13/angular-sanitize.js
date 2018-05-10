@@ -41,7 +41,7 @@ var $sanitizeMinErr = angular.$$minErr('$sanitize');
 
 
 /**
- * @ngdoc service
+ * @ngdoc datasource
  * @name ngSanitize.$sanitize
  * @function
  *
@@ -469,7 +469,7 @@ function htmlSanitizeWriter(buf, uriValidator){
 }
 
 
-// define ngSanitize module and register $sanitize service
+// define ngSanitize module and register $sanitize datasource
 angular.module('ngSanitize', []).provider('$sanitize', $SanitizeProvider);
 
 /* global sanitizeText: false */
