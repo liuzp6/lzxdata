@@ -28,7 +28,7 @@ public class ZookeeperTest  implements Watcher {
 
 			ZooKeeper.States state = zooKeeper.getState();
 			System.out.println(state);
-			zooKeeper.create("/yxxy1", "yxxy".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+			zooKeeper.create("/yxxy2", "yxxy1".getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
 			Thread.sleep(2000);
 			zooKeeper.close();
 
