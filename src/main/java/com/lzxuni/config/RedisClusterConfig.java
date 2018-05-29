@@ -19,7 +19,7 @@ import java.util.Set;
  **/
 
 @Configuration
-public class JedisClusterConfig {
+public class RedisClusterConfig {
 
 	@Autowired
 	private RedisProperties redisProperties;
