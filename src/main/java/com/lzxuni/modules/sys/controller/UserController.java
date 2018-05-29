@@ -2,6 +2,8 @@ package com.lzxuni.modules.sys.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.lzxuni.common.utils.R;
+import com.lzxuni.common.validator.ValidatorUtils;
+import com.lzxuni.common.validator.group.AddGroup;
 import com.lzxuni.modules.common.controller.BaseController;
 import com.lzxuni.modules.common.entity.PageParameter;
 import com.lzxuni.modules.sys.entity.User;
@@ -36,9 +38,12 @@ public class UserController extends BaseController {
 	}
 	@RequestMapping("insert_o.html")
 	public Object insert(User user){
+		//Assert.isBlank(user.getUsername(), "账号不能为空");
+		ValidatorUtils.validateEntity(user, AddGroup.class);
 		userService.save(user);
 		return  R.ok();
 	}
+
 	@RequestMapping("/list_o.html")
 	public Object listDo(PageParameter pageParameter,
 						 String queryJson,String companyId) throws Exception {

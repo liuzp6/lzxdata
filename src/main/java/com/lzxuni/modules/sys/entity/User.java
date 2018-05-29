@@ -4,6 +4,9 @@ package com.lzxuni.modules.sys.entity;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.lzxuni.common.validator.group.AddGroup;
+import com.lzxuni.common.validator.group.UpdateGroup;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -23,6 +26,7 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 7632952419415232387L;
 	private String userId ;
 	private String companyId ;
+	@NotBlank(message="用户名不能为空", groups = {AddGroup.class, UpdateGroup.class})
 	private String username ;
 	private String realname ;
 	private Integer status ;

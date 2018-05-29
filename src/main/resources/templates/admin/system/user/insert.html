@@ -1,49 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <base href="http://localhost:8080/"/>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>基本表单</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>新增用户</title>
-    <!--框架必需start-->
-    <script src="Content/scripts/jquery/jquery-1.10.2.min.js"></script>
-    <link href="Content/styles/font-awesome.min.css" rel="stylesheet" />
-    <link href="Content/scripts/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
-    <script src="Content/scripts/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <!--框架必需end-->
-    <!--bootstrap组件start-->
-    <link href="Content/scripts/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link href="Content/scripts/bootstrap/bootstrap.extension.css" rel="stylesheet" />
-    <script src="Content/scripts/bootstrap/bootstrap.min.js"></script>
-    <!--bootstrap组件end-->
-    <script src="Content/scripts/plugins/datepicker/WdatePicker.js"></script>
-    <link href="Content/scripts/plugins/tree/css?v=H1Pw5_bJCpzF5OnxCweb5t4XUgVmB2SD2PT8UreOXFA1" rel="stylesheet"/>
-    <link href="Content/scripts/plugins/datetime/css?v=R2gV65TRaqpUG53uer0IzYRSK0iOi8wNodWtNoeZPpQ1" rel="stylesheet"/>
-    <link href="Content/scripts/plugins/wizard/css?v=W_wrFuN6q7PYaBxT6Agjqz3dwFYf6-aOJd-mk2R7Hvg1" rel="stylesheet"/>
-
-    <link href="Content/styles/learun.css?v=Ty7LTzndRqV52dwtX2Mntj35r2jf8KW5SPI02pjLaKY1" rel="stylesheet"/>
-
-
-    <link rel="stylesheet" href="js/plugins/zTree_v3-master/css/demo.css" type="text/css">
-    <link rel="stylesheet" href="js/plugins/zTree_v3-master/css/zTreeStyle/zTreeStyle.css" type="text/css">
-    <link rel="stylesheet" href="js/plugins/layer/skin/moon/style.css" type="text/css">
-
-    <script src="Content/scripts/utils/learun.js?v=AfeCneuZAYcYQ_oDc_NcFhRe318AoiA7nEzz08vcf9E1"></script>
-    <script src="Content/scripts/plugins/tree/js?v=juUOPsC80vp0oU0mDF6kU_w_oqCesh68O0OtnzL7Wk81"></script>
-    <script src="Content/scripts/plugins/validator/js?v=znSfnIdhHxxCqs-Qu0ubgsaRj2oDtXtihP0fEoemDWs1"></script>
-    <script src="Content/scripts/plugins/wizard/js?v=B2NDCyjwoq-6l3qQjPYTbrSsjg6SllBIwuY10rqKT5g1"></script>
-    <script src="Content/scripts/plugins/datepicker/js?v=B0RLtvjnn7QkPWLaYcMEAeEpC0XCKigX6gEmWC4zrKk1"></script>
-    <script src="js/plugins/layer/laydate/laydate.js" type="text/JavaScript"></script>
-    <style>
-        .line{
-            position: static;
-        }
-    </style>
+    <#include "/admin/header.html">
 </head>
 <body>
 <div id="ajaxLoader" style="cursor: progress; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: #f1f1f1; z-index: 10000; overflow: hidden;">
@@ -372,18 +331,18 @@
 <script>
     //保存表单
     function AcceptClick(sendStatus) {
-        if ($("#username").val() == "") {
-            top.dialogTop('请填写账号', 'error');
-            return false;
-        }
-        if ($("#realName").val() == "") {
-            top.dialogTop('请填写姓名', 'error');
-            return false;
-        }
-        if ($("#mobile").val() == "") {
-            top.dialogTop('请填写手机', 'error');
-            return false;
-        }
+        // if ($("#username").val() == "") {
+        //     top.dialogTop('请填写账号', 'error');
+        //     return false;
+        // }
+        // if ($("#realName").val() == "") {
+        //     top.dialogTop('请填写姓名', 'error');
+        //     return false;
+        // }
+        // if ($("#mobile").val() == "") {
+        //     top.dialogTop('请填写手机', 'error');
+        //     return false;
+        // }
         $.SaveForm({
             url: "admin/system/user/insert_o.html",
             param: $('#myform').serialize(),

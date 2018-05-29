@@ -362,15 +362,16 @@ window.learun = {}, function (n, t) {
 					type : i.type,
 					dataType : i.dataType,
 					success : function (n) {
-						n.type == "3" ? t.dialogAlert({
-							msg : n.message,
+
+						n.code == 500 ? t.dialogAlert({
+							msg : n.msg,
 							type : -1
 						}) : (t.loading({
 								isShow : !1
 							}), t.dialogMsg({
-								msg : n.message,
+								msg : n.msg,
 								type : 1
-							}), i.success(n), i.close == !0 && t.dialogClose())
+							}), i.success(n), i.close == !0 && t.dialogClose());
 					},
 					error : function (n, i, r) {
 						t.loading({

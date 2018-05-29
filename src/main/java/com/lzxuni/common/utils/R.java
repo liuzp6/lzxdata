@@ -21,20 +21,20 @@ public class R extends HashMap<String, Object> {
 		return error(500, "未知异常，请联系管理员");
 	}
 	
-	public static R error(String msg) {
-		return error(500, msg);
+	public static R error(String massage) {
+		return error(500, massage);
 	}
 	
-	public static R error(int code, String msg) {
+	public static R error(int code, String massage) {
 		R r = new R();
 		r.put("code", code);
-		r.put("msg", msg);
+		r.put("massage", massage);
 		return r;
 	}
 
-	public static R ok(String msg) {
+	public static R ok(String massage) {
 		R r = new R();
-		r.put("msg", msg);
+		r.put("massage", massage);
 		return r;
 	}
 	
