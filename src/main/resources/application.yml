@@ -45,10 +45,10 @@ spring:
         expireSeconds: 120
         commandTimeout: 10000  #redis操作的超时时间
         pool:
-         maxActive: 5000 #最大连接数
-         maxIdle: 30 #最大空闲连接数
-         minIdle: 5 #最小空闲连接数
-         maxWait: 3000  #获取连接最大等待时间 ms  #default -1
+          max-active: 5000 #最大连接数
+          maxIdle: 30 #最大空闲连接数
+          minIdle: 5 #最小空闲连接数W
+          maxait: 3000  #获取连接最大等待时间 ms  #default -1
 #mybatis
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*.xml
@@ -78,3 +78,10 @@ mybatis-plus:
       map-underscore-to-camel-case: true
       cache-enabled: false
       call-setters-on-nulls: true
+
+logging:
+  config: classpath:logback-spring.xml
+  level: debug
+  level.com.lzxuni: debug
+  path: logs/
+  file: admin.log
