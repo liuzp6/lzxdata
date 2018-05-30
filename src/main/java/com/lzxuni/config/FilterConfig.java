@@ -25,7 +25,7 @@ public class FilterConfig {
      * @param 
      * @return:org.springframework.boot.web.servlet.FilterRegistrationBean
      */
-    //@Bean
+    @Bean
     public FilterRegistrationBean shiroFilterRegistration() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new DelegatingFilterProxy("shiroFilter"));
