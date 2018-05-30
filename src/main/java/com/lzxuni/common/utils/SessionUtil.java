@@ -1,7 +1,7 @@
 package com.lzxuni.common.utils;
 
 
-import com.lzxuni.modules.sys.entity.User;
+import com.lzxuni.modules.system.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

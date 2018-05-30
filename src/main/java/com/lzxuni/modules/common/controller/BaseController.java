@@ -4,7 +4,7 @@ package com.lzxuni.modules.common.controller;
 import com.github.pagehelper.PageInfo;
 import com.lzxuni.common.utils.ShiroUtils;
 import com.lzxuni.modules.common.entity.PageData;
-import com.lzxuni.modules.sys.entity.User;
+import com.lzxuni.modules.system.entity.User;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;

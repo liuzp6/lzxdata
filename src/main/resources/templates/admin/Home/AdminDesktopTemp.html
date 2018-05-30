@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta name=”renderer” content=”webkit|ie-comp|ie-stand” />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="快速开发平台,Web快速开发平台,ASP.NET快速开发平台,工作流,快速开发框架,软件可视化开发平台,快速开发 开源,快速开发平台 开源,APP快速开发,敏捷开发框架,快速开发" />
+    <meta name="description" content="力软敏捷开发框架，是一个Web可视化开发平台，是一个集PC快速开发、组织架构、工作流、表单设计、自定义报表、APP快速开发等全方位功能于一体的高效、稳定的快速开发平台。" />
+    <link rel="icon" href="/favicon.ico">
+
+    <title>力软信息|快速开发平台|Learun敏捷开发框架|</title>
+    <link href="../Content/pace/pace-theme-minimal.css" rel="stylesheet" />
+    <link href="../Content/font/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="../Content/jquery/plugin/scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
+
+    <style>html{width:100%;height:100%}body{margin:0;padding:0;width:100%;height:100%;font-family:微软雅黑,宋体,Arial,Helvetica,Verdana,sans-serif;color:#000;font-size:12px;background-color:initial;overflow:hidden}ul,li{list-style:none;margin:0;padding:0}a{color:#000;text-decoration:none}a:hover{color:#000;text-decoration:none}a:focus{outline:0;-moz-outline:0;color:#000;text-decoration:none}.form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control{background-color:#fff;opacity:1}.btn-primary{color:#fff;background-color:#039cfd;border-color:#039cfd}.btn-primary:hover{color:#fff;background-color:#027dcb;border-color:#0277c1}.btn-primary:focus,.btn-primary.focus{color:#fff;background-color:#027dcb;border-color:#0277c1}.btn-primary:active,.btn-primary.active,.open>.btn-primary.dropdown-toggle{color:#fff;background-color:#027dcb;border-color:#0277c1;background-image:none}.btn-primary:active:hover,.btn-primary:active:focus,.btn-primary:active.focus,.btn-primary.active:hover,.btn-primary.active:focus,.btn-primary.active.focus,.open>.btn-primary.dropdown-toggle:hover,.open>.btn-primary.dropdown-toggle:focus,.open>.btn-primary.dropdown-toggle.focus{color:#fff;background-color:#0167a8;border-color:#014e7f}.btn-primary.disabled:focus,.btn-primary.disabled.focus,.btn-primary:disabled:focus,.btn-primary:disabled.focus{background-color:#039cfd;border-color:#039cfd}.btn-primary.disabled:hover,.btn-primary:disabled:hover{background-color:#039cfd;border-color:#039cfd}.btn-default{color:#373a3c;background-color:#fff;border-color:#ccc}.btn-default:hover{color:#373a3c;background-color:#e6e6e6;border-color:#adadad}.btn-default:focus,.btn-default.focus{color:#373a3c;background-color:#e6e6e6;border-color:#adadad}.btn-default:active,.btn-default.active,.open>.btn-default.dropdown-toggle{color:#373a3c;background-color:#e6e6e6;border-color:#adadad;background-image:none}.btn-default:active:hover,.btn-default:active:focus,.btn-default:active.focus,.btn-default.active:hover,.btn-default.active:focus,.btn-default.active.focus,.open>.btn-default.dropdown-toggle:hover,.open>.btn-default.dropdown-toggle:focus,.open>.btn-default.dropdown-toggle.focus{color:#373a3c;background-color:#d4d4d4;border-color:#8c8c8c}.btn-default.disabled:focus,.btn-default.disabled.focus,.btn-default:disabled:focus,.btn-default:disabled.focus{background-color:#fff;border-color:#ccc}.btn-default.disabled:hover,.btn-default:disabled:hover{background-color:#fff;border-color:#ccc}.btn-success{color:#fff;background-color:#1bb99a;border-color:#1bb99a}.btn-success:hover{color:#fff;background-color:#158c75;border-color:#13846e}.btn-success:focus,.btn-success.focus{color:#fff;background-color:#158c75;border-color:#13846e}.btn-success:active,.btn-success.active,.open>.btn-success.dropdown-toggle{color:#fff;background-color:#158c75;border-color:#13846e;background-image:none}.btn-success:active:hover,.btn-success:active:focus,.btn-success:active.focus,.btn-success.active:hover,.btn-success.active:focus,.btn-success.active.focus,.open>.btn-success.dropdown-toggle:hover,.open>.btn-success.dropdown-toggle:focus,.open>.btn-success.dropdown-toggle.focus{color:#fff;background-color:#106d5b;border-color:#0b4a3d}.btn-success.disabled:focus,.btn-success.disabled.focus,.btn-success:disabled:focus,.btn-success:disabled.focus{background-color:#1bb99a;border-color:#1bb99a}.btn-success.disabled:hover,.btn-success:disabled:hover{background-color:#1bb99a;border-color:#1bb99a}.btn-warning{color:#fff;background-color:#f1b53d;border-color:#f1b53d}.btn-warning:hover{color:#fff;background-color:#eaa211;border-color:#e19b10}.btn-warning:focus,.btn-warning.focus{color:#fff;background-color:#eaa211;border-color:#e19b10}.btn-warning:active,.btn-warning.active,.open>.btn-warning.dropdown-toggle{color:#fff;background-color:#eaa211;border-color:#e19b10;background-image:none}.btn-warning:active:hover,.btn-warning:active:focus,.btn-warning:active.focus,.btn-warning.active:hover,.btn-warning.active:focus,.btn-warning.active.focus,.open>.btn-warning.dropdown-toggle:hover,.open>.btn-warning.dropdown-toggle:focus,.open>.btn-warning.dropdown-toggle.focus{color:#fff;background-color:#c98b0e;border-color:#a3700c}.btn-warning.disabled:focus,.btn-warning.disabled.focus,.btn-warning:disabled:focus,.btn-warning:disabled.focus{background-color:#f1b53d;border-color:#f1b53d}.btn-warning.disabled:hover,.btn-warning:disabled:hover{background-color:#f1b53d;border-color:#f1b53d}.btn-danger{color:#fff;background-color:#ff5d48;border-color:#ff5d48}.btn-danger:hover{color:#fff;background-color:#ff3015;border-color:#ff270b}.btn-danger:focus,.btn-danger.focus{color:#fff;background-color:#ff3015;border-color:#ff270b}.btn-danger:active,.btn-danger.active,.open>.btn-danger.dropdown-toggle{color:#fff;background-color:#ff3015;border-color:#ff270b;background-image:none}.btn-danger:active:hover,.btn-danger:active:focus,.btn-danger:active.focus,.btn-danger.active:hover,.btn-danger.active:focus,.btn-danger.active.focus,.open>.btn-danger.dropdown-toggle:hover,.open>.btn-danger.dropdown-toggle:focus,.open>.btn-danger.dropdown-toggle.focus{color:#fff;background-color:#f01c00;border-color:#c81700}.btn-danger.disabled:focus,.btn-danger.disabled.focus,.btn-danger:disabled:focus,.btn-danger:disabled.focus{background-color:#ff5d48;border-color:#ff5d48}.btn-danger.disabled:hover,.btn-danger:disabled:hover{background-color:#ff5d48;border-color:#ff5d48}.col-lg-1,.col-lg-10,.col-lg-11,.col-lg-12,.col-lg-2,.col-lg-3,.col-lg-4,.col-lg-5,.col-lg-6,.col-lg-7,.col-lg-8,.col-lg-9,.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9,.col-sm-1,.col-sm-10,.col-sm-11,.col-sm-12,.col-sm-2,.col-sm-3,.col-sm-4,.col-sm-5,.col-sm-6,.col-sm-7,.col-sm-8,.col-sm-9,.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9{padding:0}.form-control{color:#000;border-radius:0;box-shadow:none;font-size:9pt;height:28px;padding-top:0;padding-bottom:1px;padding-right:0;padding-left:5px;resize:none}.form-control:focus{border-color:#039cfd;box-shadow:none}.btn.disabled,.btn[disabled],fieldset[disabled] .btn{pointer-events:none;cursor:not-allowed;filter:alpha(opacity=65);-webkit-box-shadow:none;box-shadow:none;opacity:.65}.dropdown-menu a{cursor:pointer}.mCSB_inside>.mCSB_container{margin-right:0}.mCSB_container{min-height:100%}.mCS-minimal-dark.mCSB_scrollTools_vertical{width:10px}.mCSB_container_wrapper>.mCSB_container{padding-right:0;padding-bottom:0}body{padding:10px}.lr-desktop-panel{position:relative;width:100%;height:100%;background-color:#fff;border:1px solid #ccc;padding:0 22px}.portal-panel-title{padding-top:10px;line-height:45px;font-size:12px;font-weight:bold;border-bottom:1px solid #ccc;color:#666;font-weight:300;font-size:16px}.portal-panel-content{position:relative;width:100%;padding:20px 5px 5px 5px}.lr-item-20{position:relative;float:left;width:20%;padding:10px}.task-stat{position:relative;height:104px;width:100%;border-radius:5px;font-family:"Open Sans",sans-serif;overflow:hidden;color:#FFF}.task-stat .visual{position:absolute;top:0;left:0;padding:10px 0 0 10px}.task-stat .visual>i{color:#FFF;opacity:.4;filter:alpha(opacity=10);font-size:60px;line-height:65px}.task-stat .details{position:absolute;right:10px;top:10px}.task-stat .details .number{text-align:right;font-size:32px;line-height:36px;letter-spacing:-1px;margin-bottom:0;font-weight:300}.task-stat .details .desc{text-align:right;font-size:15px;padding-top:5px}.task-stat .more{display:block;position:absolute;bottom:0;left:0;width:100%;clear:both;padding:4px 10px;text-transform:uppercase;font-weight:300;font-size:10px;opacity:.7;filter:alpha(opacity=70);text-decoration:none;color:#FFF}.task-stat .more>i{display:inline-block;margin-top:0;float:right;font-size:15px}.task-stat .more:hover{text-decoration:none;opacity:.9;filter:alpha(opacity=90)}.lr-msg-line{position:relative;width:100%;line-height:39px;border-bottom:1px solid #ccc}.lr-msg-line>a{cursor:pointer}.lr-msg-line>label{position:absolute;top:0;right:0;margin-bottom:0}.lr-chart-container{position:relative;height:400px;width:100%}</style>
+    <!--[if lt IE 9]>
+    <script src="../Content/bootstrap/html5shiv.min.js"></script>
+    <script src="../Content/bootstrap/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="Chrome 63.0 lr-uitheme-default">
+<div class="lr-desktop-panel">
+    <div class="col-xs-12">
+        <div class="portal-panel-title">
+            <i class="fa fa-balance-scale"></i>&nbsp;&nbsp;统计指标
+        </div>
+        <div class="portal-panel-content">
+            <div class="lr-item-20">
+                <div class="task-stat" style="background-color: #578ebe;">
+                    <div class="visual">
+                        <i class="fa fa-pie-chart"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            128
+                        </div>
+                        <div class="desc">
+                            最新商机量
+                        </div>
+                    </div>
+                    <a class="more" style="background-color: #4884b8;" href="javascript:;" onclick="OpenNav('66f6301c-1789-4525-a7d2-2b83272aafa6')">
+                        查看更多 <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="lr-item-20">
+                <div class="task-stat" style="background-color: #e35b5a;">
+                    <div class="visual">
+                        <i class="fa fa-bar-chart-o"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            266
+                        </div>
+                        <div class="desc">
+                            最新客户量
+                        </div>
+                    </div>
+                    <a class="more" style="background-color: #e04a49;" href="javascript:;" onclick="OpenNav('1d3797f6-5cd2-41bc-b769-27f2513d61a9')">
+                        查看更多 <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="lr-item-20">
+                <div class="task-stat" style="background-color: #44b6ae;">
+                    <div class="visual">
+                        <i class="fa fa-windows"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            39
+                        </div>
+                        <div class="desc">
+                            新签订单量
+                        </div>
+                    </div>
+                    <a class="more" style="background-color: #3ea7a0;" href="javascript:;" onclick="OpenNav('b352f049-4331-4b19-ac22-e379cb30bd55')">
+                        查看更多 <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="lr-item-20">
+                <div class="task-stat" style="background-color: #8775a7;">
+                    <div class="visual">
+                        <i class="fa fa-globe"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            29898.00
+                        </div>
+                        <div class="desc">
+                            本周付款额
+                        </div>
+                    </div>
+                    <a class="more" style="background-color: #7c699f;" href="javascript:;">
+                        查看更多 <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="lr-item-20">
+                <div class="task-stat" style="background-color: #3598dc;">
+                    <div class="visual">
+                        <i class="fa fa-globe"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            16897.00
+                        </div>
+                        <div class="desc">
+                            利润总额
+                        </div>
+                    </div>
+                    <a class="more" style="background-color: #258fd7;" href="javascript:;">
+                        查看更多 <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="portal-panel-title">
+            <i class="fa fa-coffee"></i>&nbsp;&nbsp;待办任务（Top 5）
+        </div>
+        <div class="portal-panel-content" style="overflow: hidden; padding-top: 20px; padding-left: 30px; padding-right: 50px;">
+            <div class="lr-msg-line">
+                <a href="#" style="text-decoration: none;">[审批]&nbsp;&nbsp;&nbsp;老李的请假条</a>
+                <label>2016-05-25</label>
+            </div>
+            <div class="lr-msg-line">
+                <a href="#" style="text-decoration: none;">[审批]&nbsp;&nbsp;&nbsp;陈日天的转岗申请单</a>
+                <label>2016-04-01</label>
+            </div>
+            <div class="lr-msg-line">
+                <a href="#" style="text-decoration: none;">[工作]&nbsp;&nbsp;&nbsp;回访千事汇通项目负责人</a>
+                <label>2015-09-11</label>
+            </div>
+            <div class="lr-msg-line">
+                <a href="#" style="text-decoration: none;">[工作]&nbsp;&nbsp;&nbsp;联系宋卡公司财务支付二期尾款</a>
+                <label>2015-02-19</label>
+            </div>
+            <div class="lr-msg-line">
+                <a href="#" style="text-decoration: none;">[审批]&nbsp;&nbsp;&nbsp;刘昊的借支申请单</a>
+                <label>2015-02-26</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="portal-panel-title">
+            <i class="fa fa-bullhorn"></i>&nbsp;&nbsp;公告/通知（Top 5）
+        </div>
+        <div class="portal-panel-content" style="overflow: hidden; padding-top: 20px; padding-left: 30px; padding-right: 50px;">
+            <div class="lr-msg-line">
+                <a href="#" style="text-decoration: none;">[公告]&nbsp;&nbsp;&nbsp;端午节放假安排</a>
+                <label>2016-06-01</label>
+            </div>
+            <div class="lr-msg-line">
+                <a href="#" style="text-decoration: none;">[通知]&nbsp;&nbsp;&nbsp;苏州分公司总经理任命书</a>
+                <label>2016-05-28</label>
+            </div>
+            <div class="lr-msg-line">
+                <a href="#" style="text-decoration: none;">[通知]&nbsp;&nbsp;&nbsp;公司开票信息更新通知</a>
+                <label>2016-05-23</label>
+            </div>
+            <div class="lr-msg-line">
+                <a href="#" style="text-decoration: none;">[公告]&nbsp;&nbsp;&nbsp;全体员工体检通知</a>
+                <label>2016-04-06</label>
+            </div>
+            <div class="lr-msg-line">
+                <a href="#" style="text-decoration: none;">[通知]&nbsp;&nbsp;&nbsp;华东区营销总监任命书</a>
+                <label>2016-04-18</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="portal-panel-title">
+            <i class="fa fa-bar-chart"></i>&nbsp;&nbsp;局站分类型总用电占比
+        </div>
+        <div class="portal-panel-content">
+            <div id="piecontainer" class="lr-chart-container"></div>
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <div class="portal-panel-title">
+            <i class="fa fa-bar-chart"></i>&nbsp;&nbsp;预算与实际用电量对比
+        </div>
+        <div class="portal-panel-content">
+            <div id="linecontainer" class="lr-chart-container"></div>
+        </div>
+    </div>
+</div>
+
+<script src="../Content/pace/pace.min.js"></script>
+<script src="../Content/jquery/jquery-1.10.2.min.js"></script>
+<script src="../Content/jquery/plugin/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="../Content/echarts/echarts.min.js"></script>
+<script>$(function(){var c=echarts.init(document.getElementById("piecontainer"));var d={tooltip:{trigger:"item",formatter:"{a} <br/>{b} : {c} ({d}%)"},legend:{bottom:"bottom",data:["枢纽楼","IDC中心","端局","模块局","营业厅","办公大楼","C网基站"]},series:[{name:"用电占比",type:"pie",radius:"75%",center:["50%","50%"],data:[{value:10,name:"枢纽楼"},{value:10,name:"IDC中心"},{value:10,name:"端局"},{value:10,name:"模块局"},{value:10,name:"营业厅"},{value:10,name:"办公大楼"},{value:40,name:"C网基站"}],itemStyle:{emphasis:{shadowBlur:10,shadowOffsetX:0,shadowColor:"rgba(0, 0, 0, 0.5)"}}}]};c.setOption(d);var a=echarts.init(document.getElementById("linecontainer"));var b={tooltip:{trigger:"axis"},legend:{bottom:"bottom",data:["预算","实际"]},grid:{bottom:"8%",containLabel:true},xAxis:{type:"category",boundaryGap:false,data:["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]},yAxis:{type:"value"},series:[{name:"预算",type:"line",stack:"用电量",data:[7,6.9,9.5,14.5,18.2,21.5,25.2,23.3,18.3,13.9,9.6,1]},{name:"实际",type:"line",stack:"用电量",data:[3.9,4.2,5.7,8.5,11.9,15.2,17,16.6,14.2,10.3,6.6,4.8]}]};a.setOption(b);window.onresize=function(f){c.resize(f);a.resize(f)};$(".lr-desktop-panel").mCustomScrollbar({theme:"minimal-dark"})});</script>
+</body>
+</html>

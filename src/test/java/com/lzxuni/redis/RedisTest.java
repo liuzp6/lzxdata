@@ -2,7 +2,7 @@ package com.lzxuni.redis;
 
 import com.lzxuni.common.utils.RedisClusterUtils;
 import com.lzxuni.common.utils.RedisUtils;
-import com.lzxuni.modules.sys.entity.User;
+import com.lzxuni.modules.system.entity.User;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;

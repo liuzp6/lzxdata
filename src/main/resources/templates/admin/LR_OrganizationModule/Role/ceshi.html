@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+
+    <script src="../../static/res/common/js/jquery.js" type="text/javascript"></script>
+
+    <link href="../../static/Content/styles/font-awesome.min.css" rel="stylesheet" />
+    <!--框架必需end-->
+    <!--bootstrap组件start-->
+    <link href="../../static/Content/scripts/bootstrap/bootstrap.min.css" rel="stylesheet" />
+
+    <!--bootstrap组件end-->
+    <link href="../../static/Content/scripts/plugins/jqgrid/css.css" rel="stylesheet"/>
+    <link href="../../static/Content/styles/learun.css?v=Ty7LTzndRqV52dwtX2Mntj35r2jf8KW5SPI02pjLaKY1" rel="stylesheet"/>
+
+    <!--框架必需start-->
+    <script src="../../static/Content/scripts/bootstrap/bootstrap.min.js"></script>
+    <script src="../../static/Content/scripts/plugins/jqgrid/js.js"></script>
+
+
+</head>
+<body>
+<div class="page-positon ove">
+    <div class="position-div">当前位置: 内容管理 > 【经开区新闻】列表</div>
+</div>
+<div class="box-positon" style="overflow:hidden;">
+    <div style="float:left;">
+        <form class="ropt">
+        </form>
+    </div>
+    <div style="float:left; margin-left:100px;">
+        <form action="v_list.do" method="post">
+            <div class="top-t">
+                <span>ID: <input type="text" name="contentId" id="contentId" style="width:50px"/></span>
+                <span style="margin-left:20px;">标题: <input type="text" name="title" id="title" style="width:400px"/></span>
+                <span style="margin-left:20px;" >发布部门: <input type="text" name="dept" id="dept" value="" style="width:200px"/></span>
+                <input class="query" type="button" id="btn_Search" value="查询" style="border:none;" />
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="body-box" style="margin-top:5px;margin: 20px 20px 50px 20px;margin-top: 20px;color: #333333;font-size: 12px;">
+
+    <div class="gridPanel">
+        <table id="gridTable"></table>
+        <div id="gridPager"></div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        InitialPage();
+        GetGrid();
+    });
+    //初始化页面
+    function InitialPage() {
+        //resize重设(表格、树形)宽高
+        $(window).resize(function (e) {
+            window.setTimeout(function () {
+                $('#gridTable').setGridWidth(($('.gridPanel').width()));
+                $("#gridTable").setGridHeight($(window).height() - 220);
+            }, 200);
+            e.stopPropagation();
+        });
+    }
+    //加载表格
+    function GetGrid() {
+        var selectedRowIndex = 0;
+        var $gridTable = $('#gridTable');
+        var url="http://localhost:63342/untitled/LR_OrganizationModule/Role/ceshifenye.html";
+        $gridTable.jqGrid({
+            url: url,
+            datatype: "json",
+            height: $(window).height() - 170,
+            autowidth: true,
+            multiselect: true,//复选框
+            colModel: [
+                { label: 'ID', name: 'contentId', index: 'content_Id', width: 50, align: 'left'},
+                { label: '固顶级别', name: 'content.topLevel', index: 'top_Level', width: 80, align: 'left'},
+                { label: '发布者', name: 'content.user.username', index: 'username', width: 100, align: 'left'},
+                { label: '发布部门', name: 'dept', index: 'dept', width: 100, align: 'left'},
+                { label: '点击', name: 'content.viewsDay', index: 'views_Day', width: 50, align: 'left'},
+                { label: '发布日期', name:'createTime', index: 'createTime', width: 180, align: 'left'},
+                { label: '静态页', name: 'needRegenerate', index: 'needRegenerate', width: 100, align: 'center', autowidth: false,sortable: false,
+                    formatter: function (cellvalue, options, rowObject) {
+                        if (cellvalue == 'N') {
+                            return "<span class=\"label label-success\">已生成</span>";
+                        } else {
+                            return "<span class=\"label label-danger\">需要生成</span>";
+                        }
+                    }
+                }
+            ],
+            viewrecords: true,
+            rowNum: 20,
+            rowList: [20, 50, 100],
+            pager: "#gridPager",
+            sortname: 'createTime',
+            sortorder: 'desc',
+            rownumbers: true,
+            shrinkToFit: false,
+            gridview: true,
+            //footerrow: true,
+            onSelectRow: function () {
+                selectedRowIndex = $("#" + this.contentId).getGridParam('selrow');
+            },
+            gridComplete: function () {
+                $("#" + this.contentId).setSelection(selectedRowIndex, false);
+            }
+        });
+        //查询条件
+        $("#queryCondition .dropdown-menu li").click(function () {
+            var text = $(this).find('a').html();
+            var value = $(this).find('a').attr('data-value');
+            $("#queryCondition .dropdown-text").html(text).attr('data-value', value)
+        });
+        //查询事件
+        $("#btn_Search").click(function () {
+            var queryJson = {
+                contentId: $("#contentId").val(),
+                title: $("#title").val(),
+                dept: $("#dept").val()
+            }
+            $gridTable.jqGrid('setGridParam', {
+                postData: { queryJson: JSON.stringify(queryJson) },
+                url: url,
+                page: 1,
+
+            }).trigger('reloadGrid');
+        });
+
+
+    }
+    //查询回车
+    $('#btn_Search').bind('keypress', function (event) {
+        if (event.keyCode == "13") {
+            $('#btn_Search').trigger("click");
+        }
+    });
+    function getSelecteds(){
+        //获取多选到的id集合
+        var ids = $("#gridTable").jqGrid("getGridParam", "selarrrow");
+        //遍历访问这个集合
+        var idss="";
+        $(ids).each(function (index, id){
+            //由id获得对应数据行
+            var row = $("#gridTable").jqGrid('getRowData', id);
+            idss=idss+","+row.contentId
+            //alert("row.contentId:"+row.contentId+"  "+"row.fieldName:"+row.title);
+        })
+        if(idss!=""){
+            idss=idss.substring(1,idss.length);
+        }
+        return idss;
+    }
+
+    function getPage(){
+        var curpage = $('#gridTable').jqGrid("getGridParam","page");
+        return curpage;
+    }
+    function optDelete(ids) {
+        if(ids==null ||ids==""){
+            ids = getSelecteds();
+        }
+        if (ids) {
+            layer.confirm('确认删除么?', {icon: 3, title:'提示'}, function(index){
+                var index1 = layer.load(1, {
+                    shade: [0.1,'#fff'] //0.1透明度的白色背景
+                });
+                $.ajax({
+                    url:'/untitled/admin/content/delete.html',
+                    data:'ids='+ids+"&time="+new Date(),
+                    type:'post',
+                    dataType: "json",
+                    success: function(data, status, xhr){
+                        layer.close(index1);
+                        layer.close(index);
+                        if(data.result==1){
+                            layer.msg("操作成功!", {icon: 1,time: 1000}, function(){
+                                $("#gridTable").trigger("reloadGrid");
+                            });
+                        }else{
+                            layer.msg("操作失败："+data.message,{icon: 2,time: 2000},function(){});
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        layer.close(index1);
+                        layer.close(index);
+                        layer.msg("操作失败，请联系管理员！",{icon:2,time:2000}, function(){});
+                    }
+                });
+            });
+        } else {
+            layer.msg("请选择需要操作的数据！",{icon:3,time:2000}, function(){});
+        }
+    }
+    function optStatic(ids) {
+        if(ids==null ||ids==""){
+            ids = getSelecteds();
+        }
+        if (ids) {
+            var index = layer.load(1, {
+                shade: [0.1,'#fff'] //0.1透明度的白色背景
+            });
+            $.ajax({
+                url:'/untitled/admin/content/staticPage.html',
+                data:'ids='+ids+"&time="+new Date(),
+                type:'post',
+                dataType: "json",
+                success: function(data, status, xhr){
+                    layer.close(index);
+                    if(data.result==1){
+                        layer.msg("操作成功!", {icon: 1,time: 1000}, function(){
+                            $("#gridTable").trigger("reloadGrid");
+                        });
+                    }else{
+                        layer.msg("操作失败："+data.message,{icon: 2,time: 2000},function(){});
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    layer.close(index);
+                    layer.msg("操作失败，请联系管理员！",{icon:2,time:2000}, function(){});
+                }
+            });
+        } else {
+            layer.msg("请选择需要操作的数据！",{icon:3,time:2000}, function(){});
+        }
+    }
+</script>
+</body>
+</html>

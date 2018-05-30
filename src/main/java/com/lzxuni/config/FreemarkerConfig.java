@@ -16,7 +16,7 @@
 
 package com.lzxuni.config;
 
-import com.lzxuni.modules.sys.shiro.ShiroTag;
+import com.lzxuni.modules.system.shiro.ShiroTag;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;

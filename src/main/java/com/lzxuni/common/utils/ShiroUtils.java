@@ -1,6 +1,6 @@
 package com.lzxuni.common.utils;
 
-import com.lzxuni.modules.sys.entity.User;
+import com.lzxuni.modules.system.entity.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;

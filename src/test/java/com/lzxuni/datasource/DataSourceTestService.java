@@ -18,8 +18,8 @@ package com.lzxuni.datasource;
 
 import com.lzxuni.datasources.DataSourceNames;
 import com.lzxuni.datasources.annotation.DataSource;
-import com.lzxuni.modules.sys.entity.User;
-import com.lzxuni.modules.sys.service.UserService;
+import com.lzxuni.modules.system.entity.User;
+import com.lzxuni.modules.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
