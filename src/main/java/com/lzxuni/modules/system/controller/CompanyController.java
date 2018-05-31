@@ -2,10 +2,10 @@ package com.lzxuni.modules.system.controller;
 
 
 import com.lzxuni.common.utils.JsonResultUtil;
+import com.lzxuni.common.utils.R;
 import com.lzxuni.modules.common.controller.BaseController;
 import com.lzxuni.modules.system.entity.Company;
 import com.lzxuni.modules.system.service.CompanyService;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,21 +15,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/system/company")
+@RequestMapping("/admin/LR_OrganizationModule/Company")
 public class CompanyController extends BaseController {
 	@Autowired
 	private CompanyService companyService;
 	// 列表
-	@RequestMapping("/list_v.html")
-	public ModelAndView list() throws Exception {
-		ModelAndView mv = new ModelAndView("/admin/system/company/list");
+	@RequestMapping("/index_v.html")
+	public ModelAndView list() {
+		ModelAndView mv = new ModelAndView("/admin/LR_OrganizationModule/Company/index");
 		return mv;
 	}
 	// 部门列表
-	@RequestMapping("/list_o.html")
+	@RequestMapping("/GetList.html")
 	public Object listDo(String checkId) throws Exception {
 		// 分页
-		//List<Company> deptList = companyService.queryListAll() ;
 		List<Company> deptList = companyService.getTree(new ArrayList<>(),"-1");
 		List<Company> deptList2= new ArrayList<>() ;
 		for (int i = deptList.size(); i > 0; i--) {
@@ -38,27 +37,31 @@ public class CompanyController extends BaseController {
 			}
 			deptList2.add(deptList.get(i-1)) ;
 		}
-		return deptList2 ;
+		return R.ok(deptList2);
 	}
 	// 根据parentId查找
-	@RequestMapping("/queryListByParentId.html")
-	public List<Company> queryListByParentId(String parentId) throws Exception {
-		return companyService.queryListByParentId(parentId);
+	@RequestMapping("/GetTree.html")
+	public ModelAndView queryListByParentId(String parentId) throws Exception {
+//		List<Company> companyList = companyService.queryListByParentId(parentId);
+//
+//		return R.ok(companyList);
+		ModelAndView mv = new ModelAndView("/admin/LR_OrganizationModule/Company/GetTree");
+		return mv;
 	}
 
 	// 添加展示页面
-	@RequestMapping("/insert_v.html")
+	@RequestMapping("/Form.html")
 	public ModelAndView insert(String parentId) throws Exception {
-		ModelAndView mv = new ModelAndView("/admin/system/company/insert");
+		ModelAndView mv = new ModelAndView("/admin/LR_OrganizationModule/Company/Form");
 		Company deptParent = companyService.queryObject(parentId);
 		mv.addObject("deptParent" ,deptParent) ;
 		return mv;
 	}
-	@RequiresPermissions("gsgl:insert")
-	@RequestMapping("/insert_o.html")
+	@RequestMapping("/SaveForm.html")
 	public Object insertDo(Company company) throws Exception {
-		companyService.insert(company);
-		return JsonResultUtil.getSuccessJson("成功！");
+		//companyService.insert(company);
+		//return JsonResultUtil.getSuccessJson("成功！");
+		return R.ok("保存成功");
 	}
 
 	@RequestMapping("/update_v.html")

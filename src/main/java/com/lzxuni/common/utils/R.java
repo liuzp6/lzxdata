@@ -1,6 +1,7 @@
 package com.lzxuni.common.utils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,27 +15,27 @@ public class R extends HashMap<String, Object> {
 	private static final long serialVersionUID = 1L;
 	
 	public R() {
-		put("code", 0);
+		put("code", 200);
 	}
 	
 	public static R error() {
 		return error(500, "未知异常，请联系管理员");
 	}
 	
-	public static R error(String massage) {
-		return error(500, massage);
+	public static R error(String info) {
+		return error(500, info);
 	}
 	
-	public static R error(int code, String massage) {
+	public static R error(int code, String info) {
 		R r = new R();
 		r.put("code", code);
-		r.put("massage", massage);
+		r.put("info", info);
 		return r;
 	}
 
-	public static R ok(String massage) {
+	public static R ok(String info) {
 		R r = new R();
-		r.put("massage", massage);
+		r.put("info", info);
 		return r;
 	}
 	
@@ -42,6 +43,11 @@ public class R extends HashMap<String, Object> {
 		R r = new R();
 		r.putAll(map);
 		return r;
+	}
+	public static R ok(List list) {
+		Map<String,Object> map = new HashMap();
+		map.put("data", list);
+		return R.ok(map);
 	}
 	
 	public static R ok() {
