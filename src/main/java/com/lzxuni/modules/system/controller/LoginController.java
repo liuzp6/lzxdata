@@ -5,7 +5,6 @@ import com.lzxuni.modules.system.shiro.ShiroUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -94,14 +93,6 @@ public class LoginController {
         }
 
         return R.ok();
-    }
-    /**
-     * 退出
-     */
-    @RequestMapping(value = "logout", method = RequestMethod.GET)
-    public String logout() {
-        ShiroUtils.logout();
-        return "redirect:login.html";
     }
 
 }
