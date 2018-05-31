@@ -1,18 +1,18 @@
 package com.lzxuni.modules.system.controller;
 
 import com.lzxuni.common.utils.R;
-import com.lzxuni.common.utils.ShiroUtils;
+import com.lzxuni.modules.system.shiro.ShiroUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
-@Controller
+@RestController
 public class LoginController {
 
 	// 后台主页
@@ -71,7 +71,8 @@ public class LoginController {
     /**
      * 登录
      */
-    @RequestMapping(value = "/sys/login", method = RequestMethod.POST)
+
+    @RequestMapping("/login_o.html")
     public R login(String username, String password, String captcha) {
 //        String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
 //        if(!captcha.equalsIgnoreCase(kaptcha)){

@@ -6,20 +6,20 @@
     <script src="${request.contextPath}/static/Content/jquery/jquery-1.10.2.min.js"></script>
 </head>
 <body>
-    username:<input type="text" name="username" id="username"/>
-    password:<input type="password" name="password" id="password"/>
+    username:<input type="text" name="username" id="username" value="system"/>
+    password:<input type="password" name="password" id="password" value="111111"/>
     <input type="button" value="提交" onclick="login()"/>
     <script>
         function login() {
             var data = "username=" + $("#username").val() + "&password=" + $("#password").val();
             $.ajax({
                 type: "POST",
-                url: "sys/login",
+                url: "login_o.html",
                 data: data,
                 dataType: "json",
                 success: function(result){
                     if(result.code == 0){//登录成功
-                        parent.location.href ='index.html';
+                        location.href ='/admin/index.html';
                     }else{
                         console.log("登陆失败");
                     }

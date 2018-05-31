@@ -93,7 +93,8 @@ public class UserRealm extends AuthorizingRealm {
 		//查询用户信息
 		User user = new User();
 		user.setUsername(token.getUsername());
-		//user = userMapper.selectOne(user);
+		user = userMapper.queryByUserName(user.getUsername());
+
 
 		//账号不存在
 		if(user == null) {
@@ -105,7 +106,7 @@ public class UserRealm extends AuthorizingRealm {
 			throw new LockedAccountException("账号已被锁定,请联系管理员");
 		}
 
-		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getSalt()), getName());
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, user.getPassword(), ByteSource.Util.bytes(user.getUsername()), getName());
 		return info;
 	}
 
@@ -116,4 +117,5 @@ public class UserRealm extends AuthorizingRealm {
 		shaCredentialsMatcher.setHashIterations(ShiroUtils.hashIterations);
 		super.setCredentialsMatcher(shaCredentialsMatcher);
 	}
+
 }

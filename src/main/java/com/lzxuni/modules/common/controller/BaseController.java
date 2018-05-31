@@ -2,9 +2,9 @@ package com.lzxuni.modules.common.controller;
 
 
 import com.github.pagehelper.PageInfo;
-import com.lzxuni.common.utils.ShiroUtils;
 import com.lzxuni.modules.common.entity.PageData;
 import com.lzxuni.modules.system.entity.User;
+import com.lzxuni.modules.system.shiro.ShiroUtils;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -40,7 +40,7 @@ public class BaseController {
 	
 	//用户信息
 	protected User getUser() {
-		return ShiroUtils.getUser() ;
+		return ShiroUtils.getUserEntity() ;
 	}
 
 	protected String getUserId() {

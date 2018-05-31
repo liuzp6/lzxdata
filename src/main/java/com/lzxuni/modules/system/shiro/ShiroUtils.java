@@ -32,9 +32,9 @@ import org.apache.shiro.subject.Subject;
  */
 public class ShiroUtils {
 	/**  加密算法 */
-	public final static String hashAlgorithmName = "SHA-256";
+	public final static String hashAlgorithmName = "MD5";
 	/**  循环次数 */
-	public final static int hashIterations = 16;
+	public final static int hashIterations = 1;
 
 	public static String sha256(String password, String salt) {
 		return new SimpleHash(hashAlgorithmName, password, salt, hashIterations).toString();
