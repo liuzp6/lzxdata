@@ -27,7 +27,7 @@ public class CompanyServiceImpl implements CompanyService {
 
 	//第一种递归读取公司信息，为了ztree
 	@Override
-	public List<Company> getTree(List<Company> ztreeList, String parentId) throws Exception {
+	public List<Company> getList(List<Company> ztreeList, String parentId) throws Exception {
 		List<Company> list = companyMapper.queryListByParentId(parentId);
 		for (int i = 0; i < list.size(); i++) {
 			Company company = list.get(i);
@@ -42,7 +42,7 @@ public class CompanyServiceImpl implements CompanyService {
 			company.setIsParent(flag);
 			company.setOpen(flag);
 
-			getTree(ztreeList, company.getId());
+			getList(ztreeList, company.getId());
 
 			totle=totle+1 ;
 			company.setRgt(totle); //4
@@ -50,6 +50,33 @@ public class CompanyServiceImpl implements CompanyService {
 		}
 		return ztreeList;
 	}
+	@Override
+	public List<Company> getTree(String parentId) {
+		List<Company> list = companyMapper.queryListByParentId(parentId);
+		for (int i = 0; i < list.size(); i++) {
+			Company company = list.get(i);
+			company.setShowcheck(false);
+			company.setCheckstate(0);
+			company.setHasChildren(true);
+			company.setIsexpand(true);
+			company.setComplete(true);
+			String flag = company.getIsLeaf().equals("true")?"false":"true" ;
+
+			List<Company> tree = companyMapper.queryListByParentId(company.getId());
+			for (int j = 0; j < tree.size(); j++) {
+				tree.get(j).setShowcheck(false);
+				tree.get(j).setCheckstate(0);
+				tree.get(j).setHasChildren(false);
+				tree.get(j).setIsexpand(true);
+				tree.get(j).setComplete(true);
+			}
+			list.get(i).setChildCompanyList(tree);
+
+		}
+		return list;
+	}
+
+
 	@Override
 	public Company queryObject(String id) throws Exception {
 		return companyMapper.queryObject(id);
@@ -62,13 +89,10 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public void insert(Company company) throws Exception {
 		Company companyParent = companyMapper.queryObject(company.getParentId());
-
-
 		company.setId(UuidUtil.get32UUID());
 		company.setCreateTime(MethodUtil.getDate(1, null));
 		company.setIsLeaf("true");
 		company.setLevel(companyParent.getLevel()+1);
-
 		companyParent.setIsLeaf("false");
 		companyMapper.update(companyParent) ;
 		companyMapper.insert(company);

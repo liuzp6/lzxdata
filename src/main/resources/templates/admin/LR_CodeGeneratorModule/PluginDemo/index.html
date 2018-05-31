@@ -2353,6 +2353,17 @@
                         parentId: "0"
                     },
                 };
+                //alert(writeObj(g));
+
+                //打印对象
+                function writeObj(obj){
+                    var description = "";
+                    for(var i in obj){
+                        var property=obj[i];
+                        description+=i+" = "+property+"\n";
+                    }
+                    alert(description);
+                }
                 a("#select1").lrselect(g);
                 var h = {
                     value: "F_AreaCode",

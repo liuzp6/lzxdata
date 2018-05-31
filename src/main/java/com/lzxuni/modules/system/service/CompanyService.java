@@ -11,8 +11,12 @@ import java.util.List;
  * @date 2018/3/19 12:20
 */
 public interface CompanyService {
+	//列表
+	List<Company> getList(List<Company> companyList, String parentId) throws Exception;
+	//下拉框
+	List<Company> getTree(String parentId) ;
 
-	List<Company> getTree(List<Company> deptList, String parentId) throws Exception;
+
 	List<Company> queryListByParentId(String parentId) ;
 
 	//根据id查询

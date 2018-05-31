@@ -1431,7 +1431,7 @@
                             title: "编辑公司",
                             url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Company/Form.html",
                             width: 750,
-                            height: 500,
+                            height: 400,
                             callBack: function(e) {
                                 return top[e].acceptClick(refreshGirdData)
                             }
@@ -1439,12 +1439,12 @@
                     }
                 });
                 a("#lr_delete").on("click", function() {
-                    var d = a("#girdtable").jfGridValue("F_CompanyId");
+                    var d = a("#girdtable").jfGridValue("id");
                     if (b.checkrow(d)) {
                         b.layerConfirm("是否确认删除该项！", function(e) {
                             if (e) {
-                                b.deleteForm(top.$.rootUrl + "/LR_OrganizationModule/Company/DeleteForm", {
-                                    keyValue: d
+                                b.deleteForm(top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Company/DeleteForm.html", {
+                                    id: d
                                 }, function() {
                                     refreshGirdData()
                                 })
@@ -1460,6 +1460,26 @@
                         label: "公司名称",
                         name: "name",
                         width: 300,
+                        align: "left"
+                    }, {
+                        label: "公司性质",
+                        name: "nature",
+                        width: 200,
+                        align: "left"
+                    }, {
+                        label: "成立时间",
+                        name: "foundedTime",
+                        width: 200,
+                        align: "left"
+                    }, {
+                        label: "负责人",
+                        name: "manager",
+                        width: 200,
+                        align: "left"
+                    }, {
+                        label: "经营范围",
+                        name: "businessScope",
+                        width: 200,
                         align: "left"
                     }, {
                         label: "备注",

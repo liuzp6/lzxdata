@@ -854,7 +854,7 @@
                     if (e == 0) {
                         g = g[c[e]]
                     } else {
-                        g = g.ChildNodes[c[e]]
+                        g = g.childCompanyList[c[e]]
                     }
                 }
                 return g
@@ -939,11 +939,11 @@
                     if (!v.isexpand && !q.isAllExpand) {
                         m.css("display", "none")
                     }
-                    if (v.ChildNodes) {
-                        var t = v.ChildNodes.length;
+                    if (v.childCompanyList) {
+                        var t = v.childCompanyList.length;
                         for (var s = 0; s < t; s++) {
-                            v.ChildNodes[s].parent = v;
-                            var e = a.lrtree.renderNode(v.ChildNodes[s], p + 1, w + "." + s, q);
+                            v.childCompanyList[s].parent = v;
+                            var e = a.lrtree.renderNode(v.childCompanyList[s], p + 1, w + "." + s, q);
                             m.append(e)
                         }
                         g.append(m)
@@ -958,11 +958,11 @@
                 if (!i.isexpand && !f.isAllExpand) {
                     e.css("display", "none")
                 }
-                if (i.ChildNodes) {
-                    var h = i.ChildNodes.length;
+                if (i.childCompanyList) {
+                    var h = i.childCompanyList.length;
                     for (var g = 0; g < h; g++) {
-                        i.ChildNodes[g].parent = i;
-                        var c = a.lrtree.renderNode(i.ChildNodes[g], i._deep + 1, i._path + "." + g, f);
+                        i.childCompanyList[g].parent = i;
+                        var c = a.lrtree.renderNode(i.childCompanyList[g], i._deep + 1, i._path + "." + g, f);
                         e.append(c)
                     }
                     d.parent().append(e)
@@ -1006,7 +1006,7 @@
                                             parentId: k.id
                                         }, function(e) {
                                             if (!!e) {
-                                                k.ChildNodes = e;
+                                                k.childCompanyList = e;
                                                 g = a.lrtree.renderNodeAsync(f, k, h);
                                                 g.slideDown(200, function() {
                                                     f.removeClass("lr-tree-node-collapsed");
@@ -1060,7 +1060,7 @@
                 if (o == 1) {
                     h.checkstate = n
                 } else {
-                    var d = h.ChildNodes;
+                    var d = h.childCompanyList;
                     var j = d.length;
                     var c = true;
                     for (var g = 0; g < j; g++) {
@@ -1096,8 +1096,8 @@
             },
             checkChild: function(e, h, j, d) {
                 if (e(h, j, 1, d) != false) {
-                    if (h.ChildNodes != null && h.ChildNodes.length > 0) {
-                        var c = h.ChildNodes;
+                    if (h.childCompanyList != null && h.childCompanyList.length > 0) {
+                        var c = h.childCompanyList;
                         for (var f = 0, g = c.length; f < g; f++) {
                             a.lrtree.checkChild(e, c[f], j, d)
                         }
@@ -1112,7 +1112,7 @@
                         f = true
                     }
                     if (h.hasChildren) {
-                        if (a.lrtree.search(d, h.ChildNodes)) {
+                        if (a.lrtree.search(d, h.childCompanyList)) {
                             f = true
                         }
                     }
@@ -1136,8 +1136,8 @@
                             d = h[m];
                             return true
                         }
-                        if (h[m].hasChildren && h[m].ChildNodes.length > 0) {
-                            if (c(h[m].ChildNodes, j, k)) {
+                        if (h[m].hasChildren && h[m].childCompanyList.length > 0) {
+                            if (c(h[m].childCompanyList, j, k)) {
                                 return true
                             }
                         }
@@ -1169,9 +1169,9 @@
                             hasChildren: false,
                             isexpand: false,
                             complete: true,
-                            ChildNodes: []
+                            childCompanyList: []
                         };
-                        if (c(r.ChildNodes, q[g])) {
+                        if (c(r.childCompanyList, q[g])) {
                             r.hasChildren = true;
                             r.isexpand = true
                         }
@@ -1197,11 +1197,11 @@
                             hasChildren: false,
                             isexpand: true,
                             complete: true,
-                            ChildNodes: []
+                            childCompanyList: []
                         };
                         if (k[e].length > 0) {
                             m.hasChildren = true;
-                            c(m.ChildNodes, k[e])
+                            c(m.childCompanyList, k[e])
                         }
                         q.push(m)
                     }
@@ -1291,8 +1291,8 @@
                     if (c.find("#" + e.id + "_" + p[o].id.replace(/-/g, "_")).parent().css("display") != "none") {
                         (p[o].showcheck == true && (p[o].checkstate == 1 || p[o].checkstate == 2)) && m.push(n(p[o]));
                         if (!p[o].showcheck || (p[o].showcheck == true && (p[o].checkstate == 1 || p[o].checkstate == 2))) {
-                            if (p[o].ChildNodes != null && p[o].ChildNodes.length > 0) {
-                                f(p[o].ChildNodes, m, n)
+                            if (p[o].childCompanyList != null && p[o].childCompanyList.length > 0) {
+                                f(p[o].childCompanyList, m, n)
                             }
                         }
                     }
@@ -1302,8 +1302,8 @@
                 for (var o = 0, q = p.length; o < q; o++) {
                     (p[o].showcheck == true && (p[o].checkstate == 1 || p[o].checkstate == 2) && !p[o].hasChildren) && m.push(n(p[o]));
                     if (!p[o].showcheck || (p[o].showcheck == true && (p[o].checkstate == 1 || p[o].checkstate == 2))) {
-                        if (p[o].ChildNodes != null && p[o].ChildNodes.length > 0) {
-                            g(p[o].ChildNodes, m, n)
+                        if (p[o].childCompanyList != null && p[o].childCompanyList.length > 0) {
+                            g(p[o].childCompanyList, m, n)
                         }
                     }
                 }
@@ -1313,8 +1313,8 @@
                     if (p[o].showcheck) {
                         p[o].checkstate = 0
                     }
-                    if (p[o].ChildNodes != null && p[o].ChildNodes.length > 0) {
-                        l(p[o].ChildNodes)
+                    if (p[o].childCompanyList != null && p[o].childCompanyList.length > 0) {
+                        l(p[o].childCompanyList)
                     }
                 }
             };

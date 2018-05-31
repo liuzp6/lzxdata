@@ -18,7 +18,7 @@
                 data: data,
                 dataType: "json",
                 success: function(result){
-                    if(result.code == 0){//登录成功
+                    if(result.code == 200){//登录成功
                         location.href ='/admin/index.html';
                     }else{
                         console.log("登陆失败");

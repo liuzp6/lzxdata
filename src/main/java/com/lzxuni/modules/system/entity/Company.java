@@ -13,7 +13,7 @@ import java.util.List;
  * @Modified BY
  **/
 
-public class Company {
+public class Company extends Tree{
 
 	private Integer lft ;  //jqgrid用
 	private Integer rgt ;//jqgrid用
@@ -31,6 +31,7 @@ public class Company {
 	private Date createTime ;
 	//公司名称
 	private String name ;
+	private String text ; //lrselect树形菜单需要
 	//成立时间
 	private Date foundedTime ;
 	//公司性质
@@ -58,6 +59,14 @@ public class Company {
 
 
 	/*方法区*/
+
+	public String getText() {
+		return name;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
 
 	public Boolean getClick() {
 		return click;
