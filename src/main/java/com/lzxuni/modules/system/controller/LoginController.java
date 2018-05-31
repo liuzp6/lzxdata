@@ -71,7 +71,7 @@ public class LoginController {
      * 登录
      */
 
-    @RequestMapping("/login_o.html")
+    @RequestMapping("/login_o")
     public R login(String username, String password, String captcha) {
 //        String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
 //        if(!captcha.equalsIgnoreCase(kaptcha)){
@@ -91,7 +91,6 @@ public class LoginController {
         }catch (AuthenticationException e) {
             return R.error("账户验证失败");
         }
-
         return R.ok();
     }
 

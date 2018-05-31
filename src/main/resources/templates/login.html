@@ -1,31 +1,290 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="${request.contextPath}/static/Content/jquery/jquery-1.10.2.min.js"></script>
+    <base href="${request.contextPath}/"/>
+    <meta name=”renderer” content=”webkit|ie-comp|ie-stand” />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge">
+    <meta name="keywords" content="快速开发平台,Web快速开发平台,ASP.NET快速开发平台,工作流,快速开发框架,软件可视化开发平台,快速开发 开源,快速开发平台 开源,APP快速开发,敏捷开发框架,快速开发" />
+    <meta name="description" content="力软敏捷开发框架，是一个Web可视化开发平台，是一个集PC快速开发、组织架构、工作流、表单设计、自定义报表、APP快速开发等全方位功能于一体的高效、稳定的快速开发平台。" />
+    <link rel="icon" href="/favicon.ico">
+    <title>敏捷开发框架 - 登录页面</title>
+    <style>html{height:100%;width:100%}body{overflow:hidden;margin:0;font:12px/1.5 Lucida Grande,Lucida Sans Unicode,Helvetica Neue,Hiragino Sans GB,Microsoft Yahei,sans-serif;color:#4b4b4b;height:100%;background-color:#fbfcf8;-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;-khtml-user-select:none;user-select:none}input{font-family:'\5b8b\4f53'}input:focus,button:focus{outline:0;-moz-outline:0}input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill{-webkit-box-shadow:0 0 0 1000px white inset;-webkit-text-fill-color:#757575}input:disabled{background-color:#fff}button{background-color:#427fed;width:100%;border-radius:2px;height:40px;font-size:16px;color:#fff;border:0;cursor:pointer}button[disabled]{border:1px solid #bdbdbd;background-color:#eeecec;color:#9f9f9f;text-shadow:0 1px 0 #fff;cursor:default}button.active{background-image:url(Content/images/Login/loading.gif);background-repeat:no-repeat;background-position:center 10px;z-index:10}.lr-layout-block{position:relative;width:1024px;margin:auto;top:50%}.lr-layout-block.top{margin-top:-308px;height:56px}.lr-layout-block.middle{position:relative;width:100%}.lr-layout-block.bottom{width:1024px;margin:auto;text-align:right;margin-top:20px;color:#828282}.lr-layout-side{position:absolute;top:0;width:50%;height:524px;z-index:0}.lr-layout-side img{width:100%;height:100%}.lr-layout-side.left{left:0}.lr-layout-side.right{right:0}.lr-layout-side.center{position:relative;margin:auto;width:1024px;background:url(Content/images/Login/bg_02.jpg);z-index:1}.lr-login-form{position:absolute;right:57px;top:80px;height:300px;width:306px;background:#fff;padding:70px 20px 0 20px;box-shadow:5px 10px 20px 2px rgba(0,0,0,.27)}.lr-input-item{width:100%;height:38px;margin-bottom:20px;border:1px solid #bdbdbd;position:relative}.lr-input-item.focus{border:1px solid #bbb}.lr-input-item>label{position:absolute;top:0;left:0;z-index:1;width:38px;height:100%;border-right:1px solid #bdbdbd;background:url(Content/images/Login/pwd-icons-new.png) no-repeat}.lr-input-item>.name-label{background-position:0 0}.lr-input-item.focus>.name-label{background-position:0 -48px;border-color:#bbb}.lr-input-item>.pwd-label{background-position:-48px 0}.lr-input-item.focus>.pwd-label{background-position:-48px -48px;border-color:#bbb}.lr-input-item>.code-label{background-position:0 -96px}.lr-input-item.focus>.code-label{background-position:-48px -96px;border-color:#bbb}.lr-input-item>input{height:20px;line-height:20px;border:0;padding:9px 0 9px 50px;width:256px;font-size:16px}.lr-verifycode-item{position:relative;height:36px;width:100%;margin-bottom:13px}.lr-verifycode-item>input{position:absolute;left:0;width:180px;line-height:18px;height:18px;overflow:hidden;font-family:'\5b8b\4f53';border:1px solid #bdbdbd;font-size:14px;padding:7px 5px;vertical-align:middle;margin-right:10px}.lr-verifycode-item>div{position:absolute;right:0;width:99px;height:33px}.lr-verifycode-item>div>img{width:100%;height:100%;cursor:pointer}.lr-login-links{height:20px;line-height:20px;margin:10px 0 auto 0}.lr-login-links a{float:right;color:#000;text-decoration:none;outline:0;-moz-outline:0}.lr-login-links a:hover{color:#427fed}.lr-version{position:absolute;bottom:15px;width:306px;text-align:center}.lr-tips{position:absolute;top:20px;text-indent:3px;height:30px;line-height:33px;width:276px;color:#a94442;background-color:#f2dede;border:1px solid #ebccd1;border-radius:2px;display:none;padding-left:30px}.lr-tips b{position:absolute;top:50%;left:10px;display:block;margin-top:-8px;width:16px;height:16px;overflow:hidden;background:url(Content/images/Login/pwd-icons-new.png) -104px -49px no-repeat}.menu{position:fixed;z-index:999;right:10px;top:50%;cursor:pointer;margin-top:130px}.menu a{text-decoration:none}.menu li{text-decoration:none;list-style-type:none}.menu p{margin:0}.menu [class^="item"]{margin:0 0 10px 0;position:relative;width:60px;height:60px;text-align:center;border-radius:5px;background-color:#5cc9f7}.menu [class^="item"].item3 a.register{line-height:60px;color:#fff;display:inline-block;width:60px;height:60px;cursor:pointer}.menu [class^="item"]:hover{background-color:#04e0f7}.menu [class^="item"] img{margin-top:10px}.menu [class^="item"] .title{font-size:12px;color:#fff;cursor:pointer}.menu [class^="item"] span.arrowBox{width:20px;position:absolute;top:0;right:60px;height:130px}.menu [class^="item"] span.arrow{display:inline-block;width:0;height:0;border-left:7px solid rgba(102,102,102,0.9);border-top:7px solid transparent;border-bottom:7px solid transparent;border-right:7px solid transparent;position:absolute;top:30px;left:0;display:none}.menu [class^="item"] .lrpopover{width:240px;height:340px;padding-top:30px;position:absolute;right:80px;top:-250px;background:rgba(102,102,102,0.9);color:#fff;display:none}.menu [class^="item"] .lrpopover p.top{font-size:24px;margin-bottom:10px}.menu [class^="item"] .lrpopover p.top2{font-size:16px;margin-bottom:10px;font-weight:bold}.menu [class^="item"] .lrpopover p.bottom{font-size:16px}.menu [class^="item"] .lrpopover ul{margin:0;padding:0;list-style-type:none}.menu [class^="item"] .lrpopover ul li{margin-bottom:20px;list-style-type:none}.menu [class^="item"] .lrpopover ul li a{color:#fff;display:inline-block;width:120px;height:40px;line-height:40px;font-size:16px;margin-left:5px}.menu [class^="item"] .lrpopover ul li:nth-of-type(1) a{background-color:#5cc9f7}.menu [class^="item"] .lrpopover ul li:nth-child(2) a{background-color:#009aff}.menu [class^="item"] .lrpopover ul li:nth-of-type(3) a{background-color:#04e0f7}.menu [class^="item"] .lrpopover ul li a img{display:inline-block;vertical-align:top;margin-right:5px}.menu [class^="item"] .lrpopover ul li a span{display:inline-block;vertical-align:middle}</style>
 </head>
 <body>
-    username:<input type="text" name="username" id="username" value="system"/>
-    password:<input type="password" name="password" id="password" value="111111"/>
-    <input type="button" value="提交" onclick="login()"/>
-    <script>
-        function login() {
-            var data = "username=" + $("#username").val() + "&password=" + $("#password").val();
-            $.ajax({
-                type: "POST",
-                url: "login_o.html",
-                data: data,
+<input id="errornum" type="hidden" value="0" />
+<div class="lr-layout-block top">
+    <img src="Content/images/Login/logo.png" />
+</div>
+<div class="lr-layout-block middle">
+    <div class="lr-layout-side left">
+        <img src="Content/images/Login/bg_01.png" />
+    </div>
+    <div class="lr-layout-side center">
+        <div class="lr-login-form">
+            <div class="lr-tips" id="lr_tips"></div>
+
+            <div class="lr-input-item ">
+                <label class="name-label"></label>
+                <input id="username" name="username" type="text" placeholder="手机号/账户">
+            </div>
+            <div class="lr-input-item">
+                <label class="pwd-label"></label>
+                <input id="password" name="password" type="password" placeholder="密码">
+            </div>
+            <!--<div class="lr-input-item" style="display:none;">-->
+                <!--<label class="code-label"></label>-->
+                <!--<input id="lr_verifycode_input" maxlength="4" type="text" placeholder="图片验证码">-->
+                <!--<div style="height: 36px;width: 100px;position: absolute;right: 0px;top: 0px;">-->
+                    <!--<img id="lr_verifycode_img" src="/Login/VerifyCode" alt="点击切换验证码" title="点击切换验证码" />-->
+                <!--</div>-->
+            <!--</div>-->
+            <button id="lr_login_btn" type="button"><span>登录</span></button>
+            <div class="lr-login-links">
+                <a href="http://www.learun.cn/Home/Register" target="_blank" style="margin-left:20px;">注册账号</a>
+                <a href="#" onclick="alert('请联系管理员:13671911811')">忘记密码</a>
+            </div>
+            <div class="lr-version">当前版本 V6.1.6.2</div>
+        </div>
+    </div>
+    <div class="lr-layout-side right">
+        <img src="Content/images/Login/bg_03.png" />
+    </div>
+</div>
+<div class="lr-layout-block bottom">上海力软信息技术有限公司出品<br><a href="http://www.learun.cn" title="力软信息,敏捷框架,敏捷开发平台,快速开发平台,快速开发框架" target="_blank" style="color:#828282;">LR-ADMS 敏捷开发框架官方网站：http://www.learun.cn</a></div>
+
+<script src="Content/jquery/jquery-1.10.2.min.js"></script>
+<script src="Content/jquery/jquery.md5.min.js"></script>
+<script>
+    $.rootUrl = '/'.substr(0, '/'.length - 1);
+    $.lrToken = $('<input name="__RequestVerificationToken" type="hidden" value="eBAUiZtcPpbGOncMcypgh0etE0rPTz1_cVeesHkI1lpvg-eh9a-e5Q2bZQyeyTYdXbMG1AX34UFmdQFInvqPWZovK07kte69s4kg3PjmAJo1" />').val();
+</script>
+<script>/*
+ * 版 本 Learun-ADMS V6.1.6.0 力软敏捷开发框架(http://www.learun.cn)
+ * Copyright (c) 2013-2017 上海力软信息技术有限公司
+ * 创建人：力软-前端开发组
+ * 日 期：2017.03.08
+ * 描 述：登录页面前端脚本
+ */
+(function(a) {
+    var b = {
+        init: function() {
+            if (window.location.href != top.window.location.href) {
+                top.window.location.href = window.location.href
+            }
+            var c = !!window.ActiveXObject;
+            var d = c && !window.XMLHttpRequest;
+            if (d) {
+                window.location.href = a.rootUrl + "/Error/ErrorBrowser"
+            }
+            b.bind()
+        },
+        bind: function() {
+            document.onkeydown = function(d) {
+                d = d || window.event;
+                if ((d.keyCode || d.which) == 13) {
+                    a("#lr_login_btn").trigger("click")
+                }
+            };
+            a(".lr-input-item input").on("focus", function() {
+                var d = a(this).parent();
+                d.addClass("focus")
+            }).on("blur", function() {
+                var d = a(this).parent();
+                d.removeClass("focus")
+            });
+            a("#lr_verifycode_img").click(function() {
+                a("#lr_verifycode_input").val("");
+                a("#lr_verifycode_img").attr("src", a.rootUrl + "/Login/VerifyCode?time=" + Math.random())
+            });
+            var c = a("#errornum").val();
+            if (c >= 3) {
+                a("#lr_verifycode_input").parent().show();
+                a("#lr_verifycode_img").trigger("click")
+            }
+            a("#lr_login_btn").on("click", function() {
+                b.login()
+            })
+        },
+        login: function() {
+            b.tip();
+            var d = a("#username"),
+                c = a("#password"),
+                e = a("#lr_verifycode_input");
+            var g = a.trim(d.val()),
+                f = a.trim(c.val()),
+                h = a.trim(e.val());
+            if (g == "") {
+                b.tip("请输入账户。");
+                d.focus();
+                return false
+            }
+            if (f == "") {
+                b.tip("请输入密码。");
+                c.focus();
+                return false
+            }
+            if (a("#lr_verifycode_input").is(":visible") && h == "") {
+                b.tip("请输入验证码。");
+                e.focus();
+                return false
+            }
+//            f = a.md5(f);
+            b.logining(true);
+            console.log("g===》" + g);
+            console.log("f===》" + f);
+            console.log("h===》" + h);
+            a.ajax({
+                url: a.rootUrl + "login_o",
+                headers: {
+                    __RequestVerificationToken: a.lrToken
+                },
+                data: {
+                    username: g,
+                    password: f,
+                    verifycode: h
+                },
+                type: "post",
                 dataType: "json",
-                success: function(result){
-                    if(result.code == 200){//登录成功
-                        location.href ='/admin/index.html';
-                    }else{
-                        console.log("登陆失败");
+                success: function(i) {
+                    if (i.code == 200) {
+                        window.location.href = a.rootUrl + "/admin/index.html"
+                    } else {
+                        if (i.code == 400) {
+                            b.logining(false);
+                            b.tip(i.info, true);
+                            a("#errornum").val(i.data);
+                            if (i.data >= 3) {
+                                a("#lr_verifycode_input").parent().show();
+                                a("#lr_verifycode_img").trigger("click")
+                            }
+                        } else {
+                            if (i.code == 500) {
+                                console.error(i.info);
+                                b.logining(false);
+                                b.tip(i.info, true)
+                            }
+                        }
                     }
                 }
-            });
+            })
+        },
+        logining: function(c) {
+            if (c) {
+                a("input").attr("disabled", "disabled");
+                a("#lr_login_btn").addClass("active").attr("disabled", "disabled").find("span").hide()
+            } else {
+                a("input").removeAttr("disabled");
+                a("#lr_login_btn").removeClass("active").removeAttr("disabled").find("span").show()
+            }
+        },
+        tip: function(d) {
+            var c = a("#lr_tips");
+            c.hide();
+            if (!!d) {
+                c.html("<b></b>" + d);
+                c.show()
+            }
         }
-    </script>
+    };
+    a(function() {
+        b.init()
+    })
+})(window.jQuery);
+$(function() {
+    var a = "";
+    a += '<ul class="menu">';
+    a += '<li class="item item1">';
+    a += '<a href="#" title="力软信息,开源开发平台,信息化开发框架">';
+    a += '<img src="Content/images/xf1.png" alt=" learun,工作流平台,开源框架">';
+    a += '<p class="title">在线客服</p>';
+    a += "</a>";
+    a += '<span class="arrowBox"><span class="arrow"></span></span>';
+    a += '<div class="lrpopover">';
+    a += '<p class="top"style=" margin-bottom: 35px;" >在线客服</p>';
+    a += "<ul>";
+    a += "<li>";
+    a += '<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=3002928122&site=qq&menu=yes">';
+    a += '<img src="Content/images/q1.png" alt="">';
+    a += "<span>售前客服</span>";
+    a += "</a>";
+    a += "</li>";
+    a += "<li>";
+    a += '<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=3002951927&site=qq&menu=yes">';
+    a += '<img src="Content/images/q1.png" alt="">';
+    a += "<span>售前客服</span>";
+    a += "</a>";
+    a += "</li>";
+    a += "<li>";
+    a += '<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=3002948168&site=qq&menu=yes">';
+    a += '<img src="Content/images/q1.png" alt="">';
+    a += "<span>售后服务</span>";
+    a += "</a>";
+    a += "</li>";
+    a += "</ul>";
+    a += '<p class="bottom">';
+    a += "工作时间：9:00-18:00<br/>";
+    a += "</p>";
+    a += "</div>";
+    a += "</li>";
+    a += '<div class="item item2">';
+    a += '<a href="#" title="力软信息,开源开发平台,信息化开发框架">';
+    a += '<img src="Content/images/xf2.png" alt=" learun,工作流平台,开源框架">';
+    a += '<p class="title">电话咨询</p>';
+    a += "</a>";
+    a += '<span class="arrowBox"><span class="arrow"></span></span>';
+    a += '<div class="lrpopover">';
+    a += '<p class="top"style=" margin-bottom: 35px;" >服务电话</p>';
+    a += "<ul>";
+    a += "<li>";
+    a += "<a>";
+    a += "13671911811";
+    a += "</a>";
+    a += "</li>";
+    a += "<li>";
+    a += "<a>";
+    a += "13524834043";
+    a += "</a>";
+    a += "</li>";
+    a += "<li>";
+    a += "<a>";
+    a += "18516792888";
+    a += "</a>";
+    a += "</li>";
+    a += "</ul>";
+    a += '<p class="bottom">';
+    a += "工作时间：9:00-18:00<br/>";
+    a += "</p>";
+    a += "</div>";
+    a += "</div>";
+    a += "</ul>";
+    $("body").append(a);
+    $(".menu .item").hover(function() {
+        $(this).find(".lrpopover").show();
+        $(this).find(".arrow").show()
+    }, function() {
+        $(this).find(".lrpopover").hide();
+        $(this).find(".arrow").hide()
+    });
+    $(".menu .item3").hover(function() {
+        $(this).find("a.register").show();
+        $(this).find("a.free").hide()
+    }, function() {
+        $(this).find("a.free").show();
+        $(this).find("a.register").hide()
+    });
+    $(".menu .item3").on("click", function() {
+        window.open("http://learun.cn:8090/")
+    });
+    $(".menu .item4").click(function() {
+        $("body,html").animate({
+            scrollTop: 0
+        }, 500)
+    })
+}); 
+</script>
 </body>
 </html>
+
