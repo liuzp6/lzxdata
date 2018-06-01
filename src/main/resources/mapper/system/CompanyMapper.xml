@@ -12,8 +12,8 @@
 	
 	<!-- 插入 -->
 	<insert id="insert" parameterType="com.lzxuni.modules.system.entity.Company">
-		INSERT INTO sys_company (`id`, `parentId`, `isLeaf`, `level`, `name`, `foundedTime`, `nature`, `manager`, `outerPhone`,
-		`email`, `fax`, `address`, `businessScope`, `description`, `createTime`) VALUES (#{id},#{parentId},#{isLeaf},#{level},#{name},
+		INSERT INTO sys_company (`id`, `parentId`, `hasChildren`, `level`, `name`, `foundedTime`, `nature`, `manager`, `outerPhone`,
+		`email`, `fax`, `address`, `businessScope`, `description`, `createTime`) VALUES (#{id},#{parentId},#{hasChildren},#{level},#{name},
 		#{foundedTime},#{nature},#{manager},#{outerPhone},#{email},#{fax},#{address},#{businessScope},#{description},#{createTime})
 	</insert>
 	<!-- 删除 -->
@@ -22,8 +22,11 @@
 	</delete>
 	<!-- 修改信息 -->
 	<update id="update" parameterType="com.lzxuni.modules.system.entity.Company">
-		UPDATE sys_company SET `parentId`=#{parentId}, `isLeaf`=#{isLeaf}, `level`=#{level}, `name`=#{name},
+		UPDATE sys_company SET `parentId`=#{parentId}, `level`=#{level}, `name`=#{name},
 		`foundedTime`=#{foundedTime}, `nature`=#{nature}, `manager`=#{manager}, `outerPhone`=#{outerPhone}, `email`=#{email},
 		`fax`=#{fax}, `address`=#{address}, `businessScope`=#{businessScope}, `description`=#{description} WHERE `id`=#{id}
+	</update>
+	<update id="updateHasChildren">
+		UPDATE sys_company SET `hasChildren`=#{hasChildren,jdbcType=VARCHAR}  WHERE `id`=#{id,jdbcType=VARCHAR}
 	</update>
 </mapper>

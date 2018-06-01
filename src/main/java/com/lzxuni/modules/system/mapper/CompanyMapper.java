@@ -3,6 +3,7 @@ package com.lzxuni.modules.system.mapper;
 
 import com.lzxuni.modules.system.entity.Company;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,15 +23,11 @@ public interface CompanyMapper {
 
 
 	int update(Company t);
+	int updateHasChildren(@Param("hasChildren") Boolean hasChildren, @Param("id")String id);
 
 
 	int delete(Object id);
 
-
-
 	Company queryObject(Object id);
-
-	List<Company> queryList(Object id);
-
 
 }

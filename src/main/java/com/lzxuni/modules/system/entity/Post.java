@@ -1,7 +1,7 @@
 package com.lzxuni.modules.system.entity;
 
 
-import com.lzxuni.modules.common.entity.Tree;
+import com.alibaba.fastjson.annotation.JSONField;
 
 import java.util.Date;
 import java.util.List;
@@ -17,11 +17,14 @@ import java.util.List;
  **/
 
 public class Post extends Tree {
-	//自定义字段
+	private String id ;
+	private String parentId ;
+	private Integer level ;//jqgrid用
 	//1：列表-创建用户2：岗位用户管理中，代表用户id
 	private String createUserId ;
 	//岗位名称
 	private String name ;
+	private String text ; //lrselect树形菜单需要
 	//部门ID
 	private String deptId ;
 	//公司ID
@@ -31,6 +34,7 @@ public class Post extends Tree {
 	//备注
 	private String description ;
 	//创建日期
+	@JSONField(format="yyyy-MM-dd HH:mm:ss")
 	private Date createTime ;
 	// 创建用户
 	private User createUser;
@@ -39,10 +43,50 @@ public class Post extends Tree {
 	// 一个岗位属于一个公司
 	private Company company ;
 	// 一个岗位所管辖的直接岗位集合
-	private List<Post> postList ;
+	private List<Post> childNodes ;
 	// 一个岗位包含的用户
 	private List<User> userList ;
 	/*方法区*/
+
+	public Integer getLevel() {
+		return level;
+	}
+
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
+	public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getText() {
+		return name;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public List<Post> getChildNodes() {
+		return childNodes;
+	}
+
+	public void setChildNodes(List<Post> childNodes) {
+		this.childNodes = childNodes;
+	}
 
 	public String getCreateUserId() {
 		return createUserId;
@@ -122,14 +166,6 @@ public class Post extends Tree {
 
 	public void setCompany(Company company) {
 		this.company = company;
-	}
-
-	public List<Post> getPostList() {
-		return postList;
-	}
-
-	public void setPostList(List<Post> postList) {
-		this.postList = postList;
 	}
 
 	public List<User> getUserList() {

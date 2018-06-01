@@ -1,8 +1,8 @@
 package com.lzxuni.modules.system.controller;
 
 
-import com.lzxuni.common.utils.JsonResultUtil;
 import com.lzxuni.common.utils.R;
+import com.lzxuni.common.utils.StringUtils;
 import com.lzxuni.modules.common.controller.BaseController;
 import com.lzxuni.modules.system.entity.Company;
 import com.lzxuni.modules.system.service.CompanyService;
@@ -58,28 +58,16 @@ public class CompanyController extends BaseController {
 	}
 	@RequestMapping("/SaveForm.html")
 	public Object insertDo(Company company) throws Exception {
-		companyService.insert(company);
-		return R.ok("保存成功");
+		if(StringUtils.isEmpty(company.getId())){
+			companyService.insert(company);
+			return R.ok("保存成功");
+		}else{
+			Company companyParentOld = companyService.queryObject(company.getParentId());
+			companyService.update(company,companyParentOld);
+			return R.ok("修改成功");
+		}
 	}
 
-	@RequestMapping("/update_v.html")
-	public ModelAndView update(String id) throws Exception {
-		ModelAndView mv = new ModelAndView("/admin/system/company/update");
-
-		Company company = companyService.queryObject(id);
-		Company companyParent = companyService.queryObject(company.getParentId());
-
-		mv.addObject("company", company);
-		mv.addObject("companyParent", companyParent);
-		return mv;
-	}
-	// 公司修改处理
-	@RequestMapping("/update_o.html")
-	public Object updateDo(Company company) throws Exception {
-		Company companyParentOld = companyService.queryObject(company.getParentId());
-		companyService.update(company,companyParentOld);
-		return JsonResultUtil.getSuccessJson("成功！");
-	}
 	//公司管理删除
 	@RequestMapping("/DeleteForm.html")
 	public Object delete(String id) throws Exception {

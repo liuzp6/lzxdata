@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.ico">
 
-    <title>岗位管理|力软信息|快速开发平台|Learun敏捷开发框架</title>
+    <title>部门管理|力软信息|快速开发平台|Learun敏捷开发框架</title>
     <link href="Content/pace/pace-theme-minimal.css" rel="stylesheet" />
     <link href="Content/font/css/font-awesome.min.css" rel="stylesheet" />
     <link href="Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
@@ -33,7 +33,7 @@
     <script>
         function request(d) { for (var c = location.search.slice(1).split("&"), a = 0; a < c.length; a++) { var b = c[a].split("="); if (b[0] == d) if ("undefined" == unescape(b[1])) break; else return unescape(b[1]) } return "" };
     </script>
-    <script>var lrCurrentUrl='/LR_OrganizationModule/Post/Index';var lrModuleButtonList;var lrModuleColumnList;var lrModule;</script>
+    <script>var lrCurrentUrl='/LR_OrganizationModule/Department/Index';var lrModuleButtonList;var lrModuleColumnList;var lrModule;</script>
 </head>
 <body class="Firefox 60.0 lr-uitheme-default">
 
@@ -47,14 +47,11 @@
     <div class="lr-layout-center">
         <div class="lr-layout-wrap">
             <div class="lr-layout-title">
-                <span id="titleinfo">未选择公司</span> - 岗位信息
+                <span id="titleinfo">未选择公司</span> - 部门信息
             </div>
 
             <div class="lr-layout-tool">
                 <div class="lr-layout-tool-left">
-                    <div class="lr-layout-tool-item">
-                        <div id="department_select" style="border-radius: 4px;width:160px;"></div>
-                    </div>
                     <div class="lr-layout-tool-item">
                         <input id="txt_Keyword" type="text" class="form-control" placeholder="请输入要查询关键字" />
                     </div>
@@ -66,14 +63,10 @@
                     <div class=" btn-group btn-group-sm">
                         <a id="lr_refresh" class="btn btn-default"><i class="fa fa-refresh"></i></a>
                     </div>
-                    <div class=" btn-group btn-group-sm">
+                    <div class=" btn-group btn-group-sm" >
                         <a id="lr_add" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;新增</a>
                         <a id="lr_edit" class="btn btn-default"><i class="fa fa-pencil-square-o"></i>&nbsp;编辑</a>
                         <a id="lr_delete" class="btn btn-default"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
-                    </div>
-                    <div class=" btn-group btn-group-sm">
-                        <a id="lr_memberadd" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;添加成员</a>
-                        <a id="lr_memberlook" class="btn btn-default"><i class="fa fa-eye"></i>&nbsp;查看成员</a>
                     </div>
                 </div>
             </div>
@@ -86,125 +79,68 @@
 <script>
     var selectedRow;
     var refreshGirdData;
-    var bootstrap = function(a, d) {
+    var bootstrap = function(a, c) {
         var b = "";
-        var c = "";
-        var e = {
+        var d = {
             init: function() {
-                e.inittree();
-                e.initGird();
-                e.bind()
+                d.inittree();
+                d.initGird();
+                d.bind()
             },
             bind: function() {
                 a("#btn_Search").on("click", function() {
-                    var f = a("#txt_Keyword").val();
-                    e.search({
-                        keyword: f
+                    var e = a("#txt_Keyword").val();
+                    d.search({
+                        keyword: e
                     })
-                });
-                //打印对象
-                function writeObj(obj){
-                    var description = "";
-                    for(var i in obj){
-                        var property=obj[i];
-                        description+=i+" = "+property+"\n";
-                    }
-                    alert(description);
-                }
-
-                a("#department_select").lrselect({
-                    type: "tree",
-                    placeholder: "请选择部门",
-                    maxHeight: 300,
-                    allowSearch: true,
-                    select: function(f) {
-                        if (f.id == "-1") {
-                            c = ""
-                        } else {
-                            c = f.id
-                        }
-                        e.search()
-                    }
                 });
                 a("#lr_refresh").on("click", function() {
                     location.reload()
                 });
                 a("#lr_add").on("click", function() {
                     if (!b) {
-                        d.alert.warning("请选择公司！");
+                        c.alert.warning("请选择公司！");
                         return false
                     }
                     selectedRow = null;
-                    d.layerForm({
+                    c.layerForm({
                         id: "form",
-                        title: "添加岗位",
-                        url: top.$.rootUrl +
-                        "${request.contextPath}/admin/LR_OrganizationModule/Post/Form.html?companyId=" + b,
-                        width: 500,
-                        height: 379,
-                        callBack: function(f) {
-                            return top[f].acceptClick(refreshGirdData)
+                        title: "添加部门",
+                        url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Dept/Form.html?companyId=" + b,
+                        width: 700,
+                        height: 400,
+                        callBack: function(e) {
+                            return top[e].acceptClick(refreshGirdData)
                         }
                     })
                 });
                 a("#lr_edit").on("click", function() {
-                    var f = a("#girdtable").jfGridValue("id");
+                    var e = a("#girdtable").jfGridValue("id");
                     selectedRow = a("#girdtable").jfGridGet("rowdata");
-                    if (d.checkrow(f)) {
-                        d.layerForm({
+                    if (c.checkrow(e)) {
+                        c.layerForm({
                             id: "form",
-                            title: "编辑岗位",
-                            url: top.$.rootUrl +
-                            "${request.contextPath}/admin/LR_OrganizationModule/Post/Form.html?companyId=" + b,
-                            width: 500,
-                            height: 379,
-                            callBack: function(g) {
-                                return top[g].acceptClick(refreshGirdData)
+                            title: "编辑部门",
+                            url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Dept/Form.html?companyId=" + b,
+                            width: 700,
+                            height: 400,
+                            callBack: function(f) {
+                                return top[f].acceptClick(refreshGirdData)
                             }
                         })
                     }
                 });
                 a("#lr_delete").on("click", function() {
-                    var f = a("#girdtable").jfGridValue("id");
-                    if (d.checkrow(f)) {
-                        d.layerConfirm("是否确认删除该项！", function(g) {
-                            if (g) {
-                                d.deleteForm(top.$.rootUrl +
-                                    "${request.contextPath}/admin/LR_OrganizationModule/Post/DeleteForm.html", {
-                                    keyValue: f
+                    var e = a("#girdtable").jfGridValue("id");
+                    if (c.checkrow(e)) {
+                        c.layerConfirm("是否确认删除该项！", function(f) {
+                            if (f) {
+                                c.deleteForm(top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Dept/DeleteForm.html", {
+                                    id: e
                                 }, function() {
                                     refreshGirdData()
                                 })
                             }
-                        })
-                    }
-                });
-                a("#lr_memberadd").on("click", function() {
-                    var f = a("#girdtable").jfGridValue("id");
-                    selectedRow = a("#girdtable").jfGridGet("rowdata");
-                    if (d.checkrow(f)) {
-                        d.layerForm({
-                            id: "form",
-                            title: "添加岗位成员",
-                            url: top.$.rootUrl + "/LR_AuthorizeModule/UserRelation/SelectForm?objectId=" + f + "&companyId=" + b + "&deptId=" + selectedRow.dept.id + "&category=2",
-                            width: 800,
-                            height: 520,
-                            callBack: function(g) {
-                                return top[g].acceptClick()
-                            }
-                        })
-                    }
-                });
-                a("#lr_memberlook").on("click", function() {
-                    var f = a("#girdtable").jfGridValue("id");
-                    if (d.checkrow(f)) {
-                        d.layerForm({
-                            id: "form",
-                            title: "查看岗位成员",
-                            url: top.$.rootUrl + "/LR_AuthorizeModule/UserRelation/LookForm?objectId=" + f,
-                            width: 800,
-                            height: 520,
-                            btn: null
                         })
                     }
                 })
@@ -215,98 +151,76 @@
                     param: {
                         parentId: "0"
                     },
-                    nodeClick: e.treeNodeClick
+                    nodeClick: d.treeNodeClick
                 });
                 a("#companyTree").lrtreeSet("setValue", "53298b7a-404c-4337-aa7f-80b2a4ca6681")
             },
-            treeNodeClick: function(f) {
-                b = f.id;
-                a("#titleinfo").text(f.text);
-                a("#department_select").lrselectRefresh({
-                    url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Dept/GetTree.html",
-                    param: {
-                        companyId: b,
-                        parentId: "0"
-                    },
-                });
-                c = "";
-                e.search()
+            treeNodeClick: function(e) {
+                b = e.id;
+                a("#titleinfo").text(e.text);
+                d.search()
             },
             initGird: function() {
                 a("#girdtable").jfGrid({
-                    url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Post/GetList.html",
+                    url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Dept/GetList.html",
                     headData: [{
-                        label: "岗位名称",
+                        label: "部门名称",
                         name: "name",
-                        width: 300,
+                        width: 200,
                         align: "left"
                     }, {
-                        label: "岗位编号",
+                        label: "部门编号",
                         name: "enCode",
                         width: 100,
                         align: "left"
                     }, {
-                        label: "所属部门",
-                        name: "dept",
-                        width: 120,
-                        align: "left",
-                        formatter: function(f) {
-                            return f.name;
-                        }
-                        // formatterAsync: function(f, g) {
-                        //     d.clientdata.getAsync("department", {
-                        //         key: g,
-                        //         companyId: b,
-                        //         callback: function(h) {
-                        //             f(h.name)
-                        //         }
-                        //     })
-                        // }
+                        label: "部门简称",
+                        name: "shortName",
+                        width: 100,
+                        align: "left"
+                    }, {
+                        label: "部门性质",
+                        name: "nature",
+                        width: 100,
+                        align: "left"
+                    }, {
+                        label: "负责人",
+                        name: "manager",
+                        width: 100,
+                        align: "left"
+                    }, {
+                        label: "电话号",
+                        name: "outerPhone",
+                        width: 100,
+                        align: "left"
+                    }, {
+                        label: "分机号",
+                        name: "innerPhone",
+                        width: 60,
+                        align: "center"
                     }, {
                         label: "备注",
                         name: "description",
                         width: 200,
                         align: "left"
-                    }, {
-                        label: "创建人",
-                        name: "createUser",
-                        width: 100,
-                        align: "left",
-                        formatter: function(f) {
-                            return f.username;
-                        }
-                    }, {
-                        label: "创建时间",
-                        name: "createTime",
-                        width: 200,
-                        align: "left"
-                        // ,
-                        // formatter: function(f) {
-                        //     return d.formatDate(f, "yyyy-MM-dd")
-                        // }
                     }],
                     isTree: true,
                     mainId: "id",
                     parentId: "parentId",
                 })
             },
-        search: function(f) {
-
-                f = f || {};
-                f.companyId = b;
-                f.deptId = c;
+            search: function(e) {
+                e = e || {};
+                e.companyId = b;
                 a("#girdtable").jfGridSet("reload", {
-                    param: f
+                    param: e
                 })
             }
         };
-
-
-
         refreshGirdData = function() {
-            e.search()
+            d.search()
         };
-        e.init()
+        d.init()
     };
 </script>
 
@@ -1315,10 +1229,8 @@
             a.lrselect.initRender(d, c);
             return c
         };
-
         a.fn.lrselectRefresh = function(e) {
             var c = a(this);
-
             if (c.length == 0) {
                 return c
             }
@@ -2038,7 +1950,7 @@
     //                                     b.layerForm({
     //                                         id: "ExcelExportForm",
     //                                         title: "导出Excel数据",
-    //                                         url: top.$.rootUrl + "/Utility/ExcelExportForm?gridId=" + j.F_GridId + "&filename=" + encodeURI(encodeURI(j.name)),
+    //                                         url: top.$.rootUrl + "/Utility/ExcelExportForm?gridId=" + j.F_GridId + "&filename=" + encodeURI(encodeURI(j.F_Name)),
     //                                         width: 500,
     //                                         height: 380,
     //                                         callBack: function(k) {
@@ -2429,8 +2341,7 @@
             }
             return c
         };
-        a.fn.lrDepartmentSelect = function(d) {
-
+        a.fn.lrDeptSelect = function(d) {
             var c = {
                 type: "tree",
                 maxHeight: 200,

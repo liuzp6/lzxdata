@@ -12,7 +12,7 @@ import java.util.List;
  *@time 2016年11月4日 下午3:27:58
  *@version 1.0
  **/
-public class Dept implements Serializable{
+public class Dept extends Tree implements Serializable{
 	
 	private static final long serialVersionUID = -1846923635764256338L;
 	
@@ -31,6 +31,7 @@ public class Dept implements Serializable{
 	private String isLeaf ;
 
 	private String name ;
+	private String text ; //lrselect树形菜单需要
 	private String enCode ;
 	private String shortName ;
 	private String manager ;
@@ -45,11 +46,27 @@ public class Dept implements Serializable{
 	private Date createTime ;
 
 	//子部门集合
-	private List<Dept> childDeptList ;
+	private List<Dept> childNodes ;
 	//公司
 	private Company company;
 
 	/*方法分割线*/
+
+	public String getText() {
+		return name;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public List<Dept> getChildNodes() {
+		return childNodes;
+	}
+
+	public void setChildNodes(List<Dept> childNodes) {
+		this.childNodes = childNodes;
+	}
 
 	public String getClick() {
 		return click;
@@ -225,14 +242,6 @@ public class Dept implements Serializable{
 
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
-	}
-
-	public List<Dept> getChildDeptList() {
-		return childDeptList;
-	}
-
-	public void setChildDeptList(List<Dept> childDeptList) {
-		this.childDeptList = childDeptList;
 	}
 
 	public Company getCompany() {

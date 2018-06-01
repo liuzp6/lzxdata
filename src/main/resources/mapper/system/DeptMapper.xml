@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lzxuni.modules.system.mapper.DeptMapper">
+	<!-- 根据部门id查询部门 -->
+	<select id="queryObject" parameterType="java.lang.String" resultType="com.lzxuni.modules.system.entity.Dept">
+		select * from sys_dept where id=#{id}
+	</select>
+	<!-- 根据部门id查询部门 -->
+	<select id="queryListByParentId" parameterType="java.lang.String" resultType="com.lzxuni.modules.system.entity.Dept">
+		select * from sys_dept
+		where
+		parentId=#{parentId,jdbcType=VARCHAR}
+
+		and companyId =#{companyId,jdbcType=VARCHAR}
+		order by createTime desc
+	</select>
+	<!-- 插入部门 -->
+	<insert id="insert" parameterType="com.lzxuni.modules.system.entity.Dept">
+		INSERT INTO sys_dept (`id`,`companyId`, `parentId`, `hasChildren`, `level`, `name`, `enCode`, `shortName`, `manager`, `outerPhone`,
+		`innerPhone`, `email`, `fax`, `description`, `createTime`) VALUES (#{id},#{companyId},#{parentId},#{hasChildren},#{level},#{name},#{enCode},
+		#{shortName},#{manager},#{outerPhone},#{innerPhone},#{email},#{fax},#{description},#{createTime})
+	</insert>
+	<!-- 删除部门 -->
+	<delete id="delete" >
+		delete from sys_dept where id = #{id} or parentId=#{id}
+	</delete>
+	<!-- 修改部门信息 -->
+	<update id="update" parameterType="com.lzxuni.modules.system.entity.Dept">
+		UPDATE sys_dept SET  `parentId`=#{parentId},`companyId`=#{companyId}, `level`=#{level}, `name`=#{name}, `enCode`=#{enCode},
+		`shortName`=#{shortName}, `manager`=#{manager}, `outerPhone`=#{outerPhone}, `innerPhone`=#{innerPhone}, `email`=#{email},
+		`fax`=#{fax}, `description`=#{description} WHERE `id`=#{id}
+	</update>
+
+	<update id="updateHasChildren">
+		UPDATE sys_dept SET `hasChildren`=#{hasChildren,jdbcType=VARCHAR}  WHERE `id`=#{id,jdbcType=VARCHAR}
+	</update>
+</mapper>

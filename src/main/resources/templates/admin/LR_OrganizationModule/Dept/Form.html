@@ -9,7 +9,7 @@
     <meta name="renderer" content="webkit">
     <link rel="icon" href="/favicon.ico">
 
-    <title>岗位添加|力软信息|快速开发平台|Learun敏捷开发框架</title>
+    <title>部门添加|力软信息|快速开发平台|Learun敏捷开发框架</title>
     <link href="Content/font/css/font-awesome.min.css" rel="stylesheet" />
     <link href="Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="Content/jquery/plugin/scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
@@ -37,26 +37,49 @@
 
 
 <div class="lr-form-wrap" id="form">
-    <input id="companyId" type="hidden" />
-    <div class="col-xs-12 lr-form-item">
-        <div class="lr-form-item-title">岗位编号<font face="宋体">*</font></div>
-        <input id="enCode" type="text" class="form-control" isvalid="yes" checkexpession="NotNull" />
-    </div>
-    <div class="col-xs-12 lr-form-item">
-        <div class="lr-form-item-title">岗位名称<font face="宋体">*</font></div>
+    <div class="col-xs-6 lr-form-item">
+        <div class="lr-form-item-title">部门名称<font face="宋体">*</font></div>
         <input id="name" type="text" class="form-control" isvalid="yes" checkexpession="NotNull" />
     </div>
-    <div class="col-xs-12 lr-form-item">
-        <div class="lr-form-item-title">所属部门<font face="宋体">*</font></div>
-        <div id="deptId" class="form-control" isvalid="yes" checkexpession="NotNull"></div>
+    <div class="col-xs-6 lr-form-item">
+        <div class="lr-form-item-title">部门编号<font face="宋体">*</font></div>
+        <input id="enCode" type="text" class="form-control" isvalid="yes" checkexpession="NotNull" />
     </div>
-    <div class="col-xs-12 lr-form-item">
-        <div class="lr-form-item-title">上级岗位</div>
+    <div class="col-xs-6 lr-form-item">
+        <div class="lr-form-item-title">部门简称</div>
+        <input id="shortName" type="text" class="form-control" />
+    </div>
+    <div class="col-xs-6 lr-form-item">
+        <div class="lr-form-item-title">部门性质</div>
+        <div id="F_Nature"></div>
+    </div>
+    <div class="col-xs-6 lr-form-item">
+        <div class="lr-form-item-title">上级部门</div>
         <div id="parentId"></div>
+    </div>
+    <div class="col-xs-6 lr-form-item">
+        <div class="lr-form-item-title">负责人</div>
+        <input id="manager" type="text" class="form-control" />
+    </div>
+    <div class="col-xs-6 lr-form-item">
+        <div class="lr-form-item-title">电话号</div>
+        <input id="outerPhone" type="text" class="form-control" />
+    </div>
+    <div class="col-xs-6 lr-form-item">
+        <div class="lr-form-item-title">分机号</div>
+        <input id="innerPhone" type="text" class="form-control" />
+    </div>
+    <div class="col-xs-6 lr-form-item">
+        <div class="lr-form-item-title">邮箱</div>
+        <input id="email" type="text" class="form-control" />
+    </div>
+    <div class="col-xs-6 lr-form-item">
+        <div class="lr-form-item-title">传真</div>
+        <input id="fax" type="text" class="form-control" />
     </div>
     <div class="col-xs-12 lr-form-item">
         <div class="lr-form-item-title">备注</div>
-        <textarea id="description" class="form-control" style="height:110px;"></textarea>
+        <textarea id="description" type="text" class="form-control" style="height:90px;"></textarea>
     </div>
 </div>
 <script>
@@ -71,23 +94,19 @@
                 c.initData()
             },
             bind: function() {
-                a("#parentId").lrformselect({
-                    placeholder: "请选择上级岗位",
-                    layerUrl: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Post/SelectForm.html",
-                    layerUrlH: 500,
-                    dataUrl: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Post/GetEntityName.html"
+                a("#F_Nature").lrDataItemSelect({
+                    code: "DepartmentNature",
+                    maxHeight: 230
                 });
-                a("#deptId").lrDepartmentSelect({
+                a("#parentId").lrDepartmentSelect({
                     companyId: companyId,
-                    maxHeight: 100
+                    maxHeight: 160
                 })
             },
             initData: function() {
                 if (!!d) {
-                    keyValue = d.F_PostId;
+                    keyValue = d.id;
                     a("#form").lrSetFormData(d)
-                } else {
-                    a("#companyId").val(companyId)
                 }
             }
         };
@@ -96,11 +115,12 @@
                 return false
             }
             var f = a("#form").lrGetFormData(keyValue);
-            if (f.parentId == undefined || f.parentId == "" || f.parentId == "&nbsp;") {
+            if (f.parentId == "" || f.parentId == "&nbsp;") {
                 f.parentId = "0"
             }
-            a.lrSaveForm(top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Post/SaveForm.html?id=" + keyValue, f,
-                function(g) {
+            f.companyId = companyId;
+            a.lrSaveForm(top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Dept/SaveForm.html?id=" +
+                keyValue, f, function(g) {
                 if (!!e) {
                     e()
                 }
@@ -239,7 +259,7 @@
                     }
                     d[f] += "";
                     if (d[f] == "") {
-                        d[f] = "&nbsp;"
+                        d[f] = ""
                     }
                     if (d[f] == "&nbsp;" && !c) {
                         d[f] = ""
@@ -2194,7 +2214,7 @@
                 var f = d[0]._lrGirdSelect.dfop;
                 var h = g.target || g.srcElement;
                 var c = a(h);
-                if (c.hasClass("clear-btn")) {p
+                if (c.hasClass("clear-btn")) {
                     f._itemValue = {
                         value: "",
                         text: f.placeholder
@@ -2504,7 +2524,7 @@
     })(jQuery, top.learun);
 </script>
 <script>
-    $.lrToken = $('<input name="__RequestVerificationToken" type="hidden" value="_zs2ps6Y0Z65zJXX-RetyfhsgE6I3uDRN2LMzO5wn3HrI3xNulkyOaLM86-krnFNkp39fEC-5S4dRJqihdfal5z1DK9yoTsuUFI4n2x31QI1" />').val();
+    $.lrToken = $('<input name="__RequestVerificationToken" type="hidden" value="03gDO2SZiOCGWXvjBcvoK4814u_Wcoja6zTQWni4eeNSsGBGgSz1Oxt-1oaoG9DEKax_W6wTmQa7YaMCPGs4kjgXvlH7j2KO1u5w_JT6EVA1" />').val();
     $(function() {
         $('#lr_form_bg').fadeOut();
         $('#form').mCustomScrollbar({ // 优化滚动条
@@ -2518,5 +2538,4 @@
 </script>
 
 </body>
-
 </html>

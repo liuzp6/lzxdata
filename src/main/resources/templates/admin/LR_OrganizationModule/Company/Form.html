@@ -90,7 +90,7 @@
                 c.initData()
             },
             bind: function() {
-                a("#F_Nature").lrDataItemSelect({
+                a("#nature").lrDataItemSelect({
                     code: "CompanyNature",
                     maxHeight: 230
                 });
@@ -114,7 +114,7 @@
             if (f.parentId == "" || f.parentId == "&nbsp;") {
                 f.parentId = "0"
             }
-            a.lrSaveForm(top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Company/SaveForm.html?keyValue=" + keyValue, f, function(g) {
+            a.lrSaveForm(top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Company/SaveForm.html?id=" + keyValue, f, function(g) {
                 if (!!e) {
                     e()
                 }
@@ -263,6 +263,7 @@
             return d
         };
         a.fn.lrSetFormData = function(d) {
+            alert(d);
             for (var e in d) {
                 var h = d[e];
                 var c = a("#" + e);
@@ -854,7 +855,7 @@
                     if (e == 0) {
                         g = g[c[e]]
                     } else {
-                        g = g.childCompanyList[c[e]]
+                        g = g.childNodes[c[e]]
                     }
                 }
                 return g
@@ -939,11 +940,11 @@
                     if (!v.isexpand && !q.isAllExpand) {
                         m.css("display", "none")
                     }
-                    if (v.childCompanyList) {
-                        var t = v.childCompanyList.length;
+                    if (v.childNodes) {
+                        var t = v.childNodes.length;
                         for (var s = 0; s < t; s++) {
-                            v.childCompanyList[s].parent = v;
-                            var e = a.lrtree.renderNode(v.childCompanyList[s], p + 1, w + "." + s, q);
+                            v.childNodes[s].parent = v;
+                            var e = a.lrtree.renderNode(v.childNodes[s], p + 1, w + "." + s, q);
                             m.append(e)
                         }
                         g.append(m)
@@ -958,11 +959,11 @@
                 if (!i.isexpand && !f.isAllExpand) {
                     e.css("display", "none")
                 }
-                if (i.childCompanyList) {
-                    var h = i.childCompanyList.length;
+                if (i.childNodes) {
+                    var h = i.childNodes.length;
                     for (var g = 0; g < h; g++) {
-                        i.childCompanyList[g].parent = i;
-                        var c = a.lrtree.renderNode(i.childCompanyList[g], i._deep + 1, i._path + "." + g, f);
+                        i.childNodes[g].parent = i;
+                        var c = a.lrtree.renderNode(i.childNodes[g], i._deep + 1, i._path + "." + g, f);
                         e.append(c)
                     }
                     d.parent().append(e)
@@ -1006,7 +1007,7 @@
                                             parentId: k.id
                                         }, function(e) {
                                             if (!!e) {
-                                                k.childCompanyList = e;
+                                                k.childNodes = e;
                                                 g = a.lrtree.renderNodeAsync(f, k, h);
                                                 g.slideDown(200, function() {
                                                     f.removeClass("lr-tree-node-collapsed");
@@ -1060,7 +1061,7 @@
                 if (o == 1) {
                     h.checkstate = n
                 } else {
-                    var d = h.childCompanyList;
+                    var d = h.childNodes;
                     var j = d.length;
                     var c = true;
                     for (var g = 0; g < j; g++) {
@@ -1096,8 +1097,8 @@
             },
             checkChild: function(e, h, j, d) {
                 if (e(h, j, 1, d) != false) {
-                    if (h.childCompanyList != null && h.childCompanyList.length > 0) {
-                        var c = h.childCompanyList;
+                    if (h.childNodes != null && h.childNodes.length > 0) {
+                        var c = h.childNodes;
                         for (var f = 0, g = c.length; f < g; f++) {
                             a.lrtree.checkChild(e, c[f], j, d)
                         }
@@ -1112,7 +1113,7 @@
                         f = true
                     }
                     if (h.hasChildren) {
-                        if (a.lrtree.search(d, h.childCompanyList)) {
+                        if (a.lrtree.search(d, h.childNodes)) {
                             f = true
                         }
                     }
@@ -1136,8 +1137,8 @@
                             d = h[m];
                             return true
                         }
-                        if (h[m].hasChildren && h[m].childCompanyList.length > 0) {
-                            if (c(h[m].childCompanyList, j, k)) {
+                        if (h[m].hasChildren && h[m].childNodes.length > 0) {
+                            if (c(h[m].childNodes, j, k)) {
                                 return true
                             }
                         }
@@ -1169,9 +1170,9 @@
                             hasChildren: false,
                             isexpand: false,
                             complete: true,
-                            childCompanyList: []
+                            childNodes: []
                         };
-                        if (c(r.childCompanyList, q[g])) {
+                        if (c(r.childNodes, q[g])) {
                             r.hasChildren = true;
                             r.isexpand = true
                         }
@@ -1197,11 +1198,11 @@
                             hasChildren: false,
                             isexpand: true,
                             complete: true,
-                            childCompanyList: []
+                            childNodes: []
                         };
                         if (k[e].length > 0) {
                             m.hasChildren = true;
-                            c(m.childCompanyList, k[e])
+                            c(m.childNodes, k[e])
                         }
                         q.push(m)
                     }
@@ -1291,8 +1292,8 @@
                     if (c.find("#" + e.id + "_" + p[o].id.replace(/-/g, "_")).parent().css("display") != "none") {
                         (p[o].showcheck == true && (p[o].checkstate == 1 || p[o].checkstate == 2)) && m.push(n(p[o]));
                         if (!p[o].showcheck || (p[o].showcheck == true && (p[o].checkstate == 1 || p[o].checkstate == 2))) {
-                            if (p[o].childCompanyList != null && p[o].childCompanyList.length > 0) {
-                                f(p[o].childCompanyList, m, n)
+                            if (p[o].childNodes != null && p[o].childNodes.length > 0) {
+                                f(p[o].childNodes, m, n)
                             }
                         }
                     }
@@ -1302,8 +1303,8 @@
                 for (var o = 0, q = p.length; o < q; o++) {
                     (p[o].showcheck == true && (p[o].checkstate == 1 || p[o].checkstate == 2) && !p[o].hasChildren) && m.push(n(p[o]));
                     if (!p[o].showcheck || (p[o].showcheck == true && (p[o].checkstate == 1 || p[o].checkstate == 2))) {
-                        if (p[o].childCompanyList != null && p[o].childCompanyList.length > 0) {
-                            g(p[o].childCompanyList, m, n)
+                        if (p[o].childNodes != null && p[o].childNodes.length > 0) {
+                            g(p[o].childNodes, m, n)
                         }
                     }
                 }
@@ -1313,8 +1314,8 @@
                     if (p[o].showcheck) {
                         p[o].checkstate = 0
                     }
-                    if (p[o].childCompanyList != null && p[o].childCompanyList.length > 0) {
-                        l(p[o].childCompanyList)
+                    if (p[o].childNodes != null && p[o].childNodes.length > 0) {
+                        l(p[o].childNodes)
                     }
                 }
             };

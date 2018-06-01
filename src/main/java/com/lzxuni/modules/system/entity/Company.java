@@ -1,5 +1,7 @@
 package com.lzxuni.modules.system.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class Company extends Tree{
 	private String name ;
 	private String text ; //lrselect树形菜单需要
 	//成立时间
+	@JSONField(format="yyyy-MM-dd")
 	private Date foundedTime ;
 	//公司性质
 	private String nature ;
@@ -53,12 +56,20 @@ public class Company extends Tree{
 	// 一个公司对应多个部门
 	private List<Dept> deptList ;
 	// 一个公司包含的分公司或者子公司
-	private List<Company> childCompanyList ;
+	private List<Company> childNodes ;
 
 
 
 
 	/*方法区*/
+
+	public List<Company> getChildNodes() {
+		return childNodes;
+	}
+
+	public void setChildNodes(List<Company> childNodes) {
+		this.childNodes = childNodes;
+	}
 
 	public String getText() {
 		return name;
@@ -250,13 +261,5 @@ public class Company extends Tree{
 
 	public void setDeptList(List<Dept> deptList) {
 		this.deptList = deptList;
-	}
-
-	public List<Company> getChildCompanyList() {
-		return childCompanyList;
-	}
-
-	public void setChildCompanyList(List<Company> childCompanyList) {
-		this.childCompanyList = childCompanyList;
 	}
 }

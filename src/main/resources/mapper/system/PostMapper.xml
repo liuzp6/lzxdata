@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lzxuni.modules.system.mapper.PostMapper">
+
+    <resultMap type="com.lzxuni.modules.system.entity.Post" id="userPostMap">
+        <id column="id" property="id" />
+        <result column="parentId" property="parentId" />
+        <result column="createUserId" property="createUserId" />
+        <result column="name" property="name" />
+        <result column="level" property="level" />
+        <result column="deptId" property="deptId" />
+        <result column="companyId" property="companyId" />
+        <result column="hasChildren" property="hasChildren" />
+        <result column="enCode" property="enCode" />
+        <result column="description" property="description" />
+        <result column="createTime" property="createTime" />
+
+        <association property="createUser" javaType="com.lzxuni.modules.system.entity.User" >
+            <id column="createUserId" property="userId" />
+            <result column="createUserName" property="username"/>
+            <result column="createRealName" property="realname"/>
+        </association>
+        <association property="dept" javaType="com.lzxuni.modules.system.entity.Dept" >
+            <id column="deptId" property="id" />
+            <result column="deptName" property="name" />
+        </association>
+        <association property="company" javaType="com.lzxuni.modules.system.entity.Company" >
+            <id column="companyId" property="id" />
+            <result column="companyName" property="name" />
+        </association>
+        <collection property="userList" ofType="com.lzxuni.modules.system.entity.User">
+            <id column="userId" property="userId"/>
+            <result column="sex" property="sex"/>
+            <result column="username" property="username"/>
+            <result column="realName" property="realname"/>
+        </collection>
+    </resultMap>
+	<!-- 根据id查询 -->
+	<select id="queryObject" parameterType="java.lang.String" resultMap="userPostMap">
+		select a.* ,b.sex,b.user_Id,b.username,b.realName,d.name as companyName,e.name as deptName
+		from sys_post a
+		LEFT JOIN  sys_userpost c ON a.id=c.postId
+		LEFT JOIN  sys_user b ON b.user_Id=c.userId
+		LEFT JOIN  sys_userdept f ON f.userId=b.user_Id
+		LEFT JOIN  sys_dept e ON f.deptId=e.id,
+		sys_company d
+        where a.companyId=d.id and a.id=#{id}
+	</select>
+	<!-- 根据id查询 -->
+	<select id="queryListByParentId" parameterType="java.lang.String" resultMap="userPostMap">
+		select a.*,b.username as createUserName,c.name as deptName from
+		sys_post a,sys_user b,sys_dept c
+		where a.createUserId= b.user_id and a.deptId=c.id
+		and  a.parentId=#{parentId,jdbcType=VARCHAR} and a.companyId =#{companyId,jdbcType=VARCHAR}
+        <if test="deptId != null and deptId != '' ">
+            and a.deptId =#{deptId,jdbcType=VARCHAR}
+        </if>
+		order by a.createTime  desc
+	</select>
+	
+	<!-- 插入 -->
+	<insert id="insert" parameterType="com.lzxuni.modules.system.entity.Post">
+		INSERT INTO sys_post (`id`, `parentId`, `hasChildren`, `level`,`createUserId`, `name`, `deptId`, `companyId`, `enCode`, `description`,
+		`createTime`) VALUES (#{id},#{parentId},#{hasChildren},#{level},#{createUserId},#{name},#{deptId},#{companyId},#{enCode},#{description},#{createTime})
+	</insert>
+	<!-- 删除 -->
+	<delete id="delete" >
+		delete from sys_post where id = #{id} or parentId=#{id}
+	</delete>
+	<!-- 修改信息 -->
+	<update id="update" parameterType="com.lzxuni.modules.system.entity.Post">
+		UPDATE sys_post SET `parentId`=#{parentId}, `level`=#{level}, `name`=#{name},
+		`deptId`=#{deptId}, `enCode`=#{enCode}, `description`=#{description} WHERE `id`=#{id}
+	</update>
+    <update id="updateHasChildren">
+		UPDATE sys_post SET `hasChildren`=#{hasChildren,jdbcType=VARCHAR}  WHERE `id`=#{id,jdbcType=VARCHAR}
+	</update>
+</mapper>
