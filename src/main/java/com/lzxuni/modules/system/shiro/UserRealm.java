@@ -102,7 +102,7 @@ public class UserRealm extends AuthorizingRealm {
 		}
 
 		//账号锁定
-		if(user.getStatus() == 0){
+		if(user.getState() == 0){
 			throw new LockedAccountException("账号已被锁定,请联系管理员");
 		}
 

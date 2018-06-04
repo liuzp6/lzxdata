@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lzxuni.modules.system.mapper.SysLogDao">
+    <!-- 查询列表 -->
+    <select id="queryList" resultType="com.lzxuni.modules.system.entity.SysLogEntity">
+		select * from sys_log
+        <where>
+            <if test="username!=null and username!=''">
+                and username like CONCAT(CONCAT('%', #{username}), '%')
+            </if>
+            <if test="function!=null and function!=''">
+                and function like CONCAT(CONCAT('%', #{function}), '%')
+            </if>
+            <if test="operationType!=null and operationType!=''">
+                and operation_type like CONCAT(CONCAT('%', #{operationType}), '%')
+            </if>
+            <if test="operationTypes != null">
+                and operation_type NOT  in
+                <foreach item="operationType" collection="operationTypes" open="(" separator="," close=")">
+                    #{operationType}
+                </foreach>
+            </if>
+
+            <if test="operationResult!=null and operationResult!=''">
+                and operation_result like CONCAT(CONCAT('%', #{operationResult}), '%')
+            </if>
+            <if test="startTime != null ">
+                and date_format(create_time,'%Y-%m-%d') &gt;= date_format(#{startTime},'%Y-%m-%d')
+            </if>
+            <if test="endTime != null ">
+                and date_format(create_time,'%Y-%m-%d') &lt;= date_format(#{endTime},'%Y-%m-%d')
+            </if>
+        </where>
+	</select>
+
+    <delete id="delete" >
+        delete from sys_log
+          <where>
+                <if test="id!=null and id!=''">
+                    id = #{id}
+                </if>
+              <if test="operationType!=null and operationType!=''">
+                  and operation_type like CONCAT(CONCAT('%', #{operationType}), '%')
+              </if>
+              <if test="operationTypes != null">
+                  and operation_type NOT  in
+                  <foreach item="operationType" collection="operationTypes" open="(" separator="," close=")">
+                      #{operationType}
+                  </foreach>
+              </if>
+
+                <if test="startTime != null ">
+                    and date_format(create_time,'%Y-%m-%d') &gt;= date_format(#{startTime},'%Y-%m-%d')
+                </if>
+                <if test="endTime != null ">
+                    and date_format(create_time,'%Y-%m-%d') &lt;= date_format(#{endTime},'%Y-%m-%d')
+                </if>
+          </where>
+    </delete>
+</mapper>

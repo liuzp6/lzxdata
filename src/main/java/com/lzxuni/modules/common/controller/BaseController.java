@@ -40,7 +40,7 @@ public class BaseController {
 	
 	//用户信息
 	protected User getUser() {
-		return ShiroUtils.getUserEntity() ;
+		return ShiroUtils.getUser() ;
 	}
 
 	protected String getUserId() {

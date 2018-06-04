@@ -1,5 +1,6 @@
 package com.lzxuni.modules.system.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -8,7 +9,9 @@ import com.lzxuni.modules.common.entity.PageParameter;
 import com.lzxuni.modules.system.entity.User;
 import com.lzxuni.modules.system.mapper.UserMapper;
 import com.lzxuni.modules.system.service.UserService;
+import com.lzxuni.modules.system.shiro.ShiroUtils;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,10 +31,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
 	@Override
 	public PageInfo<User> queryPage(PageParameter pageParameter, User user) {
-		PageHelper.startPage(pageParameter.getPage(), pageParameter.getRows()).setOrderBy(
-				pageParameter.getSidx() + " " + pageParameter.getSord());
+		PageHelper.startPage(pageParameter.getPage(), pageParameter.getRows());
 		List<User> userList = baseMapper.queryList(user);
 		PageInfo<User> pageInfo = new PageInfo<>(userList);
+
 		return pageInfo;
 	}
 
@@ -54,6 +57,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 	public void save(User user) {
 		user.setUserId(UuidUtil.get32UUID());
 		user.setRegisterTime(new Date());
+		user.setIsAdmin("N");
+		// 初始密码
+		String password = "111111";
+		// 密码加密
+		SimpleHash passwordMd5 = new SimpleHash(ShiroUtils.hashAlgorithmName, password,
+				user.getUsername(), ShiroUtils.hashIterations);
+
+		user.setPassword(passwordMd5.toString());
+		user.setErrorCount(0);
+		user.setLoginCount(0);
+
 		//sha256加密
 		String salt = RandomStringUtils.randomAlphanumeric(20);
 		user.setSalt(salt);
@@ -67,11 +81,36 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public void deleteBatch(String[] userIds) {
-		deleteBatchIds(Arrays.asList(userIds));
+		this.deleteBatchIds(Arrays.asList(userIds));
 	}
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public boolean updatePassword(String userId, String password, String newPassword) {
-		return false;
+		User user = new User();
+		user.setPassword(newPassword);
+		return this.update(user,
+				new EntityWrapper<User>().eq("user_id", userId).eq("password", password));
+	}
+
+	@Override
+	public boolean resetPassword(String userId) {
+		User user = this.selectById(userId);
+		// 密码加密
+		SimpleHash passwordMd5 = new SimpleHash(ShiroUtils.hashAlgorithmName, "111111",
+				user.getUsername(), ShiroUtils.hashIterations);
+
+		String newPassword = passwordMd5.toString();
+		String password = user.getPassword();
+
+
+		return updatePassword(userId, password, newPassword);
+	}
+
+	@Override
+	public void updateState(Integer state, String userId) {
+		User user = new User();
+		user.setState(state);
+		this.update(user,
+				new EntityWrapper<User>().eq("user_id", userId));
 	}
 }

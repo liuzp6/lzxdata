@@ -56,4 +56,18 @@ public interface UserService extends IService<User> {
 	 * @param newPassword  新密码
 	 */
 	boolean updatePassword(String userId, String password, String newPassword);
+
+
+	/**
+	 * 功能描述: 根据userId重置密码<br>
+	 * @Author 孙志强
+	 * @date 2018/6/2 22:59
+	 * @param userId
+	 * @return:boolean
+	 */
+	boolean resetPassword(String userId);
+
+
+
+	void updateState(Integer state, String userId);
 }

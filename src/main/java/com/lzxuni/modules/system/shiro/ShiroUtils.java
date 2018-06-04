@@ -48,12 +48,12 @@ public class ShiroUtils {
 		return SecurityUtils.getSubject();
 	}
 
-	public static User getUserEntity() {
+	public static User getUser() {
 		return (User)SecurityUtils.getSubject().getPrincipal();
 	}
 
 	public static String getUserId() {
-		return getUserEntity().getUserId();
+		return getUser().getUserId();
 	}
 	
 	public static void setSessionAttribute(Object key, Object value) {

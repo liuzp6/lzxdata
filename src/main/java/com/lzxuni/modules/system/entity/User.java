@@ -3,6 +3,7 @@ package com.lzxuni.modules.system.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.lzxuni.common.validator.group.AddGroup;
 import com.lzxuni.common.validator.group.UpdateGroup;
@@ -24,12 +25,13 @@ public class User implements Serializable{
 	 *
 	 */
 	private static final long serialVersionUID = 7632952419415232387L;
+	@TableId
 	private String userId ;
 	private String companyId ;
 	@NotBlank(message="用户名不能为空", groups = {AddGroup.class, UpdateGroup.class})
 	private String username ;
 	private String realname ;
-	private Integer status ;
+	private Integer state ;
 	private String salt ;
 	private String password ;
 
@@ -55,10 +57,9 @@ public class User implements Serializable{
 	//公司
 	@TableField(exist=false)
 	private Company company;
-	//部门集合
-	//查询的时候用
-	@TableField(exist=false)
+
 	private String deptId;
+	//部门集合暂时没用，本系统用户只对应一个部门
 	@TableField(exist=false)
 	private List<Dept> deptList;
 	//角色集合
@@ -73,12 +74,12 @@ public class User implements Serializable{
 	public User(User user){}
 	/* set,get方法区 */
 
-	public Integer getStatus() {
-		return status;
+	public Integer getState() {
+		return state;
 	}
 
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setState(Integer state) {
+		this.state = state;
 	}
 
 	public String getSalt() {
@@ -149,7 +150,7 @@ public class User implements Serializable{
 		return realname;
 	}
 
-	public void setRealname(String realName) {
+	public void setRealname(String realname) {
 		this.realname = realname;
 	}
 

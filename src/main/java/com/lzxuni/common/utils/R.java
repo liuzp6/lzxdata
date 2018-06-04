@@ -1,7 +1,6 @@
 package com.lzxuni.common.utils;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,9 +43,9 @@ public class R extends HashMap<String, Object> {
 		r.putAll(map);
 		return r;
 	}
-	public static R ok(List list) {
+	public static R ok(Object o) {
 		Map<String,Object> map = new HashMap();
-		map.put("data", list);
+		map.put("data", o);
 		return R.ok(map);
 	}
 	
@@ -54,6 +53,7 @@ public class R extends HashMap<String, Object> {
 		return new R();
 	}
 
+	@Override
 	public R put(String key, Object value) {
 		super.put(key, value);
 		return this;
