@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 
 <head>
+    <base href="${request.contextPath}/"/>
     <meta name=”renderer” content=”webkit|ie-comp|ie-stand” />
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -11,18 +12,18 @@
     <link rel="icon" href="/favicon.ico">
 
     <title>角色管理|力软信息|快速开发平台|Learun敏捷开发框架</title>
-    <link href="../../Content/pace/pace-theme-minimal.css" rel="stylesheet" />
-    <link href="../../Content/font/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../../Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link href="../../Content/jquery/plugin/scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
-    <link href="../../Content/jquery/plugin/jfGrid/jfgrid.css" rel="stylesheet" />
+    <link href="Content/pace/pace-theme-minimal.css" rel="stylesheet" />
+    <link href="Content/font/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/jquery/plugin/scrollbar/jquery.mCustomScrollbar.min.css" rel="stylesheet" />
+    <link href="Content/jquery/plugin/jfGrid/jfgrid.css" rel="stylesheet" />
 
-    <script src="../../Content/pace/pace.min.js"></script>
-    <script src="../../Content/jquery/jquery-1.10.2.min.js"></script>
-    <script src="../../Content/bootstrap/bootstrap.min.js"></script>
-    <script src="../../Content/jquery/plugin/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="../../Content/jquery/plugin/jfGrid/jfgrid.min.js"></script>
-    <script src="../../Content/jquery/plugin/jqprint/jquery.jqprint-0.3.js"></script>
+    <script src="Content/pace/pace.min.js"></script>
+    <script src="Content/jquery/jquery-1.10.2.min.js"></script>
+    <script src="Content/bootstrap/bootstrap.min.js"></script>
+    <script src="Content/jquery/plugin/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="Content/jquery/plugin/jfGrid/jfgrid.min.js"></script>
+    <script src="Content/jquery/plugin/jqprint/jquery.jqprint-0.3.js"></script>
 
     <style>
         html {
@@ -897,7 +898,7 @@
             height: 28px;
             line-height: 26px;
             border: 1px solid #ccc;
-            background: #fff url(../../Content/images/learunselect/icon.png) no-repeat right center;
+            background: #fff url(Content/images/learunselect/icon.png) no-repeat right center;
             padding-left: 4px
         }
 
@@ -1208,7 +1209,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             padding-left: 5px;
-            background: #fff url(../../Content/images/learunselect/icon.png) no-repeat right center
+            background: #fff url(Content/images/learunselect/icon.png) no-repeat right center
         }
 
         .lr-custmer-search-text:hover {
@@ -1232,7 +1233,7 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             padding-left: 25px;
-            background: url(../../Content/images/datepicker_icon.png) left 0 no-repeat #FFF
+            background: url(Content/images/datepicker_icon.png) left 0 no-repeat #FFF
         }
 
         .lr-search-date-text:hover {
@@ -1333,28 +1334,11 @@
             text-align: right
         }
     </style>
-    <script src="../../Content/datepicker/WdatePicker.js"></script>
+    <script src="Content/datepicker/WdatePicker.js"></script>
     <!--[if lt IE 9]>
-    <script src="~../../Content/bootstrap/html5shiv.min.js"></script>
-    <script src="~../../Content/bootstrap/respond.min.js"></script>
+    <script src="~Content/bootstrap/html5shiv.min.js"></script>
+    <script src="~Content/bootstrap/respond.min.js"></script>
     <![endif]-->
-    <script>
-        function request(d) {
-            for (var c = location.search.slice(1).split("&"), a = 0; a < c.length; a++) {
-                var b = c[a].split("=");
-                if (b[0] == d)
-                    if ("undefined" == unescape(b[1])) break;
-                    else return unescape(b[1])
-            }
-            return ""
-        };
-    </script>
-    <script>
-        var lrCurrentUrl = '/LR_OrganizationModule/Role/Index';
-        var lrModuleButtonList;
-        var lrModuleColumnList;
-        var lrModule;
-    </script>
 </head>
 
 <body class="Firefox 57.0 lr-uitheme-top">
@@ -1375,7 +1359,7 @@
                     <div class=" btn-group btn-group-sm">
                         <a id="lr_refresh" class="btn btn-default"><i class="fa fa-refresh"></i></a>
                     </div>
-                    <div class=" btn-group btn-group-sm" learun-authorize="yes">
+                    <div class=" btn-group btn-group-sm"> <!--learun-authorize="yes"-->
                         <a id="lr_add" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;新增</a>
                         <a id="lr_edit" class="btn btn-default"><i class="fa fa-pencil-square-o"></i>&nbsp;编辑</a>
                         <a id="lr_delete" class="btn btn-default"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
@@ -1431,7 +1415,7 @@
                     b.layerForm({
                         id: "form",
                         title: "添加角色",
-                        url: top.$.rootUrl + "/LR_OrganizationModule/Role/Form",
+                        url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Role/insert_v.html",
                         width: 500,
                         height: 340,
                         callBack: function(d) {
@@ -1440,13 +1424,13 @@
                     })
                 });
                 a("#lr_edit").on("click", function() {
-                    var d = a("#girdtable").jfGridValue("F_RoleId");
+                    var d = a("#girdtable").jfGridValue("id");
                     selectedRow = a("#girdtable").jfGridGet("rowdata");
                     if (b.checkrow(d)) {
                         b.layerForm({
                             id: "form",
                             title: "编辑角色",
-                            url: top.$.rootUrl + "/LR_OrganizationModule/Role/Form",
+                            url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Role/Form.html",
                             width: 500,
                             height: 340,
                             callBack: function(e) {
@@ -1560,46 +1544,30 @@
                 })
             },
             initGird: function() {
-                a("#girdtable").lrAuthorizeJfGrid({
-                    url: top.$.rootUrl + "GetPageList.html",
+                a("#girdtable").jfGrid({
+                    url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Role/index_o.html",
                     headData: [{
-                        label: "角色编号",
-                        name: "F_EnCode",
-                        width: 100,
-                        align: "left"
-                    }, {
                         label: "角色名称",
-                        name: "F_FullName",
+                        name: "name",
                         width: 200,
                         align: "left"
                     }, {
                         label: "创建时间",
-                        name: "F_CreateDate",
-                        width: 130,
-                        align: "center"
-                    }, {
-                        label: "创建人",
-                        name: "F_CreateUserName",
+                        name: "createTime",
                         width: 130,
                         align: "center"
                     }, {
                         label: "有效",
-                        name: "F_EnabledMark",
+                        name: "flag",
                         width: 50,
                         align: "center",
                         formatter: function(d) {
-                            return d == 1 ? '<i class="fa fa-toggle-on"></i>' : '<i class="fa fa-toggle-off"></i>'
+                            return d == 'Y' ? '<i class="fa fa-toggle-on"></i>' : '<i class="fa fa-toggle-off"></i>'
                         }
-                    }, {
-                        label: "角色描述",
-                        name: "F_Description",
-                        index: "F_Description",
-                        width: 300,
-                        align: "left"
                     }],
                     isPage: true,
                     reloadSelected: true,
-                    mainId: "F_RoleId"
+                    mainId: "id"
                 });
                 c.search()
             },
@@ -2075,7 +2043,7 @@
                 param: null,
                 data: [],
                 isAllExpand: false,
-                cbiconpath: "../../Content/images/learuntree/",
+                cbiconpath: "Content/images/learuntree/",
                 nodeClick: false,
                 nodeCheck: false
             };
@@ -2344,10 +2312,10 @@
                     var g = e.data[f];
                     if (!g._lrhide) {
                         if (!!e.multipleMapValue && e.multipleMapValue[f] != undefined) {
-                            var c = a('<li data-value="' + f + '" class="lr-selectitem-li" ><img class="lr-select-node-cb" src="../../Content/images/learuntree/checkbox_1.png">' + g[e.text] + "</li>");
+                            var c = a('<li data-value="' + f + '" class="lr-selectitem-li" ><img class="lr-select-node-cb" src="Content/images/learuntree/checkbox_1.png">' + g[e.text] + "</li>");
                             d.append(c)
                         } else {
-                            var c = a('<li data-value="' + f + '" class="lr-selectitem-li" ><img class="lr-select-node-cb" src="../../Content/images/learuntree/checkbox_0.png">' + g[e.text] + "</li>");
+                            var c = a('<li data-value="' + f + '" class="lr-selectitem-li" ><img class="lr-select-node-cb" src="Content/images/learuntree/checkbox_0.png">' + g[e.text] + "</li>");
                             d.append(c)
                         }
                     }
@@ -2461,7 +2429,7 @@
                             j.multipleMapValue = {};
                             j.multipleValue = [];
                             j.multipleText = [];
-                            g.find('.lr-select-node-cb[src$="checkbox_1.png"]').attr("src", "../../Content/images/learuntree/checkbox_0.png");
+                            g.find('.lr-select-node-cb[src$="checkbox_1.png"]').attr("src", "Content/images/learuntree/checkbox_0.png");
                             g.slideUp(150);
                             h.removeClass("lr-select-focus")
                         } else {
@@ -2472,7 +2440,7 @@
                                 j.multipleText.push(j.data[i][j.text]);
                                 j.multipleMapValue[i] = j.multipleText.length - 1;
                                 f.html(String(j.multipleText));
-                                c.attr("src", "../../Content/images/learuntree/checkbox_1.png")
+                                c.attr("src", "Content/images/learuntree/checkbox_1.png")
                             } else {
                                 j.multipleText.splice(j.multipleMapValue[i], 1);
                                 j.multipleValue.splice(j.multipleMapValue[i], 1);
@@ -2484,7 +2452,7 @@
                                     f.html(String(j.multipleText))
                                 }
                                 m = false;
-                                c.attr("src", "../../Content/images/learuntree/checkbox_0.png")
+                                c.attr("src", "Content/images/learuntree/checkbox_0.png")
                             }
                             h.trigger("change");
                             if (!!j.select) {
@@ -2744,7 +2712,7 @@
                                 m.multipleValue = [];
                                 m.multipleText = [];
                                 if (m.isrender) {
-                                    c.find('.lr-select-node-cb[src$="checkbox_1.png"]').attr("src", "../../Content/images/learuntree/checkbox_0.png")
+                                    c.find('.lr-select-node-cb[src$="checkbox_1.png"]').attr("src", "Content/images/learuntree/checkbox_0.png")
                                 }
                                 var k = f.split(",");
                                 for (var n = 0, o = m.data.length; n < o; n++) {
@@ -2754,7 +2722,7 @@
                                         m.multipleValue.push(m.data[n][m.value]);
                                         m.multipleText.push(m.data[n][m.text]);
                                         if (m.isrender) {
-                                            c.find('[data-value="' + n + '"] .lr-select-node-cb').attr("src", "../../Content/images/learuntree/checkbox_1.png")
+                                            c.find('[data-value="' + n + '"] .lr-select-node-cb').attr("src", "Content/images/learuntree/checkbox_1.png")
                                         }
                                         if (!!m.select) {
                                             m.select(m.data[n], true, c)
@@ -3256,117 +3224,117 @@
             d.parent().find(".lr-field-error-info").remove()
         }
     })(window.jQuery, top.learun);
-    (function(a, b) {
-        a.fn.lrAuthorizeJfGrid = function(d) {
-            var c = [];
-            a.each(d.headData, function(e, f) {
-                if (!!lrModuleColumnList[f.name.toLowerCase()]) {
-                    c.push(f)
-                }
-            });
-            d.headData = c;
-            a(this).jfGrid(d)
-        };
-        a(function() {
-            function c() {
-                if (!!lrModuleButtonList) {
-                    var d = a('[learun-authorize="yes"]');
-                    d.find("[id]").each(function() {
-                        var e = a(this);
-                        var f = e.attr("id");
-                        if (!lrModuleButtonList[f]) {
-                            e.remove()
-                        }
-                    });
-                    d.find(".dropdown-menu").each(function() {
-                        var e = a(this);
-                        if (e.find("li").length == 0) {
-                            e.remove()
-                        }
-                    });
-                    d.css({
-                        display: "inline-block"
-                    })
-                } else {
-                    setTimeout(c, 100)
-                }
-            }
-            c()
-        })
-    })(window.jQuery, top.learun);
-    (function(a, b) {
-        a(function() {
-            function c() {
-                if (!!lrModule) {
-                    b.httpAsync("GET", top.$.rootUrl + "/LR_SystemModule/ExcelImport/GetList", {
-                        moduleId: lrModule.F_ModuleId
-                    }, function(f) {
-                        if (!!f && f.length > 0) {
-                            var e = a(".lr-layout-tool-right");
-                            var d = a('<div class=" btn-group btn-group-sm"></div>');
-                            var g = false;
-                            a.each(f, function(i, j) {
-                                if (!!lrModuleButtonList[j.F_ModuleBtnId]) {
-                                    g = true;
-                                    var h = a('<a id="' + j.F_ModuleBtnId + '" data-value="' + j.F_Id + '"  class="btn btn-default"><i class="fa fa-sign-in"></i>&nbsp;' + j.F_BtnName + "</a>");
-                                    h.on("click", function() {
-                                        var k = a(this).attr("data-value");
-                                        var l = a(this).text();
-                                        b.layerForm({
-                                            id: "ImportForm",
-                                            title: l,
-                                            url: top.$.rootUrl + "/LR_SystemModule/ExcelImport/ImportForm?id=" + k,
-                                            width: 600,
-                                            height: 400,
-                                            maxmin: true,
-                                            btn: null
-                                        })
-                                    });
-                                    d.append(h)
-                                }
-                            });
-                            e.append(d)
-                        }
-                    });
-                    b.httpAsync("GET", top.$.rootUrl + "/LR_SystemModule/ExcelExport/GetList", {
-                        moduleId: lrModule.F_ModuleId
-                    }, function(f) {
-                        if (!!f && f.length > 0) {
-                            var e = a(".lr-layout-tool-right");
-                            var d = a('<div class=" btn-group btn-group-sm"></div>');
-                            var g = false;
-                            a.each(f, function(i, j) {
-                                if (!!lrModuleButtonList[j.F_ModuleBtnId]) {
-                                    g = true;
-                                    var h = a('<a id="' + j.F_ModuleBtnId + '" class="btn btn-default"><i class="fa fa-sign-out"></i>&nbsp;' + j.F_BtnName + "</a>");
-                                    h[0].dfop = j;
-                                    h.on("click", function() {
-                                        j = h[0].dfop;
-                                        b.layerForm({
-                                            id: "ExcelExportForm",
-                                            title: "导出Excel数据",
-                                            url: top.$.rootUrl + "/Utility/ExcelExportForm?gridId=" + j.F_GridId + "&filename=" + encodeURI(encodeURI(j.F_Name)),
-                                            width: 500,
-                                            height: 380,
-                                            callBack: function(k) {
-                                                return top[k].acceptClick()
-                                            },
-                                            btn: ["导出Excel", "关闭"]
-                                        })
-                                    });
-                                    d.append(h)
-                                }
-                            });
-                            e.append(d)
-                        }
-                    })
-                } else {
-                    setTimeout(c, 100)
-                }
-            }
-            c()
-        })
-    })(window.jQuery, top.learun);
+//    (function(a, b) {
+//        a.fn.lrAuthorizeJfGrid = function(d) {
+//            var c = [];
+//            a.each(d.headData, function(e, f) {
+//                if (!!lrModuleColumnList[f.name.toLowerCase()]) {
+//                    c.push(f)
+//                }
+//            });
+//            d.headData = c;
+//            a(this).jfGrid(d)
+//        };
+//        a(function() {
+//            function c() {
+//                if (!!lrModuleButtonList) {
+//                    var d = a('[learun-authorize="yes"]');
+//                    d.find("[id]").each(function() {
+//                        var e = a(this);
+//                        var f = e.attr("id");
+//                        if (!lrModuleButtonList[f]) {
+//                            e.remove()
+//                        }
+//                    });
+//                    d.find(".dropdown-menu").each(function() {
+//                        var e = a(this);
+//                        if (e.find("li").length == 0) {
+//                            e.remove()
+//                        }
+//                    });
+//                    d.css({
+//                        display: "inline-block"
+//                    })
+//                } else {
+//                    setTimeout(c, 100)
+//                }
+//            }
+//            c()
+//        })
+//    })(window.jQuery, top.learun);
+//    (function(a, b) {
+//        a(function() {
+//            function c() {
+//                if (!!lrModule) {
+//                    b.httpAsync("GET", top.$.rootUrl + "/LR_SystemModule/ExcelImport/GetList", {
+//                        moduleId: lrModule.F_ModuleId
+//                    }, function(f) {
+//                        if (!!f && f.length > 0) {
+//                            var e = a(".lr-layout-tool-right");
+//                            var d = a('<div class=" btn-group btn-group-sm"></div>');
+//                            var g = false;
+//                            a.each(f, function(i, j) {
+//                                if (!!lrModuleButtonList[j.F_ModuleBtnId]) {
+//                                    g = true;
+//                                    var h = a('<a id="' + j.F_ModuleBtnId + '" data-value="' + j.F_Id + '"  class="btn btn-default"><i class="fa fa-sign-in"></i>&nbsp;' + j.F_BtnName + "</a>");
+//                                    h.on("click", function() {
+//                                        var k = a(this).attr("data-value");
+//                                        var l = a(this).text();
+//                                        b.layerForm({
+//                                            id: "ImportForm",
+//                                            title: l,
+//                                            url: top.$.rootUrl + "/LR_SystemModule/ExcelImport/ImportForm?id=" + k,
+//                                            width: 600,
+//                                            height: 400,
+//                                            maxmin: true,
+//                                            btn: null
+//                                        })
+//                                    });
+//                                    d.append(h)
+//                                }
+//                            });
+//                            e.append(d)
+//                        }
+//                    });
+//                    b.httpAsync("GET", top.$.rootUrl + "/LR_SystemModule/ExcelExport/GetList", {
+//                        moduleId: lrModule.F_ModuleId
+//                    }, function(f) {
+//                        if (!!f && f.length > 0) {
+//                            var e = a(".lr-layout-tool-right");
+//                            var d = a('<div class=" btn-group btn-group-sm"></div>');
+//                            var g = false;
+//                            a.each(f, function(i, j) {
+//                                if (!!lrModuleButtonList[j.F_ModuleBtnId]) {
+//                                    g = true;
+//                                    var h = a('<a id="' + j.F_ModuleBtnId + '" class="btn btn-default"><i class="fa fa-sign-out"></i>&nbsp;' + j.F_BtnName + "</a>");
+//                                    h[0].dfop = j;
+//                                    h.on("click", function() {
+//                                        j = h[0].dfop;
+//                                        b.layerForm({
+//                                            id: "ExcelExportForm",
+//                                            title: "导出Excel数据",
+//                                            url: top.$.rootUrl + "/Utility/ExcelExportForm?gridId=" + j.F_GridId + "&filename=" + encodeURI(encodeURI(j.F_Name)),
+//                                            width: 500,
+//                                            height: 380,
+//                                            callBack: function(k) {
+//                                                return top[k].acceptClick()
+//                                            },
+//                                            btn: ["导出Excel", "关闭"]
+//                                        })
+//                                    });
+//                                    d.append(h)
+//                                }
+//                            });
+//                            e.append(d)
+//                        }
+//                    })
+//                } else {
+//                    setTimeout(c, 100)
+//                }
+//            }
+//            c()
+//        })
+//    })(window.jQuery, top.learun);
     (function(a, b) {
         a.fn.lrGetFormData = function(c) {
             var d = {};
@@ -3853,16 +3821,17 @@
 <script>
     $(function() {
         $('#lr_layout').lrLayout();
-        top.learun.httpAsync('GET', top.$.rootUrl + '../LR_SystemModule/Module/role.html', {
-            url: lrCurrentUrl
-        }, function(data) {
-            lrModuleButtonList = data.btns;
-            lrModuleColumnList = data.cols;
-            lrModule = data.module;
-            if (!!window.bootstrap) {
-                bootstrap(jQuery, top.learun);
-            }
-        });
+//        top.learun.httpAsync('GET', top.$.rootUrl + '../LR_SystemModule/Module/role.html', {
+//            url: lrCurrentUrl
+//        }, function(data) {
+//            lrModuleButtonList = data.btns;
+//            lrModuleColumnList = data.cols;
+//            lrModule = data.module;
+//            if (!!window.bootstrap) {
+//                bootstrap(jQuery, top.learun);
+//            }
+//        });
+        bootstrap(jQuery, top.learun);
     });
 </script>
 </body>

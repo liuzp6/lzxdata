@@ -9,7 +9,6 @@ public class PageData {
 	private Integer page ;      //当前页    1
 	private Long records ;   //总记录数 30*3=90
 	private Integer costtime ;  //查询时间 10ms
-	
 	/**
 	 * @return the rows
 	 */
@@ -70,6 +69,4 @@ public class PageData {
 	public void setCosttime(Integer costtime) {
 		this.costtime = costtime;
 	}
-	
-	
 }
