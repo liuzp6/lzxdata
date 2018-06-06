@@ -20,4 +20,10 @@ public class DataItemController extends BaseController {
 		return mv;
 	}
 
+	@RequestMapping("/GetMap")
+	public ModelAndView getMap(){
+		ModelAndView mv = new ModelAndView("/admin/LR_SystemModule/DataItem/getMap");
+		return mv;
+	}
+
 }

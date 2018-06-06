@@ -93,5 +93,9 @@ public class LoginController {
         }
         return R.ok();
     }
-
+	@RequestMapping("/admin/Home/VisitModule")
+	public ModelAndView getMap(){
+		ModelAndView mv = new ModelAndView("/admin/Home/VisitModule");
+		return mv;
+	}
 }

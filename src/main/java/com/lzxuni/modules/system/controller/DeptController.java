@@ -74,6 +74,12 @@ public class DeptController extends BaseController {
 		return R.ok("删除成功");
 	}
 
+	@RequestMapping("/GetMap")
+	public ModelAndView getMap(){
+		ModelAndView mv = new ModelAndView("/admin/LR_OrganizationModule/Dept/getMap");
+		return mv;
+	}
+
 
 
 }

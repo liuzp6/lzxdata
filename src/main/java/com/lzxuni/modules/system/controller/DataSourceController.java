@@ -24,8 +24,8 @@ import org.springframework.web.servlet.ModelAndView;
  * @Modified BY:
  **/
 @RestController
-@RequestMapping("/admin/LR_OrganizationModule/User")
-public class UserController extends BaseController {
+@RequestMapping("/admin/LR_SystemModule/DataSource")
+public class DataSourceController extends BaseController {
 
 	@Autowired
 	private UserService userService;
@@ -83,10 +83,5 @@ public class UserController extends BaseController {
 			return R.error("原密码不正确");
 		}
 		return  R.ok("重置成功");
-	}
-	@RequestMapping("/GetMap")
-	public ModelAndView getMap(){
-		ModelAndView mv = new ModelAndView("/admin/LR_OrganizationModule/User/getMap");
-		return mv;
 	}
 }

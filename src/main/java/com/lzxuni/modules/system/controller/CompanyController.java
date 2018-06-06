@@ -112,4 +112,9 @@ public class CompanyController extends BaseController {
 		return listNew;
 	}
 
+	@RequestMapping("/GetMap")
+	public ModelAndView getMap(){
+		ModelAndView mv = new ModelAndView("/admin/LR_OrganizationModule/Company/getMap");
+		return mv;
+	}
 }

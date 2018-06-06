@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.lzxuni.modules.system.mapper.DatabaseTableMapper">
+	<!-- 查询表 -->
+	<select id="queryTableList" resultType="com.lzxuni.modules.system.entity.DatabaseTable">
+		select table_name ,table_rows ,data_length ,index_length,table_comment from information_schema.tables
+		where TABLE_SCHEMA = 'db_lzxdata'
+	</select>
+	<!-- 查询表 -->
+	<select id="queryPkList" resultType="com.lzxuni.modules.system.entity.Pk">
+		SELECT
+		  t.table_name ,
+		  c.COLUMN_NAME
+		FROM
+		  INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS t,
+		  INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS c
+		WHERE
+		  t.TABLE_NAME = c.TABLE_NAME
+		  AND t.TABLE_SCHEMA = 'db_lzxdata'
+		  AND t.CONSTRAINT_TYPE = 'PRIMARY KEY'
+		  and t.table_name=#{tableName}
+	</select>
+    <!-- 查询表 -->
+    <select id="queryFieldList" resultType="com.lzxuni.modules.system.entity.TableField">
+		SELECT  * FROM information_schema.`COLUMNS`
+		where TABLE_NAME =#{tableName}
+	</select>
+</mapper>

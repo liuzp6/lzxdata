@@ -305,7 +305,7 @@
                     }
                     if (!i) {
                         a.ajax({
-                            url: top.$.rootUrl + "/Home/VisitModule",
+                            url: top.$.rootUrl + "${request.contextPath}/admin/Home/VisitModule",
                             data: {
                                 moduleName: h.F_FullName,
                                 moduleUrl: h.F_UrlAddress
@@ -1233,7 +1233,7 @@
                 if (b.company.states == h.no) {
                     b.company.states = h.ing;
                     var j = i.get("companyData").ver || "";
-                    g.httpAsync("GET", top.$.rootUrl + "/LR_OrganizationModule/Company/GetMap", {
+                    g.httpAsync("GET", top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Company/GetMap", {
                         ver: j
                     }, function(k) {
                         if (!k) {
@@ -1276,7 +1276,7 @@
                 if (b.department.states == h.no) {
                     b.department.states = h.ing;
                     var j = i.get("departmentData").ver || "";
-                    g.httpAsync("GET", top.$.rootUrl + "/LR_OrganizationModule/Department/GetMap", {
+                    g.httpAsync("GET", top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Dept/GetMap", {
                         ver: j
                     }, function(k) {
                         if (!k) {
@@ -1319,7 +1319,7 @@
                 if (b.user.states == h.no) {
                     b.user.states = h.ing;
                     var j = i.get("userData").ver || "";
-                    g.httpAsync("GET", top.$.rootUrl + "/LR_OrganizationModule/User/GetMap", {
+                    g.httpAsync("GET", top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/User/GetMap", {
                         ver: j
                     }, function(k) {
                         if (!k) {
@@ -1362,7 +1362,7 @@
                 if (b.dataItem.states == h.no) {
                     b.dataItem.states = h.ing;
                     var j = i.get("dataItemData").ver || "";
-                    g.httpAsync("GET", top.$.rootUrl + "/LR_SystemModule/DataItem/GetMap", {
+                    g.httpAsync("GET", top.$.rootUrl + "${request.contextPath}/admin/LR_SystemModule/DataItem/GetMap", {
                         ver: j
                     }, function(k) {
                         if (!k) {
@@ -1419,7 +1419,7 @@
                 if (b.db.states == h.no) {
                     b.db.states = h.ing;
                     var j = i.get("dbData").ver || "";
-                    g.httpAsync("GET", top.$.rootUrl + "/LR_SystemModule/DatabaseLink/GetMap", {
+                    g.httpAsync("GET", top.$.rootUrl + "${request.contextPath}/admin/LR_SystemModule/DatabaseLink/GetMap", {
                         ver: j
                     }, function(k) {
                         if (!k) {
@@ -1497,7 +1497,7 @@
             },
             load: function(j) {
                 var k = i.get("sourceData_" + j).ver || "";
-                g.httpAsync("GET", top.$.rootUrl + "/LR_SystemModule/DataSource/GetMap", {
+                g.httpAsync("GET", top.$.rootUrl + "${request.contextPath}/admin/LR_SystemModule/DataSource/GetMap", {
                     code: j,
                     ver: k
                 }, function(l) {

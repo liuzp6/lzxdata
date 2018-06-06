@@ -10,6 +10,7 @@ package com.lzxuni.modules.system.entity;
 
 public class Tree {
 
+	private String parentId ;
 	private String icon;
 	private Boolean showcheck;
 	private Integer checkstate;
@@ -19,6 +20,14 @@ public class Tree {
 
 
 	/*方法区*/
+
+	public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
 
 	public String getIcon() {
 		return icon;
