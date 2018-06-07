@@ -4,7 +4,6 @@ package com.lzxuni.modules.system.service.impl;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.lzxuni.common.utils.UuidUtil;
 import com.lzxuni.modules.common.entity.PageParameter;
 import com.lzxuni.modules.system.entity.Role;
 import com.lzxuni.modules.system.mapper.RoleMapper;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,21 +41,16 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     public List<Role> queryList(Role role){
         return roleMapper.queryList(role);
     }
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void save(Role role) {
-        role.setId(UuidUtil.get32UUID());
-        role.setCreatetime(new Date());
-        this.insert(role);
-    }
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void update(Role role) {
-        updateById(role);
-    }
+
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteBatch(String[] roleIds) {
         deleteBatchIds(Arrays.asList(roleIds));
+    }
+
+    @Override
+    public List<String> queryUserIdsByRoleId(String id){
+        return roleMapper.queryUserIdsByRoleId(id);
     }
 }

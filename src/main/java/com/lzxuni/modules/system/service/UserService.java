@@ -70,4 +70,9 @@ public interface UserService extends IService<User> {
 
 
 	void updateState(Integer state, String userId);
+
+    /**
+     * 根据角色ID，查询系统用户
+     */
+    List<User> queryByRoleId(String roleId);
 }

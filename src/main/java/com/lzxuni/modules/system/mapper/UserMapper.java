@@ -32,4 +32,9 @@ public interface UserMapper extends BaseMapper<User> {
 	 * 根据用户名，查询系统用户
 	 */
 	User queryByUserName(String username);
+
+    /**
+     * 根据角色ID，查询系统用户
+     */
+    List<User> queryByRoleId(String roleId);
 }

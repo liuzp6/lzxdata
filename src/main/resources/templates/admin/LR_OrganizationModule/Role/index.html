@@ -1430,7 +1430,7 @@
                         b.layerForm({
                             id: "form",
                             title: "编辑角色",
-                            url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Role/Form.html",
+                            url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Role/insert_v.html",
                             width: 500,
                             height: 340,
                             callBack: function(e) {
@@ -1440,11 +1440,11 @@
                     }
                 });
                 a("#lr_delete").on("click", function() {
-                    var d = a("#girdtable").jfGridValue("F_RoleId");
+                    var d = a("#girdtable").jfGridValue("id");
                     if (b.checkrow(d)) {
                         b.layerConfirm("是否确认删除该项！", function(e) {
                             if (e) {
-                                b.deleteForm(top.$.rootUrl + "/LR_OrganizationModule/Role/DeleteForm", {
+                                b.deleteForm(top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Role/delete_o.html", {
                                     keyValue: d
                                 }, function() {
                                     refreshGirdData()
@@ -1454,13 +1454,13 @@
                     }
                 });
                 a("#lr_memberadd").on("click", function() {
-                    var d = a("#girdtable").jfGridValue("F_RoleId");
+                    var d = a("#girdtable").jfGridValue("id");
                     var e = b.clientdata.get(["userinfo"]);
                     if (b.checkrow(d)) {
                         b.layerForm({
                             id: "form",
                             title: "添加角色成员",
-                            url: top.$.rootUrl + "/LR_AuthorizeModule/UserRelation/SelectForm?objectId=" + d + "&companyId=" + e.F_CompanyId + "&departmentId=" + e.F_DepartmentId + "&category=1",
+                            url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Role/select_v.html?objectId=" + d + "&companyId=" + e.F_CompanyId + "&departmentId=" + e.F_DepartmentId + "&category=1",
                             width: 800,
                             height: 520,
                             callBack: function(f) {
@@ -1566,6 +1566,9 @@
                         }
                     }],
                     isPage: true,
+                    sord: "desc",
+                    sidx: "createtime",
+                    rows: 10,
                     reloadSelected: true,
                     mainId: "id"
                 });

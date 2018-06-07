@@ -113,4 +113,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 		this.update(user,
 				new EntityWrapper<User>().eq("user_id", userId));
 	}
+
+    @Override
+    public List<User> queryByRoleId(String roleId) {
+        return baseMapper.queryByRoleId(roleId);
+    }
 }

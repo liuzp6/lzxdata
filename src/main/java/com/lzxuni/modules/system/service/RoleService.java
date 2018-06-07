@@ -21,18 +21,14 @@ public interface RoleService extends IService<Role> {
 
     List<Role> queryList(Role role) throws Exception;
 
-    /**
-     * 保存用户
-     */
-    void save(Role role);
-
-    /**
-     * 修改用户
-     */
-    void update(Role role);
 
     /**
      * 删除用户
      */
     void deleteBatch(String[] roleIds);
+    /**
+     * 根据角色查询所属用户
+     * @param id  角色ID
+     */
+    List<String> queryUserIdsByRoleId(String id) throws Exception;
 }

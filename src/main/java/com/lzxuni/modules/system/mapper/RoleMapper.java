@@ -16,5 +16,11 @@ import java.util.List;
  **/
 @Mapper
 public interface RoleMapper extends BaseMapper<Role> {
+
     List<Role> queryList(Role role);
+    /**
+     * 根据角色查询所属用户
+     * @param id  角色ID
+     */
+    List<String> queryUserIdsByRoleId(String id);
 }

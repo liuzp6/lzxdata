@@ -25,5 +25,10 @@
     <select id="queryByUserName" resultType="com.lzxuni.modules.system.entity.User">
 		select * from sys_user where username = #{username}
 	</select>
+    <!-- 根据角色ID查询用户信息 -->
+    <select id="queryByRoleId" resultType="com.lzxuni.modules.system.entity.User">
+       select * from sys_user u
+            join sys_roleuser ru on u.user_id = ru.userid and ru.roleid = #{roleid}
+    </select>
 
 </mapper>

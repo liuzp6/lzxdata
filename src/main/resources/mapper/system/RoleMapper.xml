@@ -5,5 +5,9 @@
 	<select id="queryList" parameterType="com.lzxuni.modules.system.entity.Role" resultType="com.lzxuni.modules.system.entity.Role">
 		select * from sys_role
 	</select>
+    <!-- 根据角色查询所属用户 -->
+    <select id="queryUserIdsByRoleId" resultType="string">
+       select userid from sys_roleuser where roleid=#{id}
+    </select>
 
 </mapper>

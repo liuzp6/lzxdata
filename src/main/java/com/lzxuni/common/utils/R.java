@@ -38,15 +38,17 @@ public class R extends HashMap<String, Object> {
 		return r;
 	}
 	
-	public static R ok(Map<String, Object> map) {
-		R r = new R();
-		r.putAll(map);
-		return r;
-	}
+//	public static R ok(Map<String, Object> map) {
+//		R r = new R();
+//		r.putAll(map);
+//		return r;
+//	}
 	public static R ok(Object o) {
 		Map<String,Object> map = new HashMap();
 		map.put("data", o);
-		return R.ok(map);
+        R r = new R();
+		r.putAll(map);
+		return r;
 	}
 	
 	public static R ok() {
