@@ -69,6 +69,13 @@ public class User implements Serializable{
 	@TableField(exist=false)
 	private List<Post> postList ;
 
+	//部门名称
+    @TableField(exist=false)
+    private String deptName;
+    //公司名称
+    @TableField(exist=false)
+    private String companyName;
+
 	/*构造方法*/
 	public User(){}
 	public User(User user){}
@@ -282,8 +289,19 @@ public class User implements Serializable{
 		this.roleList = roleList;
 	}
 
+    public String getDeptName() {
+        return deptName;
+    }
 
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
 
+    public String getCompanyName() {
+        return companyName;
+    }
 
-
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 }

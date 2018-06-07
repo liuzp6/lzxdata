@@ -7,8 +7,12 @@ import com.lzxuni.common.utils.UuidUtil;
 import com.lzxuni.modules.common.controller.BaseController;
 import com.lzxuni.modules.common.entity.PageData;
 import com.lzxuni.modules.common.entity.PageParameter;
+import com.lzxuni.modules.system.entity.Company;
+import com.lzxuni.modules.system.entity.Dept;
 import com.lzxuni.modules.system.entity.Role;
 import com.lzxuni.modules.system.entity.User;
+import com.lzxuni.modules.system.service.CompanyService;
+import com.lzxuni.modules.system.service.DeptService;
 import com.lzxuni.modules.system.service.RoleService;
 import com.lzxuni.modules.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +42,10 @@ public class RoleController extends BaseController {
     private RoleService roleService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private DeptService deptService;
+    @Autowired
+    private CompanyService companyService;
 
     // 列表
     @RequestMapping("/index_v.html")
@@ -92,12 +100,29 @@ public class RoleController extends BaseController {
     //根据角色查询所属用户
     @RequestMapping("/getUser_o.html")
     public Object getUser_o(String objectId)throws Exception{
-        List<String> userIds = roleService.queryUserIdsByRoleId(objectId);
+        //获取当前角色下用户ID集合
+        List<String> userIdList = roleService.queryUserIdsByRoleId(objectId);
+        //获取当前角色下用户集合
         List<User> userInfoList = userService.queryByRoleId(objectId);
+        //把用户ID集合拼成“，”间隔字符串
+        String userIds = "";
+        for(int i=0 ; i<userIdList.size(); i++){
+            userIds += userIdList.get(i) + ",";
+        }
+        if(userIds != "" && userIds !=null ){
+            userIds = userIds.substring(0,userIds.length()-1);
+        }
+        //往用户集合中放入公司名称和部门名称
+        for(int i=0 ; i<userInfoList.size(); i++){
+            Dept dept = deptService.queryObject(userInfoList.get(i).getDeptId());
+            userInfoList.get(i).setDeptName(dept.getName());
+            Company company = companyService.queryObject(userInfoList.get(i).getCompanyId());
+            userInfoList.get(i).setCompanyName(company.getName());
+        }
+        //把所有信息放入map中返回
         Map<String,Object> map = new HashMap();
-        map.put("userids",userIds);
+        map.put("userIds",userIds);
         map.put("userInfoList",userInfoList);
-        Object o = new Object();
         return  R.ok(map);
     }
 }

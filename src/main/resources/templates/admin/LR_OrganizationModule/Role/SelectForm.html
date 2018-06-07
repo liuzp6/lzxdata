@@ -1371,10 +1371,6 @@
     <script src="/Content/jquery/plugin/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="/Content/jquery/plugin/jqprint/jquery.jqprint-0.3.js"></script>
     <script src="/Content/datepicker/WdatePicker.js"></script>
-    <!--[if lt IE 9]>
-    <script src="~/Content/bootstrap/html5shiv.min.js"></script>
-    <script src="~/Content/bootstrap/respond.min.js"></script>
-    <![endif]-->
     <script>
         function request(d) { for (var c = location.search.slice(1).split("&"), a = 0; a < c.length; a++) { var b = c[a].split("="); if (b[0] == d) if ("undefined" == unescape(b[1])) break; else return unescape(b[1]) } return "" };
     </script>
@@ -1626,11 +1622,11 @@
                 if (q.F_Gender == 0) {
                     p = "UserCard01.png"
                 }
-                if (h.indexOf(q.F_UserId) != -1) {
+                if (h.indexOf(q.userId) != -1) {
                     n = "active"
                 }
                 var m = "";
-                m += '<div class="card-box ' + n + '" data-value="' + q.F_UserId + '" >';
+                m += '<div class="card-box ' + n + '" data-value="' + q.userId + '" >';
                 m += '    <div class="card-box-img">';
                 m += '        <img src="' + top.$.rootUrl + "/Content/images/" + p + '" />';
                 m += "    </div>";
@@ -1669,7 +1665,7 @@
 
         function b(l) {
             var j = a("#selected_user_list");
-            var k = '<div class="user-selected-box" data-value="' + l.F_UserId + '" >';
+            var k = '<div class="user-selected-box" data-value="' + l.userId + '" >';
             k += '<p><span data-id="' + l.F_CompanyId + '"></span></p>';
             k += '<p><span data-id="' + l.F_DepartmentId + '"></span>【' + l.F_RealName + "】</p>";
             k += '<span class="user-reomve" title="移除选中人员"></span>';
@@ -1796,25 +1792,25 @@
                             if (h.indexOf(q) == -1) {
                                 h.push(q)
                             }
-                            var k = '<div class="user-selected-box" data-value="' + o.F_UserId + '" >';
-                            k += '<p><span data-id="' + o.F_CompanyId + '"></span></p>';
-                            k += '<p><span data-id="' + o.F_DepartmentId + '"></span>【' + o.F_RealName + "】</p>";
+                            var k = '<div class="user-selected-box" data-value="' + o.userId + '" >';
+                            k += '<p><span data-id="' + o.companyId + '">' + o.companyName + '</span></p>';
+                            k += '<p><span data-id="' + o.deptId + '">' + o.deptName + '</span>【' + o.realname + "】</p>";
                             k += '<span class="user-reomve" title="移除选中人员"></span>';
                             k += "</div>";
                             j.append(a(k));
-                            c.clientdata.getAsync("department", {
-                                key: o.F_DepartmentId,
-                                callback: function(l, s) {
-                                    j.find('[data-id="' + s.key + '"]').text(l.name)
-                                }
-                            });
-                            c.clientdata.getAsync("company", {
-                                key: o.F_CompanyId,
-                                callback: function(l, s) {
-                                    j.find('[data-id="' + s.key + '"]').text(l.name)
-                                }
-                            });
-                            a("#user_list").find('[data-value="' + o.F_UserId + '"]').addClass("active")
+//                            c.clientdata.getAsync("department", {
+//                                key: o.deptId,
+//                                callback: function(l, s) {
+//                                    j.find('[data-id="' + s.key + '"]').text(l.name)
+//                                }
+//                            });
+//                            c.clientdata.getAsync("company", {
+//                                key: o.companyId,
+//                                callback: function(l, s) {
+//                                    j.find('[data-id="' + s.key + '"]').text(l.name)
+//                                }
+//                            });
+                            a("#user_list").find('[data-value="' + o.userId + '"]').addClass("active")
                         }
                     }
                 })
