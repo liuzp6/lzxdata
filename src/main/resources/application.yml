@@ -16,11 +16,9 @@ spring:
             max-request-size: 100MB
             enabled: true
     thymeleaf:
-#      prefix: classpath:/templates/
       suffix: .thtml
 #      mode: HTML5
 #      encoding: UTF-8;charset=<encoding> is added
-#      content-type: text/html
       cache: false
     freemarker:
           suffix: .html
@@ -49,6 +47,11 @@ spring:
           maxIdle: 30 #最大空闲连接数
           minIdle: 5 #最小空闲连接数W
           maxait: 3000  #获取连接最大等待时间 ms  #default -1
+lzxuni:
+    redis:
+        open: false  # 是否开启redis缓存  true开启   false关闭
+    shiro:
+        redis: false # true表示shiro session存到redis里，需要开启redis，才会生效【分布式场景】
 #mybatis
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*.xml

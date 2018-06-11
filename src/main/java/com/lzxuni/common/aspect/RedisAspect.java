@@ -29,7 +29,7 @@ public class RedisAspect {
         Object result = null;
         if(open){
             try{
-                result = point.proceed();
+				result = point.proceed();
             }catch (Exception e){
                 logger.error("redis error", e);
                 throw new RRException("Redis服务异常");
