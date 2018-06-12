@@ -75,4 +75,9 @@ public interface UserService extends IService<User> {
      * 根据角色ID，查询系统用户
      */
     List<User> queryByRoleId(String roleId);
+
+    /**
+     * 查询系统用户,不分页
+     */
+    List<User> queryList(User user);
 }

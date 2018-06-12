@@ -4,8 +4,16 @@
 <mapper namespace="com.lzxuni.modules.system.mapper.UserMapper">
 
 	<!-- 查询用户的所有权限 -->
-	<select id="queryList" resultType="com.lzxuni.modules.system.entity.User">
+	<select id="queryList"  parameterType="com.lzxuni.modules.system.entity.User" resultType="com.lzxuni.modules.system.entity.User">
 		select * from sys_user
+        <where>
+            <if test="deptId !=null and deptId !=''">
+                and dept_id = #{deptId}
+            </if>
+            <if test="companyId !=null and companyId !=''">
+                and company_id = #{companyId}
+            </if>
+        </where>
 	</select>
     <!-- 查询用户的所有权限 -->
     <select id="queryAllPerms" resultType="string">
@@ -28,7 +36,7 @@
     <!-- 根据角色ID查询用户信息 -->
     <select id="queryByRoleId" resultType="com.lzxuni.modules.system.entity.User">
        select * from sys_user u
-            join sys_roleuser ru on u.user_id = ru.userid and ru.roleid = #{roleid}
+            join sys_roleuser ru on u.user_id = ru.user_id and ru.role_id = #{roleid}
     </select>
 
 </mapper>

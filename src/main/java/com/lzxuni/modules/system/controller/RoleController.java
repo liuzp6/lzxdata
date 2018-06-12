@@ -7,14 +7,8 @@ import com.lzxuni.common.utils.UuidUtil;
 import com.lzxuni.modules.common.controller.BaseController;
 import com.lzxuni.modules.common.entity.PageData;
 import com.lzxuni.modules.common.entity.PageParameter;
-import com.lzxuni.modules.system.entity.Company;
-import com.lzxuni.modules.system.entity.Dept;
-import com.lzxuni.modules.system.entity.Role;
-import com.lzxuni.modules.system.entity.User;
-import com.lzxuni.modules.system.service.CompanyService;
-import com.lzxuni.modules.system.service.DeptService;
-import com.lzxuni.modules.system.service.RoleService;
-import com.lzxuni.modules.system.service.UserService;
+import com.lzxuni.modules.system.entity.*;
+import com.lzxuni.modules.system.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,6 +34,8 @@ public class RoleController extends BaseController {
 
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private RoleUserService roleUserService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -97,13 +93,11 @@ public class RoleController extends BaseController {
         ModelAndView mv = new ModelAndView("/admin/LR_OrganizationModule/Role/SelectForm");
         return mv;
     }
-    //根据角色查询所属用户
+    //根据角色ID查询所属用户
     @RequestMapping("/getUser_o.html")
     public Object getUser_o(String objectId)throws Exception{
         //获取当前角色下用户ID集合
         List<String> userIdList = roleService.queryUserIdsByRoleId(objectId);
-        //获取当前角色下用户集合
-        List<User> userInfoList = userService.queryByRoleId(objectId);
         //把用户ID集合拼成“，”间隔字符串
         String userIds = "";
         for(int i=0 ; i<userIdList.size(); i++){
@@ -112,17 +106,50 @@ public class RoleController extends BaseController {
         if(userIds != "" && userIds !=null ){
             userIds = userIds.substring(0,userIds.length()-1);
         }
-        //往用户集合中放入公司名称和部门名称
-        for(int i=0 ; i<userInfoList.size(); i++){
-            Dept dept = deptService.queryObject(userInfoList.get(i).getDeptId());
-            userInfoList.get(i).setDeptName(dept.getName());
-            Company company = companyService.queryObject(userInfoList.get(i).getCompanyId());
-            userInfoList.get(i).setCompanyName(company.getName());
-        }
+        //获取当前角色下用户集合并往用户集合中放入公司名称和部门名称
+        List<User> userInfoList = getUserList(userService.queryByRoleId(objectId));
         //把所有信息放入map中返回
         Map<String,Object> map = new HashMap();
         map.put("userIds",userIds);
         map.put("userInfoList",userInfoList);
         return  R.ok(map);
+    }
+    //根据公司ID和部门ID查询所属用户
+    @RequestMapping("/getUser2_o.html")
+    public Object getUser2_o(User user)throws Exception{
+        //往用户集合中放入公司名称和部门名称
+        List<User> userList = getUserList(userService.queryList(user));
+        return  R.ok(userList);
+    }
+    //往往用户集合中放入公司名称和部门名称的公共方法
+    public List<User> getUserList(List<User> userList)throws Exception{
+        for(int i=0 ; i<userList.size(); i++){
+            Dept dept = deptService.queryObject(userList.get(i).getDeptId());
+            userList.get(i).setDeptName(dept.getName());
+            Company company = companyService.queryObject(userList.get(i).getCompanyId());
+            userList.get(i).setCompanyName(company.getName());
+        }
+        return userList;
+    }
+    // 添加人员处理
+    @RequestMapping("/form_o")
+    public Object form_o(String objectId,String userIds) throws Exception {
+        roleUserService.deleteUserRoleByRoleId(objectId);
+        String[] userid;
+        userid = userIds.split(",");
+        for(int i=0;i<userid.length;i++){
+            RoleUser roleUser = new RoleUser();
+            roleUser.setRoleId(objectId);
+            roleUser.setUserId(userid[i]);
+            roleUserService.insert(roleUser);
+            System.out.println(roleUser);
+        }
+        return R.ok("修改成功");
+    }
+    // 查看角色成员
+    @RequestMapping("/form_v")
+    public ModelAndView form_v() throws Exception{
+        ModelAndView mv = new ModelAndView("/admin/LR_OrganizationModule/Role/LookForm");
+        return mv;
     }
 }

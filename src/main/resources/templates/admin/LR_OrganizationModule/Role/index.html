@@ -1470,12 +1470,12 @@
                     }
                 });
                 a("#lr_memberlook").on("click", function() {
-                    var d = a("#girdtable").jfGridValue("F_RoleId");
+                    var d = a("#girdtable").jfGridValue("id");
                     if (b.checkrow(d)) {
                         b.layerForm({
                             id: "form",
                             title: "查看角色成员",
-                            url: top.$.rootUrl + "/LR_AuthorizeModule/UserRelation/LookForm?objectId=" + d,
+                            url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Role/form_v?objectId=" + d,
                             width: 800,
                             height: 520,
                             btn: null

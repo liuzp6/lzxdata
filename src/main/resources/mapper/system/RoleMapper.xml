@@ -7,7 +7,8 @@
 	</select>
     <!-- 根据角色查询所属用户 -->
     <select id="queryUserIdsByRoleId" resultType="string">
-       select userid from sys_roleuser where roleid=#{id}
+       select user_id from sys_roleuser where role_id=#{id}
     </select>
+
 
 </mapper>

@@ -118,4 +118,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public List<User> queryByRoleId(String roleId) {
         return baseMapper.queryByRoleId(roleId);
     }
+
+    @Override
+    public List<User> queryList(User user) {
+        return baseMapper.queryList(user);
+    }
 }
