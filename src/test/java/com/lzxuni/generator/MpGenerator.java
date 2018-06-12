@@ -22,9 +22,9 @@ public class MpGenerator {
 
 	@Test
 	public void generateCode() {
-		String packageName = "com.lzxuni";
+		String packageName = "com.lzxuni.modules.system";
 		boolean serviceNameStartWithI = false;//user -> UserService, 设置成true: user -> IUserService
-		generateByTables(serviceNameStartWithI, packageName, "base_dataitem");
+		generateByTables(serviceNameStartWithI, packageName, "base_dataitem","base_dataitem_detail");
 	}
 
 	private void generateByTables(boolean serviceNameStartWithI, String packageName, String... tableNames) {
@@ -44,7 +44,7 @@ public class MpGenerator {
 				.setNaming(NamingStrategy.underline_to_camel)
 				.setInclude(tableNames);//修改替换成你需要的表名，多个表名传数组
 		config.setActiveRecord(false)
-				.setAuthor("K神带你飞")
+				.setAuthor("孙志强")
 				.setOutputDir("d:\\codeGen")
 				.setFileOverride(true);
 		if (!serviceNameStartWithI) {
