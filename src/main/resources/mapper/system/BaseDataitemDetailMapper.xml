@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzxuni.modules.system.mapper.BaseDataitemDetailMapper">
+
+    <!-- 根据id查询 -->
+    <select id="queryListByParentId" parameterType="java.lang.String" resultType="com.lzxuni.modules.system.entity.BaseDataitemDetail">
+		select * from base_dataitem_detail where parent_id=#{parentId} order by create_time  desc
+	</select>
+    <!-- 根据id查询 -->
+    <select id="queryListByItemId" parameterType="java.lang.String" resultType="com.lzxuni.modules.system.entity.BaseDataitemDetail">
+		select * from base_dataitem_detail where item_id=#{itemId} order by create_time  desc
+	</select>
+
+</mapper>

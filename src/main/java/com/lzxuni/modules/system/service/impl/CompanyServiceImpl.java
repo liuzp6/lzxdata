@@ -24,8 +24,6 @@ public class CompanyServiceImpl implements CompanyService {
 	@Autowired
 	private CompanyMapper companyMapper;
 
-	private Integer totle ;
-
 	//第一种递归读取公司信息，为了ztree
 	@Override
 	public List<Company> getList(List<Company> ztreeList, String parentId) throws Exception {
