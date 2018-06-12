@@ -1,6 +1,7 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 /src/main/resources/rebel.xml
+/src/test/java/com/lzxuni/generator/*
 /logs/
 *.log
 ### STS ###
@@ -17,11 +18,3 @@
 *.iws
 *.iml
 *.ipr
-
-### NetBeans ###
-/nbproject/private/
-/build/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
