@@ -1,5 +1,7 @@
 package com.lzxuni.modules.system.entity;
 
+import com.baomidou.mybatisplus.annotations.TableField;
+
 /**
  * 〈一句话功能简述〉<br>
  *
@@ -12,10 +14,15 @@ public class Tree {
 
 	private String parentId ;
 	private String icon;
+    @TableField(exist=false)
 	private Boolean showcheck;
+    @TableField(exist=false)
 	private Integer checkstate;
+    @TableField(exist=false)
 	private Boolean hasChildren;
+    @TableField(exist=false)
 	private Boolean isexpand;
+    @TableField(exist=false)
 	private Boolean complete;
 
 

@@ -1,5 +1,10 @@
 package com.lzxuni.modules.system.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +16,9 @@ import java.util.List;
  * @time 2016年11月4日 下午3:08:41
  * @version 1.0
  **/
-public class Menu {
+@TableName("sys_menu")
+public class Menu extends Tree{
+    @TableId
 	private String id;
 	private String parentId;
 	private String type ;
@@ -22,10 +29,24 @@ public class Menu {
 	private String percode;
 	private String icon;
 	private String isLeaf;
-	private Date createTime;
+    @JSONField(format="yyyy-MM-dd")
+	private Date createtime;
 	// 控制菜单
-	private List<Menu> menuList;
-	public String getId() {
+//	private List<Menu> menuList;
+    @TableField(exist=false)
+	private List<Menu> childNodes;
+    @TableField(exist=false)
+    private String text ; //树形菜单需要
+    @Override
+    public Boolean getHasChildren() {
+        if(getChildNodes()!=null && getChildNodes().size()>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public String getId() {
 		return id;
 	}
 	public void setId(String id) {
@@ -85,28 +106,40 @@ public class Menu {
 	public void setIsLeaf(String isLeaf) {
 		this.isLeaf = isLeaf;
 	}
-	public Date getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-	public List<Menu> getMenuList() {
-		return menuList;
-	}
-	public void setMenuList(List<Menu> menuList) {
-		this.menuList = menuList;
-	}
-	
-	@Override
+
+    public Date getCreatetime() {
+        return createtime;
+    }
+
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
+    }
+
+    public List<Menu> getChildNodes() {
+        return childNodes;
+    }
+
+    public void setChildNodes(List<Menu> childNodes) {
+        this.childNodes = childNodes;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    @Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((createTime == null) ? 0 : createTime.hashCode());
+		result = prime * result + ((createtime == null) ? 0 : createtime.hashCode());
 		result = prime * result + ((icon == null) ? 0 : icon.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((isLeaf == null) ? 0 : isLeaf.hashCode());
-		result = prime * result + ((menuList == null) ? 0 : menuList.hashCode());
+		result = prime * result + ((childNodes == null) ? 0 : childNodes.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((parentId == null) ? 0 : parentId.hashCode());
 		result = prime * result + ((percode == null) ? 0 : percode.hashCode());
@@ -125,10 +158,10 @@ public class Menu {
 		if (getClass() != obj.getClass())
 			return false;
 		Menu other = (Menu) obj;
-		if (createTime == null) {
-			if (other.createTime != null)
+		if (createtime == null) {
+			if (other.createtime != null)
 				return false;
-		} else if (!createTime.equals(other.createTime))
+		} else if (!createtime.equals(other.createtime))
 			return false;
 		if (icon == null) {
 			if (other.icon != null)
@@ -145,10 +178,10 @@ public class Menu {
 				return false;
 		} else if (!isLeaf.equals(other.isLeaf))
 			return false;
-		if (menuList == null) {
-			if (other.menuList != null)
+		if (childNodes == null) {
+			if (other.childNodes != null)
 				return false;
-		} else if (!menuList.equals(other.menuList))
+		} else if (!childNodes.equals(other.childNodes))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -191,7 +224,7 @@ public class Menu {
 	public String toString() {
 		return "Menu [id=" + id + ", parentId=" + parentId + ", type=" + type + ", style=" + style + ", name=" + name
 				+ ",  sortNumber=" + sortNumber + ", url=" + url + ", percode=" + percode
-				+ ", icon=" + icon + ", isLeaf=" + isLeaf + ", createTime=" + createTime + ", menuList=" + menuList
+				+ ", icon=" + icon + ", isLeaf=" + isLeaf + ", createtime=" + createtime + ", childNodes=" + childNodes
 				+ "]";
 	}
 }

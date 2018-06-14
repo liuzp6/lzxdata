@@ -152,4 +152,10 @@ public class RoleController extends BaseController {
         ModelAndView mv = new ModelAndView("/admin/LR_OrganizationModule/Role/LookForm");
         return mv;
     }
+    // 功能授权页面
+    @RequestMapping("/AuthorizeForm")
+    public ModelAndView AuthorizeForm() throws Exception{
+        ModelAndView mv = new ModelAndView("/admin/LR_OrganizationModule/Role/AuthorizeForm");
+        return mv;
+    }
 }

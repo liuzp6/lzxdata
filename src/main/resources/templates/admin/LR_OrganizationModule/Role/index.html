@@ -1483,65 +1483,65 @@
                     }
                 });
                 a("#lr_authorize").on("click", function() {
-                    var d = a("#girdtable").jfGridValue("F_RoleId");
+                    var d = a("#girdtable").jfGridValue("id");
                     selectedRow = a("#girdtable").jfGridGet("rowdata");
                     if (b.checkrow(d)) {
                         b.layerForm({
                             id: "authorizeForm",
                             title: "功能授权 - " + selectedRow.F_FullName,
-                            url: top.$.rootUrl + "/LR_AuthorizeModule/Authorize/Form?objectId=" + d + "&objectType=1",
+                            url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Role/AuthorizeForm?objectId=" + d + "&objectType=1",
                             width: 550,
                             height: 690,
                             btn: null
                         })
                     }
                 });
-                a("#lr_dataauthorize").on("click", function() {
-                    var d = a("#girdtable").jfGridValue("F_RoleId");
-                    selectedRow = a("#girdtable").jfGridGet("rowdata");
-                    if (b.checkrow(d)) {
-                        b.layerForm({
-                            id: "dataAuthorizeForm",
-                            title: "数据授权 - " + selectedRow.F_FullName,
-                            url: top.$.rootUrl + "/LR_AuthorizeModule/DataAuthorize/Index?objectId=" + d + "&objectType=1",
-                            width: 1100,
-                            height: 700,
-                            maxmin: true,
-                            btn: null
-                        })
-                    }
-                });
-                a("#lr_ipfilter").on("click", function() {
-                    var d = a("#girdtable").jfGridValue("F_RoleId");
-                    selectedRow = a("#girdtable").jfGridGet("rowdata");
-                    if (b.checkrow(d)) {
-                        b.layerForm({
-                            id: "filterIPIndex",
-                            title: "TCP/IP 地址访问限制 - " + selectedRow.F_FullName,
-                            url: top.$.rootUrl + "/LR_AuthorizeModule/FilterIP/Index?objectId=" + d + "&objectType=Role",
-                            width: 600,
-                            height: 400,
-                            btn: null,
-                            callBack: function(e) {}
-                        })
-                    }
-                });
-                a("#lr_timefilter").on("click", function() {
-                    var d = a("#girdtable").jfGridValue("F_RoleId");
-                    selectedRow = a("#girdtable").jfGridGet("rowdata");
-                    if (b.checkrow(d)) {
-                        b.layerForm({
-                            id: "filterTimeForm",
-                            title: "时段访问过滤 - " + selectedRow.F_FullName,
-                            url: top.$.rootUrl + "/LR_AuthorizeModule/FilterTime/Form?objectId=" + d + "&objectType=Role",
-                            width: 610,
-                            height: 470,
-                            callBack: function(e) {
-                                return top[e].acceptClick()
-                            }
-                        })
-                    }
-                })
+//                a("#lr_dataauthorize").on("click", function() {
+//                    var d = a("#girdtable").jfGridValue("F_RoleId");
+//                    selectedRow = a("#girdtable").jfGridGet("rowdata");
+//                    if (b.checkrow(d)) {
+//                        b.layerForm({
+//                            id: "dataAuthorizeForm",
+//                            title: "数据授权 - " + selectedRow.F_FullName,
+//                            url: top.$.rootUrl + "/LR_AuthorizeModule/DataAuthorize/Index?objectId=" + d + "&objectType=1",
+//                            width: 1100,
+//                            height: 700,
+//                            maxmin: true,
+//                            btn: null
+//                        })
+//                    }
+//                });
+//                a("#lr_ipfilter").on("click", function() {
+//                    var d = a("#girdtable").jfGridValue("F_RoleId");
+//                    selectedRow = a("#girdtable").jfGridGet("rowdata");
+//                    if (b.checkrow(d)) {
+//                        b.layerForm({
+//                            id: "filterIPIndex",
+//                            title: "TCP/IP 地址访问限制 - " + selectedRow.F_FullName,
+//                            url: top.$.rootUrl + "/LR_AuthorizeModule/FilterIP/Index?objectId=" + d + "&objectType=Role",
+//                            width: 600,
+//                            height: 400,
+//                            btn: null,
+//                            callBack: function(e) {}
+//                        })
+//                    }
+//                });
+//                a("#lr_timefilter").on("click", function() {
+//                    var d = a("#girdtable").jfGridValue("F_RoleId");
+//                    selectedRow = a("#girdtable").jfGridGet("rowdata");
+//                    if (b.checkrow(d)) {
+//                        b.layerForm({
+//                            id: "filterTimeForm",
+//                            title: "时段访问过滤 - " + selectedRow.F_FullName,
+//                            url: top.$.rootUrl + "/LR_AuthorizeModule/FilterTime/Form?objectId=" + d + "&objectType=Role",
+//                            width: 610,
+//                            height: 470,
+//                            callBack: function(e) {
+//                                return top[e].acceptClick()
+//                            }
+//                        })
+//                    }
+//                })
             },
             initGird: function() {
                 a("#girdtable").jfGrid({
