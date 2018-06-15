@@ -7,6 +7,7 @@ import com.lzxuni.modules.system.entity.Post;
 import com.lzxuni.modules.system.mapper.CompanyMapper;
 import com.lzxuni.modules.system.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

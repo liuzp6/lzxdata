@@ -81,6 +81,41 @@ public class User implements Serializable{
 	public User(User user){}
 	/* set,get方法区 */
 
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("User{");
+		sb.append("userId='").append(userId).append('\'');
+		sb.append(", companyId='").append(companyId).append('\'');
+		sb.append(", username='").append(username).append('\'');
+		sb.append(", realname='").append(realname).append('\'');
+		sb.append(", state=").append(state);
+		sb.append(", salt='").append(salt).append('\'');
+		sb.append(", password='").append(password).append('\'');
+		sb.append(", sex='").append(sex).append('\'');
+		sb.append(", registerTime=").append(registerTime);
+		sb.append(", registerIp='").append(registerIp).append('\'');
+		sb.append(", lastLoginTime=").append(lastLoginTime);
+		sb.append(", lastLoginIp='").append(lastLoginIp).append('\'');
+		sb.append(", loginCount=").append(loginCount);
+		sb.append(", errorTime=").append(errorTime);
+		sb.append(", errorCount=").append(errorCount);
+		sb.append(", errorIp='").append(errorIp).append('\'');
+		sb.append(", isAdmin='").append(isAdmin).append('\'');
+		sb.append(", encode='").append(encode).append('\'');
+		sb.append(", mobile='").append(mobile).append('\'');
+		sb.append(", qq='").append(qq).append('\'');
+		sb.append(", wechat='").append(wechat).append('\'');
+		sb.append(", company=").append(company);
+		sb.append(", deptId='").append(deptId).append('\'');
+		sb.append(", deptList=").append(deptList);
+		sb.append(", roleList=").append(roleList);
+		sb.append(", postList=").append(postList);
+		sb.append(", deptName='").append(deptName).append('\'');
+		sb.append(", companyName='").append(companyName).append('\'');
+		sb.append('}');
+		return sb.toString();
+	}
+
 	public Integer getState() {
 		return state;
 	}

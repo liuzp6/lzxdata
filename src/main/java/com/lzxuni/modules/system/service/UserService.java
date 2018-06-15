@@ -80,4 +80,12 @@ public interface UserService extends IService<User> {
      * 查询系统用户,不分页
      */
     List<User> queryList(User user);
+	// 登陆成功，更改用户登陆信息
+	void updateSuccess(String lastLoginIp, User user);
+
+	// 登陆失败，更改登录信息
+	void updateError(String errorIp,  User user);
+
+	//处理登陆
+	Integer errorRemaining(String username) ;
 }

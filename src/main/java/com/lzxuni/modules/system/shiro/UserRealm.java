@@ -29,6 +29,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -43,6 +44,7 @@ import java.util.*;
 @Component
 public class UserRealm extends AuthorizingRealm {
     @Autowired
+	@Lazy
     private UserMapper userMapper;
 //    @Autowired
 //    private SysMenuDao sysMenuDao;
@@ -115,6 +117,7 @@ public class UserRealm extends AuthorizingRealm {
 		HashedCredentialsMatcher shaCredentialsMatcher = new HashedCredentialsMatcher();
 		shaCredentialsMatcher.setHashAlgorithmName(ShiroUtils.hashAlgorithmName);
 		shaCredentialsMatcher.setHashIterations(ShiroUtils.hashIterations);
+		shaCredentialsMatcher.setStoredCredentialsHexEncoded(true);
 		super.setCredentialsMatcher(shaCredentialsMatcher);
 	}
 

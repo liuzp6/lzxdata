@@ -72,7 +72,7 @@ public class ShiroUtils {
 		SecurityUtils.getSubject().logout();
 	}
 	
-	public static String getKaptcha(String key) {
+	public static String getKaptcha(String key) throws RRException{
 		Object kaptcha = getSessionAttribute(key);
 		if(kaptcha == null){
 			throw new RRException("验证码已失效");

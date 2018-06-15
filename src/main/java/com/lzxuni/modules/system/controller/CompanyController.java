@@ -42,18 +42,15 @@ public class CompanyController extends BaseController {
 	// 根据parentId查找
 	@RequestMapping("/GetTree.html")
 	public Object queryListByParentId(String parentId) throws Exception {
-		List<Company> companyList = companyService.getTree(parentId);
-		return R.ok(companyList);
-//		ModelAndView mv = new ModelAndView("/admin/LR_OrganizationModule/Company/GetTree");
-//		return mv;
+//		List<Company> companyList = companyService.getTree(parentId);
+//		return R.ok(companyList);
+		return R.ok(null);
 	}
 
 	// 添加展示页面
 	@RequestMapping("/Form.html")
 	public ModelAndView insert(String parentId) throws Exception {
 		ModelAndView mv = new ModelAndView("/admin/LR_OrganizationModule/Company/Form");
-		Company deptParent = companyService.queryObject(parentId);
-		mv.addObject("deptParent" ,deptParent) ;
 		return mv;
 	}
 	@RequestMapping("/SaveForm.html")

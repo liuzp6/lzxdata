@@ -26,6 +26,7 @@ public class BaseDataitemServiceImpl extends ServiceImpl<BaseDataitemMapper, Bas
 			getList(ztreeList, baseDataitem.getItemId());
 			ztreeList.add(baseDataitem) ;
 		}
+		System.out.println("没走缓存=============================");
 		return ztreeList;
 	}
 

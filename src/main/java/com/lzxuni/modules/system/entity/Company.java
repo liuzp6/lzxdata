@@ -2,6 +2,7 @@ package com.lzxuni.modules.system.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * @Modified BY
  **/
 
-public class Company extends Tree{
+public class Company extends Tree implements Serializable {
 
 	private Integer lft ;  //jqgrid用
 	private Integer rgt ;//jqgrid用
@@ -27,7 +28,6 @@ public class Company extends Tree{
 	private String checked ;//树形菜单用
 
 	private String id ;
-	private String parentId ;
 
 	private String isLeaf ;
 	private Date createTime ;
@@ -157,14 +157,6 @@ public class Company extends Tree{
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
 	}
 
 	public String getIsLeaf() {

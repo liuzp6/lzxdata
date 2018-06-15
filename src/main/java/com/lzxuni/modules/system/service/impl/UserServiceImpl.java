@@ -6,11 +6,13 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lzxuni.common.utils.UuidUtil;
 import com.lzxuni.modules.common.entity.PageParameter;
+import com.lzxuni.modules.system.entity.SysLogEntity;
 import com.lzxuni.modules.system.entity.User;
 import com.lzxuni.modules.system.mapper.UserMapper;
 import com.lzxuni.modules.system.service.UserService;
 import com.lzxuni.modules.system.shiro.ShiroUtils;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -123,4 +125,76 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public List<User> queryList(User user) {
         return baseMapper.queryList(user);
     }
+
+
+	@Override
+	public void updateSuccess(String lastLoginIp, User user) {
+		User user1 = new User();
+		user1.setLastLoginTime(new Date());
+		user1.setLastLoginIp(lastLoginIp);
+		user1.setLoginCount(user.getLoginCount()+1);
+		user1.setErrorCount(0);
+		this.update(user1,
+				new EntityWrapper<User>().eq("user_id", user.getUserId()));
+		insertLog(user, "success");
+	}
+
+	@Override
+	public void updateError(String errorIp, User user) {
+		User user1 = new User();
+		user1.setErrorTime(new Date());
+		user1.setErrorIp(errorIp);
+		user1.setErrorCount(user.getErrorCount()+1);
+		this.update(user1,
+				new EntityWrapper<User>().eq("user_id", user.getUserId()));
+		insertLog(user, "fail");
+	}
+
+	private void insertLog(User user, String type) {
+		SysLogEntity sysLog = new SysLogEntity();
+		sysLog.setId(UuidUtil.get32UUID());
+		sysLog.setCreateTime(user.getLastLoginTime());
+		sysLog.setUrl("/admin/login.html");
+		//用户名
+		String username = user.getUsername();
+		sysLog.setUsername(username);
+		sysLog.setId(UuidUtil.get32UUID());
+		//请求的方法名
+		sysLog.setMethod(UserServiceImpl.class.getName() + "." + Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		sysLog.setIp(user.getLastLoginIp());
+		sysLog.setFunction("系统登陆");
+		sysLog.setOperationType("登陆");
+		if (type.equals("success")) {
+			sysLog.setOperationResult("成功");
+			sysLog.setOperationContent("登陆成功");
+		} else {
+			sysLog.setOperationResult("失败");
+			sysLog.setOperationContent("登陆失败");
+		}
+//		sysLog.setTime(50l);
+//		sysLogService.insert(sysLog);
+	}
+
+
+	//处理登陆
+	@Override
+	public Integer errorRemaining(String username) {
+		if (StringUtils.isBlank(username)) {
+			return null;
+		}
+		User user = queryByUserName(username);
+		if (user == null) {
+			return null;
+		}
+		long now = System.currentTimeMillis();
+		int maxErrorTimes = 3;//默认3次
+		int maxErrorInterval = 30 * 60 * 1000;//默认30分钟
+		Integer errorCount = user.getErrorCount();
+		Date errorTime = user.getErrorTime();
+		if (errorCount <= 0 || errorTime == null
+				|| errorTime.getTime() + maxErrorInterval < now) {
+			return maxErrorTimes;
+		}
+		return maxErrorTimes - errorCount;
+	}
 }

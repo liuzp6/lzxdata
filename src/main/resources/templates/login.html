@@ -29,24 +29,25 @@
             <div class="lr-input-item ">
                 <label class="name-label"></label>
                 <input id="username" name="username" type="text" placeholder="手机号/账户">
+                <input id="rememberMe" name="rememberMe" type="hidden" value="on">
             </div>
             <div class="lr-input-item">
                 <label class="pwd-label"></label>
                 <input id="password" name="password" type="password" placeholder="密码">
             </div>
-            <!--<div class="lr-input-item" style="display:none;">-->
-                <!--<label class="code-label"></label>-->
-                <!--<input id="lr_verifycode_input" maxlength="4" type="text" placeholder="图片验证码">-->
-                <!--<div style="height: 36px;width: 100px;position: absolute;right: 0px;top: 0px;">-->
-                    <!--<img id="lr_verifycode_img" src="/Login/VerifyCode" alt="点击切换验证码" title="点击切换验证码" />-->
-                <!--</div>-->
-            <!--</div>-->
+            <div class="lr-input-item" style="display:none;"><!--style="display:none;"-->
+                <label class="code-label"></label>
+                <input id="lr_verifycode_input" maxlength="5" type="text" placeholder="图片验证码">
+                <div style="height: 36px;width: 100px;position: absolute;right: 0px;top: 0px;">
+                    <img id="lr_verifycode_img" src="${request.contextPath}/captcha.jpg" alt="点击切换验证码" title="点击切换验证码" />
+                </div>
+            </div>
             <button id="lr_login_btn" type="button"><span>登录</span></button>
             <div class="lr-login-links">
                 <a href="http://www.learun.cn/Home/Register" target="_blank" style="margin-left:20px;">注册账号</a>
                 <a href="#" onclick="alert('请联系管理员:13671911811')">忘记密码</a>
             </div>
-            <div class="lr-version">当前版本 V6.1.6.2</div>
+            <div class="lr-version">当前版本 V6.1.6.3</div>
         </div>
     </div>
     <div class="lr-layout-side right">
@@ -97,7 +98,7 @@
             });
             a("#lr_verifycode_img").click(function() {
                 a("#lr_verifycode_input").val("");
-                a("#lr_verifycode_img").attr("src", a.rootUrl + "/Login/VerifyCode?time=" + Math.random())
+                a("#lr_verifycode_img").attr("src", a.rootUrl + "${request.contextPath}/captcha.jpg?time=" + Math.random())
             });
             var c = a("#errornum").val();
             if (c >= 3) {
@@ -144,7 +145,8 @@
                 data: {
                     username: g,
                     password: f,
-                    verifycode: h
+                    rememberMe:$("#rememberMe").val(),
+                    verifyCode: h
                 },
                 type: "post",
                 dataType: "json",
@@ -155,11 +157,14 @@
                         if (i.code == 400) {
                             b.logining(false);
                             b.tip(i.info, true);
-                            a("#errornum").val(i.data);
-                            if (i.data >= 3) {
-                                a("#lr_verifycode_input").parent().show();
-                                a("#lr_verifycode_img").trigger("click")
-                            }
+                            // a("#errornum").val(i.data);
+                            // if (i.data >= 3) {
+                            //     a("#lr_verifycode_input").parent().show();
+                            //     a("#lr_verifycode_img").trigger("click")
+                            // }
+
+                            a("#lr_verifycode_input").parent().show();
+                            a("#lr_verifycode_img").trigger("click")
                         } else {
                             if (i.code == 500) {
                                 console.error(i.info);

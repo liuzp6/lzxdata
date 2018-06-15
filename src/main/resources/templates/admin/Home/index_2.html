@@ -3293,8 +3293,8 @@
                 b.layerConfirm("注：您确定要安全退出本次登录吗？", function(d) {
                     if (d) {
                         b.loading(true, "退出系统中...");
-                        b.httpAsyncPost(a.rootUrl + "/Login/OutLogin", {}, function(e) {
-                            window.location.href = a.rootUrl + "/Login/Index"
+                        b.httpAsyncPost(a.rootUrl + "${request.contextPath}/logout", {}, function(e) {
+                            window.location.href = a.rootUrl + "${request.contextPath}/admin/index.html"
                         })
                     }
                 })
@@ -3304,7 +3304,7 @@
                     if (d) {
                         b.loading(true, "清理缓存数据中...");
                         b.httpAsyncPost(a.rootUrl + "/Home/ClearRedis", {}, function(e) {
-                            window.location.href = a.rootUrl + "/Login/Index"
+                            window.location.href = a.rootUrl + "${request.contextPath}/admin/index.html"
                         })
                     }
                 })

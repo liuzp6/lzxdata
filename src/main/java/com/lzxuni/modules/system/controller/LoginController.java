@@ -1,22 +1,46 @@
 package com.lzxuni.modules.system.controller;
 
+import com.google.code.kaptcha.Constants;
+import com.google.code.kaptcha.Producer;
+import com.lzxuni.common.exception.RRException;
 import com.lzxuni.common.utils.R;
+import com.lzxuni.common.utils.web.RequestUtils;
+import com.lzxuni.modules.system.entity.User;
+import com.lzxuni.modules.system.service.SysCaptchaService;
+import com.lzxuni.modules.system.service.UserService;
 import com.lzxuni.modules.system.shiro.ShiroUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 @RestController
 public class LoginController {
-
+	private static final Logger log    = LoggerFactory.getLogger(LoginController.class);
+	@Autowired
+	private SysCaptchaService sysCaptchaService;
+	@Autowired
+	private Producer producer;
+	@Autowired
+	private UserService userService;
 	// 后台主页
 	@RequestMapping("/admin/index.html")
-	public ModelAndView index(HttpServletRequest request) throws Exception {
+	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("/admin/Home/index");
 		Cookie[] cookies = request.getCookies();
 		String theme = "";
@@ -67,35 +91,108 @@ public class LoginController {
 		ModelAndView mv = new ModelAndView("/admin/LR_SystemModule/Module/GetModuleList");
 		return mv;
 	}
+
+
+	/**
+	 * 验证码
+	 */
+	@GetMapping("captcha.jpg")
+	public void captcha(HttpServletResponse response, String uuid)throws ServletException, IOException {
+		response.setHeader("Cache-Control", "no-store, no-cache");
+		response.setContentType("image/jpeg");
+
+		//生成文字验证码
+		String text = producer.createText();
+		//生成图片验证码
+		BufferedImage image = producer.createImage(text);
+		//保存到shiro session
+		ShiroUtils.setSessionAttribute(Constants.KAPTCHA_SESSION_KEY, text);
+
+		ServletOutputStream out = response.getOutputStream();
+		ImageIO.write(image, "jpg", out);
+	}
     /**
      * 登录
      */
 
     @RequestMapping("/login_o")
-    public R login(String username, String password, String captcha) {
-//        String kaptcha = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
-//        if(!captcha.equalsIgnoreCase(kaptcha)){
-//            return R.error("验证码不正确");
-//        }
+    public R login(String username, String password,Boolean rememberMe, String verifyCode,HttpServletRequest request) {
 
-        try{
+		User user = userService.queryByUserName(username);
+    	//1 构造token
+		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+		Integer errorRemaining = userService.errorRemaining(username);
+		if(rememberMe==null){
+			token.setRememberMe(true);
+		}else{
+			token.setRememberMe(rememberMe);
+		}
+
+		String info = "";
+		// 2如果输入了验证码，那么必须验证；如果没有输入验证码，则根据当前用户判断是否需要验证码。
+		try {
+			String sessionVerifyCode = ShiroUtils.getKaptcha(Constants.KAPTCHA_SESSION_KEY);
+			if (isCaptchaRequired(verifyCode,errorRemaining)) {
+				if(StringUtils.isEmpty(verifyCode)){
+					info = "验证码为空";
+				}else if (sessionVerifyCode != null && !sessionVerifyCode.equalsIgnoreCase(verifyCode)) {
+					info = "验证码不正确";
+				}
+			}
             Subject subject = ShiroUtils.getSubject();
-            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             subject.login(token);
         }catch (UnknownAccountException e) {
-            return R.error(e.getMessage());
+			info = e.getMessage();
         }catch (IncorrectCredentialsException e) {
-            return R.error("账号或密码不正确");
+			info = "账号或密码不正确";
         }catch (LockedAccountException e) {
-            return R.error("账号已被锁定,请联系管理员");
+			info = "账号已被锁定,请联系管理员";
         }catch (AuthenticationException e) {
-            return R.error("账户验证失败");
-        }
-        return R.ok();
+			info = "账户验证失败";
+        }catch ( RRException e) {
+			info = e.getMsg();
+		}
+
+        if(StringUtils.isNotEmpty(info)){
+			updateLoginMessage(user,"error",request);
+			if(errorRemaining!=null && errorRemaining<=1){
+				return R.error(400, info);
+			}else{
+				return R.error(info);
+			}
+		}
+		updateLoginMessage(user,"success",request);
+		return R.ok();
+
     }
 	@RequestMapping("/admin/Home/VisitModule")
 	public ModelAndView getMap(){
 		ModelAndView mv = new ModelAndView("/admin/Home/VisitModule");
 		return mv;
+	}
+
+	private boolean isCaptchaRequired(String verifyCode,Integer errorRemaining) {
+		log.info("判断需不需要输入验证码=============================="+verifyCode+"============"+errorRemaining);
+		// 如果输入了验证码，那么必须验证；如果没有输入验证码，则根据当前用户判断是否需要验证码。
+		if (StringUtils.isNotEmpty(verifyCode)|| (errorRemaining != null && errorRemaining <= 1)) {
+			log.info("需要输入验证码==============================");
+			return true;
+		}
+		log.info("不需要输入验证码==============================");
+		return false;
+	}
+
+	/**
+	 * 登录失败
+	 */
+	private void updateLoginMessage(User user,String type,HttpServletRequest request) {
+		String ip = RequestUtils.getIpAddr(request);
+		if(user!=null){
+			if(type.equals("success")){
+				userService.updateSuccess(ip, user);
+			}else{
+				userService.updateError(ip, user);
+			}
+		}
 	}
 }

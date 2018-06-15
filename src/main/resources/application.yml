@@ -4,7 +4,7 @@ server:
         uri-encoding: UTF-8
         max-threads: 1000
         min-spare-threads: 30
-    port: 80
+    port: 8080
     connection-timeout: 5000
 spring:
     # 环境 dev|test|prod
@@ -17,42 +17,23 @@ spring:
             enabled: true
     thymeleaf:
       suffix: .thtml
-#      mode: HTML5
-#      encoding: UTF-8;charset=<encoding> is added
       cache: false
     freemarker:
           suffix: .html
           request-context-attribute: request
-# 非集群配置
-#    redis:
-#            open: true  # 是否开启redis缓存  true开启   false关闭
-#            database: 0
-#            host: 192.168.254.204
-#            port: 7001
-#            password:       # 密码（默认为空）
-#            timeout: 6000  # 连接超时时长（毫秒）
-#            pool:
-#                max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
-#                max-wait: -1      # 连接池最大阻塞等待时间（使用负值表示没有限制）
-#                max-idle: 10      # 连接池中的最大空闲连接
-#                min-idle: 5       # 连接池中的最小空闲连接
 # 集群配置
     redis:
         #clusterNodes: 39.107.227.83:7001,39.107.227.83:7002,39.106.54.47:7003,39.106.54.47:7004,39.107.107.107:7005,39.107.107.107:7006
         clusterNodes: 192.168.254.204:7001,192.168.254.204:7002,192.168.254.205:7003,192.168.254.205:7004,192.168.254.206:7005,192.168.254.206:7006
-        expireSeconds: 120
+        expireSeconds: 60
         commandTimeout: 10000  #redis操作的超时时间
-        pool:
-          max-active: 5000 #最大连接数
-          maxIdle: 30 #最大空闲连接数
-          minIdle: 5 #最小空闲连接数W
-          maxait: 3000  #获取连接最大等待时间 ms  #default -1
+#自定义：控制shiro集群和非集群
 lzxuni:
     redis:
         open: false  # 是否开启redis缓存  true开启   false关闭
     shiro:
         redis: false # true表示shiro session存到redis里，需要开启redis，才会生效【分布式场景】
-#mybatis
+#mybatis 插件
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*.xml
   #实体扫描，多个package用逗号或者分号分隔
@@ -81,10 +62,38 @@ mybatis-plus:
       map-underscore-to-camel-case: true
       cache-enabled: false
       call-setters-on-nulls: true
-
+# 日志配置
 logging:
   config: classpath:logback-spring.xml
   level: debug
   level.com.lzxuni: debug
+  level.com.lzxuni.config.LzxRedisTemplate: info
+  level.org.apache.shiro: debug
   path: logs/
   file: admin.log
+#springboot 监控点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#          - auditevents
+#          - beans
+#          - conditions
+#          - configprops
+#          - env
+#          - flyway
+#          - health
+#          - httptrace
+#          - info
+#          - loggers
+#          - liquibase
+#          - metrics
+#          - mappings
+#          - scheduledtasks
+#          - sessions
+#          - shutdown
+#          - threaddump
+  endpoint:
+    health:
+      show-details: always

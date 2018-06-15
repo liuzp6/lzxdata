@@ -17,6 +17,8 @@
 package com.lzxuni.modules.system.shiro;
 
 import com.lzxuni.common.utils.RedisKeys;
+import com.lzxuni.common.utils.SerializeUtil;
+import com.lzxuni.config.LzxRedisTemplate;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.concurrent.TimeUnit;
 
 /**
  * shiro session dao
@@ -37,6 +38,9 @@ import java.util.concurrent.TimeUnit;
 public class RedisShiroSessionDAO extends EnterpriseCacheSessionDAO {
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private LzxRedisTemplate lzxRedisTemplate;
 
     //创建session
     @Override
@@ -71,17 +75,20 @@ public class RedisShiroSessionDAO extends EnterpriseCacheSessionDAO {
     protected void doDelete(Session session) {
         super.doDelete(session);
         final String key = RedisKeys.getShiroSessionKey(session.getId().toString());
-        redisTemplate.delete(key);
+        lzxRedisTemplate.deleteWithPrefix("shiro_redis_session",key);
     }
 
     private Session getShiroSession(String key) {
-        return (Session)redisTemplate.opsForValue().get(key);
+		String value = lzxRedisTemplate.get("shiro_redis_session", key);
+		byte[] bytes = value.getBytes();
+		Session session = SerializeUtil.deserialize(bytes, Session.class);
+		return session;
     }
 
     private void setShiroSession(String key, Session session){
-        redisTemplate.opsForValue().set(key, session);
-        //60分钟过期
-        redisTemplate.expire(key, 60, TimeUnit.MINUTES);
+        lzxRedisTemplate.set("shiro_redis_session",key, (String) session.getId());
+        //分钟过期
+        lzxRedisTemplate.setWithExpireTime("shiro_redis_session",key, (String) session.getId());
     }
 
 }
