@@ -5,16 +5,17 @@ server:
         max-threads: 1000
         min-spare-threads: 30
     port: 8080
-    connection-timeout: 5000
+    connection-timeout: 5000ms
 spring:
     # 环境 dev|test|prod
     profiles:
         active: dev
     http:
         multipart:
+            enabled: true
             max-file-size: 100MB
             max-request-size: 100MB
-            enabled: true
+
     thymeleaf:
       suffix: .thtml
       cache: false
@@ -26,7 +27,24 @@ spring:
         #clusterNodes: 39.107.227.83:7001,39.107.227.83:7002,39.106.54.47:7003,39.106.54.47:7004,39.107.107.107:7005,39.107.107.107:7006
         clusterNodes: 192.168.254.204:7001,192.168.254.204:7002,192.168.254.205:7003,192.168.254.205:7004,192.168.254.206:7005,192.168.254.206:7006
         expireSeconds: 60
-        commandTimeout: 10000  #redis操作的超时时间
+        timeout: 5000ms  #redis操作的超时时间
+        database: 0
+        lettuce:
+            pool:
+              # 连接池中的最大空闲连接
+              max-idle: 500
+              # 连接池中的最小空闲连接
+              min-idle: 200
+              # 连接池最大连接数（使用负值表示没有限制）
+              max-active: 2000
+              # 连接池最大阻塞等待时间（使用负值表示没有限制）
+              max-wait: 5000ms
+              test-on-create: false
+              test-on-borrow: true
+              test-on-return: false
+              test-while-idle: true
+
+
 #自定义：控制shiro集群和非集群
 lzxuni:
     redis:
