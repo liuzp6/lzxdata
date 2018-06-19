@@ -74,7 +74,6 @@ public class ShiroConfig {
         cacheManager.setCacheManagerConfigFile("classpath:shiro-ehcache.xml");
         return cacheManager;
     }
-
     @Bean("cookieRememberMeManager")
     public CookieRememberMeManager cookieRememberMeManager(){
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();

@@ -2,7 +2,7 @@ package com.lzxuni.modules.system.controller;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
-import com.lzxuni.common.exception.RRException;
+import com.lzxuni.common.exception.LzxException;
 import com.lzxuni.common.utils.R;
 import com.lzxuni.common.utils.web.RequestUtils;
 import com.lzxuni.modules.system.entity.User;
@@ -149,12 +149,12 @@ public class LoginController {
 			info = "账号已被锁定,请联系管理员";
         }catch (AuthenticationException e) {
 			info = "账户验证失败";
-        }catch ( RRException e) {
+        }catch ( LzxException e) {
 			info = e.getMsg();
 		}
 
         if(StringUtils.isNotEmpty(info)){
-			updateLoginMessage(user,"error",request);
+			updateLoginMessage(user, "templates/error",request);
 			if(errorRemaining!=null && errorRemaining<=1){
 				return R.error(400, info);
 			}else{

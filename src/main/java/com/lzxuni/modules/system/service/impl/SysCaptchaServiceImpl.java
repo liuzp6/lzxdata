@@ -19,7 +19,7 @@ package com.lzxuni.modules.system.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.google.code.kaptcha.Producer;
-import com.lzxuni.common.exception.RRException;
+import com.lzxuni.common.exception.LzxException;
 import com.lzxuni.modules.system.entity.SysCaptchaEntity;
 import com.lzxuni.modules.system.mapper.SysCaptchaDao;
 import com.lzxuni.modules.system.service.SysCaptchaService;
@@ -45,7 +45,7 @@ public class SysCaptchaServiceImpl extends ServiceImpl<SysCaptchaDao, SysCaptcha
     @Override
     public BufferedImage getCaptcha(String uuid) {
         if(StringUtils.isBlank(uuid)){
-            throw new RRException("uuid不能为空");
+            throw new LzxException("uuid不能为空");
         }
         //生成文字验证码
         String code = producer.createText();

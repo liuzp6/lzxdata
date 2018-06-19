@@ -38,7 +38,7 @@ public class DynamicDataSourceTest {
 		logger.debug("debug");
 		logger.info("info");
 		logger.warn("warn");
-		logger.error("error");
+		logger.error("templates/error");
     }
 
 }

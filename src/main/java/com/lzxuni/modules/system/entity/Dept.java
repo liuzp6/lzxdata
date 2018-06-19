@@ -27,7 +27,6 @@ public class Dept extends Tree implements Serializable{
 	
 	private String id ;
 	private String companyId ;
-	private String parentId ;
 	private String isLeaf ;
 
 	private String name ;
@@ -146,14 +145,6 @@ public class Dept extends Tree implements Serializable{
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
 	}
 
 	public String getIsLeaf() {

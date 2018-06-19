@@ -18,7 +18,6 @@ import java.util.List;
 
 public class Post extends Tree {
 	private String id ;
-	private String parentId ;
 	private Integer level ;//jqgrid用
 	//1：列表-创建用户2：岗位用户管理中，代表用户id
 	private String createUserId ;
@@ -54,14 +53,6 @@ public class Post extends Tree {
 
 	public void setLevel(Integer level) {
 		this.level = level;
-	}
-
-	public String getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
 	}
 
 	public String getId() {

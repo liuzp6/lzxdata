@@ -16,7 +16,7 @@
 
 package com.lzxuni.modules.system.shiro;
 
-import com.lzxuni.common.exception.RRException;
+import com.lzxuni.common.exception.LzxException;
 import com.lzxuni.modules.system.entity.User;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -72,10 +72,10 @@ public class ShiroUtils {
 		SecurityUtils.getSubject().logout();
 	}
 	
-	public static String getKaptcha(String key) throws RRException{
+	public static String getKaptcha(String key) throws LzxException {
 		Object kaptcha = getSessionAttribute(key);
 		if(kaptcha == null){
-			throw new RRException("验证码已失效");
+			throw new LzxException("验证码已失效");
 		}
 		getSession().removeAttribute(key);
 		return kaptcha.toString();

@@ -1,6 +1,6 @@
 package com.lzxuni.common.utils;
 
-import com.lzxuni.common.exception.RRException;
+import com.lzxuni.common.exception.LzxException;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.ReflectionUtils;
 
@@ -39,7 +39,7 @@ public class ScheduleRunnable implements Runnable {
 				method.invoke(target);
 			}
 		}catch (Exception e) {
-			throw new RRException("执行定时任务失败,异常信息 ："+e.getCause().getMessage(), e);
+			throw new LzxException("执行定时任务失败,异常信息 ："+e.getCause().getMessage(), e);
 		}
 	}
 

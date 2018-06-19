@@ -1,6 +1,7 @@
 package com.lzxuni.modules.system.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.lzxuni.common.exception.LzxException;
 import com.lzxuni.common.utils.R;
 import com.lzxuni.common.utils.StringUtils;
 import com.lzxuni.common.validator.ValidatorUtils;
@@ -36,7 +37,7 @@ public class UserController extends BaseController {
 		return mv;
 	}
 	@RequestMapping("/GetPageList.html")
-	public Object listDo(String pagination,User user) throws Exception {
+	public Object listDo(String pagination,User user) throws LzxException {
 		PageParameter pageParameter = JSON.parseObject(pagination, PageParameter.class);
 		PageData pageData = getPageData(userService.queryPage(pageParameter, user));
 		return R.ok(pageData);

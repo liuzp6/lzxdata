@@ -43,8 +43,8 @@ spring:
 # 日志配置
 logging:
   config: classpath:logback-spring.xml
-  level: debug
-  level.com.lzxuni: debug
+  level: info
+  level.com.lzxuni: info
   level.com.lzxuni.config.LzxRedisTemplate: info
 #  level.org.apache.shiro: debug
   path: logs/

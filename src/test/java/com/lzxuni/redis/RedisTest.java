@@ -20,7 +20,6 @@ import java.util.List;
 public class RedisTest {
 	@Autowired
 	private RedisClusterUtils redisClusterUtils;
-
 	@Autowired
 	private RedisTemplate redisTemplate;
 	@Autowired
@@ -28,11 +27,10 @@ public class RedisTest {
 
 	@Test
 	public void redisCluse() {
-//		redisClusterUtils.set("k2", "v2");
+		redisClusterUtils.set("k2", "v2");
 
-
-
-
+		String k2 = redisClusterUtils.get("k2");
+		System.out.println(k2);
 	}
 
 	@Test

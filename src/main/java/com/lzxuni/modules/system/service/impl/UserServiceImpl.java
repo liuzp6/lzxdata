@@ -36,7 +36,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 		PageHelper.startPage(pageParameter.getPage(), pageParameter.getRows());
 		List<User> userList = baseMapper.queryList(user);
 		PageInfo<User> pageInfo = new PageInfo<>(userList);
-
 		return pageInfo;
 	}
 

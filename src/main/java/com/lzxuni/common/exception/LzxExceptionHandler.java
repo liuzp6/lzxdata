@@ -21,8 +21,10 @@ import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 异常处理器
@@ -30,15 +32,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @author Mark sunlightcs@gmail.com
  * @since 1.0.0 2016-10-27
  */
-@RestControllerAdvice
-public class RRExceptionHandler {
+@ControllerAdvice
+public class LzxExceptionHandler {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	/**
 	 * 处理自定义异常
 	 */
-	@ExceptionHandler(RRException.class)
-	public R handleRRException(RRException e){
+	@ExceptionHandler(LzxException.class)
+	public R handleRRException(LzxException e){
 		R r = new R();
 		r.put("code", e.getCode());
 		r.put("msg", e.getMessage());
@@ -59,8 +61,13 @@ public class RRExceptionHandler {
 	}
 
 	@ExceptionHandler(Exception.class)
-	public R handleException(Exception e){
+	public String handleException(Exception e, HttpServletRequest request){
 		logger.error(e.getMessage(), e);
-		return R.error();
+		request.setAttribute("javax.servlet.error.status_code",500);
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("code", "500");
+//		map.put("info", "123");
+//		request.setAttribute("ext",map);
+		return "forward:/error";
 	}
 }

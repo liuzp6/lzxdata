@@ -1,8 +1,8 @@
 package com.lzxuni.common.utils.date;
 
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.annotations.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -115,8 +115,9 @@ public class DateUtil {
                         long dateTwo = timestampsLastTmp[1];  
                         if ((Math.abs(dateOne - dateTwo)) < 100000000000L) {  
                             timestamp = Math.max(timestampsLastTmp[0], timestampsLastTmp[1]);  
-                        } else {  
-                            long now = new Date().getTime();  
+                        } else {
+                            long now = System.currentTimeMillis();
+
                             if (Math.abs(dateOne - now) <= Math.abs(dateTwo - now)) {  
                                 timestamp = dateOne;  
                             } else {  
@@ -383,8 +384,7 @@ public class DateUtil {
     /** 
      * 增加日期的小时。失败返回null。 
      * @param date 日期字符串 
-     * @param dayAmount 增加数量。可为负数 
-     * @return 增加小时后的日期字符串 
+     * @return 增加小时后的日期字符串
      */  
     public static String addHour(String date, int hourAmount) {  
         return addInteger(date, Calendar.HOUR_OF_DAY, hourAmount);  
@@ -393,8 +393,7 @@ public class DateUtil {
     /** 
      * 增加日期的小时。失败返回null。 
      * @param date 日期 
-     * @param dayAmount 增加数量。可为负数 
-     * @return 增加小时后的日期 
+     * @return 增加小时后的日期
      */  
     public static Date addHour(Date date, int hourAmount) {  
         return addInteger(date, Calendar.HOUR_OF_DAY, hourAmount);  
@@ -403,8 +402,7 @@ public class DateUtil {
     /** 
      * 增加日期的分钟。失败返回null。 
      * @param date 日期字符串 
-     * @param dayAmount 增加数量。可为负数 
-     * @return 增加分钟后的日期字符串 
+     * @return 增加分钟后的日期字符串
      */  
     public static String addMinute(String date, int hourAmount) {  
         return addInteger(date, Calendar.MINUTE, hourAmount);  
@@ -413,8 +411,7 @@ public class DateUtil {
     /** 
      * 增加日期的分钟。失败返回null。 
      * @param date 日期 
-     * @param dayAmount 增加数量。可为负数 
-     * @return 增加分钟后的日期 
+     * @return 增加分钟后的日期
      */  
     public static Date addMinute(Date date, int hourAmount) {  
         return addInteger(date, Calendar.MINUTE, hourAmount);  
@@ -433,8 +430,7 @@ public class DateUtil {
     /** 
      * 增加日期的秒钟。失败返回null。 
      * @param date 日期 
-     * @param dayAmount 增加数量。可为负数 
-     * @return 增加秒钟后的日期 
+     * @return 增加秒钟后的日期
      */  
     public static Date addSecond(Date date, int hourAmount) {  
         return addInteger(date, Calendar.SECOND, hourAmount);  

@@ -42,9 +42,8 @@ public class CompanyController extends BaseController {
 	// 根据parentId查找
 	@RequestMapping("/GetTree.html")
 	public Object queryListByParentId(String parentId) throws Exception {
-//		List<Company> companyList = companyService.getTree(parentId);
-//		return R.ok(companyList);
-		return R.ok(null);
+		List<Company> companyList = companyService.getTree(parentId);
+		return R.ok(companyList);
 	}
 
 	// 添加展示页面
