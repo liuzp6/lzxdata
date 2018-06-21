@@ -51,12 +51,13 @@ spring:
               test-on-return: false
               test-while-idle: true
     elasticsearch:
-      jest:
-          uris: http://192.168.254.201:9200
+        jest:
+            uris: http://192.168.254.201:9200
     data:
       elasticsearch:
-        cluster-name: elasticsearch
+        cluster-name: my-application
         cluster-nodes: 192.168.254.201:9300
+
 
 #自定义：控制shiro集群和非集群
 lzxuni:
