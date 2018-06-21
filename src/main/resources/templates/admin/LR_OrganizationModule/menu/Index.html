@@ -1295,7 +1295,7 @@ var bootstrap = function(a, b) {
                         b.layerConfirm("是否确认删除该项！",
                             function(f) {
                                 if (f) {
-                                    b.deleteForm(top.$.rootUrl + "/LR_SystemModule/Module/DeleteForm", {
+                                    b.deleteForm(top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Menu/DeleteForm", {
                                             keyValue: e
                                         },
                                         function() {
@@ -1316,7 +1316,8 @@ var bootstrap = function(a, b) {
             c = e.id;
             a("#titleinfo").text(e.text);
             d.search({
-                parentId: c
+                parentId: c,
+                type: 'menu'
             })
         },
         initGird: function() {
@@ -1338,7 +1339,8 @@ var bootstrap = function(a, b) {
                     ]
             });
             d.search({
-                parentId: c
+                parentId: c,
+                type: 'menu'
             })
         },
         search: function(e) {
@@ -1349,7 +1351,8 @@ var bootstrap = function(a, b) {
     };
     refreshGirdData = function() {
         d.search({
-            parentId: c
+            parentId: c,
+            type: 'menu'
         })
     };
     d.init()

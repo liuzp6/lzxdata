@@ -1253,8 +1253,8 @@
     <div id="wizard" class="wizard" data-target="#wizard-steps">
         <ul class="steps">
             <li data-target="#step-1" class="active"><span class="step">1</span>系统功能<span class="chevron"></span></li>
-            <li data-target="#step-2"><span class="step">2</span>系统按钮<span class="chevron"></span></li>
-            <li data-target="#step-3"><span class="step">3</span>系统视图<span class="chevron"></span></li>
+            <!--<li data-target="#step-2"><span class="step">2</span>系统按钮<span class="chevron"></span></li>-->
+            <!--<li data-target="#step-3"><span class="step">3</span>系统视图<span class="chevron"></span></li>-->
         </ul>
     </div>
     <div class="step-content" id="wizard-steps" >
@@ -1281,32 +1281,32 @@
                 <input id="url" type="text" class="form-control" placeholder="请输入URL地址" />
             </div>
         </div>
-        <div class="step-pane step-gird-pane" id="step-2">
-            <div class="btn-tool-bar">
-                <div class="btn-group btn-group-sm">
-                    <a id="lr_add_button" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;新增</a>
-                    <a id="lr_edit_button" class="btn btn-default"><i class="fa fa-pencil-square-o"></i>&nbsp;编辑</a>
-                    <a id="lr_delete_button" class="btn btn-default"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
-                </div>
-            </div>
-            <div id="btns_girdtable"></div>
-        </div>
-        <div class="step-pane step-gird-pane" id="step-3">
-            <div class="btn-tool-bar">
-                <div class="btn-group  btn-group-sm">
-                    <a id="lr_add_view"    class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;新增</a>
-                    <a id="lr_edit_view"   class="btn btn-default"><i class="fa fa-pencil-square-o"></i>&nbsp;编辑</a>
-                    <a id="lr_delete_view" class="btn btn-default"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
-                </div>
-            </div>
-            <div id="view_girdtable"></div>
-        </div>
+        <!--<div class="step-pane step-gird-pane" id="step-2">-->
+            <!--<div class="btn-tool-bar">-->
+                <!--<div class="btn-group btn-group-sm">-->
+                    <!--<a id="lr_add_button" class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;新增</a>-->
+                    <!--<a id="lr_edit_button" class="btn btn-default"><i class="fa fa-pencil-square-o"></i>&nbsp;编辑</a>-->
+                    <!--<a id="lr_delete_button" class="btn btn-default"><i class="fa fa-trash-o"></i>&nbsp;删除</a>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div id="btns_girdtable"></div>-->
+        <!--</div>-->
+        <!--<div class="step-pane step-gird-pane" id="step-3">-->
+            <!--<div class="btn-tool-bar">-->
+                <!--<div class="btn-group  btn-group-sm">-->
+                    <!--<a id="lr_add_view"    class="btn btn-default"><i class="fa fa-plus"></i>&nbsp;新增</a>-->
+                    <!--<a id="lr_edit_view"   class="btn btn-default"><i class="fa fa-pencil-square-o"></i>&nbsp;编辑</a>-->
+                    <!--<a id="lr_delete_view" class="btn btn-default"><i class="fa fa-trash-o"></i>&nbsp;删除</a>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div id="view_girdtable"></div>-->
+        <!--</div>-->
     </div>
 
     <div class="lr-form-bottom-button" id="wizard-actions">
-        <a id="btn_prev" class="btn btn-default btn-prev">上一步</a>
-        <a id="btn_next" class="btn btn-default btn-next">下一步</a>
-        <a id="btn_finish" class="btn btn-success" disabled>完成</a>
+        <!--<a id="btn_prev" class="btn btn-default btn-prev">上一步</a>-->
+        <!--<a id="btn_next" class="btn btn-default btn-next">下一步</a>-->
+        <a id="btn_finish" class="btn btn-success">完成</a>
     </div>
 </div>
 <script>
@@ -1394,7 +1394,7 @@
                 b.layerForm({
                     id: "buttonform",
                     title: "添加按钮",
-                    url: top.$.rootUrl + "/LR_SystemModule/Module/ButtonForm?parentId=" + d,
+                    url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Menu/ButtonForm_v?parentId=" + d,
                     height: 300,
                     width: 450,
                     callBack: function(e) {
