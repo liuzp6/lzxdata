@@ -1370,7 +1370,7 @@
                             <li id="lr_memberadd"><a><i></i>&nbsp;添加成员</a></li>
                             <li id="lr_memberlook"><a><i></i>&nbsp;查看成员</a></li>
                             <li id="lr_authorize"><a><i></i>&nbsp;功能授权</a></li>
-                            <li id="lr_dataauthorize"><a><i></i>&nbsp;数据授权</a></li>
+                            <!--<li id="lr_dataauthorize"><a><i></i>&nbsp;数据授权</a></li>-->
                         </ul>
                     </div>
 
@@ -1488,7 +1488,7 @@
                     if (b.checkrow(d)) {
                         b.layerForm({
                             id: "authorizeForm",
-                            title: "功能授权 - " + selectedRow.F_FullName,
+                            title: "功能授权 - " + selectedRow.name,
                             url: top.$.rootUrl + "${request.contextPath}/admin/LR_OrganizationModule/Role/AuthorizeForm?objectId=" + d + "&objectType=1",
                             width: 550,
                             height: 690,
@@ -2248,7 +2248,6 @@
                                 })
                             } else {
                                 if (o.type == "default" || o.type == "multiple") {
-                                    console.log(r);
                                     for (var q = 0, s = o.data.length; q < s; q++) {
                                         var n = o.data[q];
                                         if (!r || n[o.text].indexOf(r) != -1) {

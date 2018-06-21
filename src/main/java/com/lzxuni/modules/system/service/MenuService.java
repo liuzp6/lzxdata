@@ -16,7 +16,9 @@ import java.util.List;
 
 public interface MenuService extends IService<Menu> {
 
-    List<Menu> queryListByParentId(String parentId) throws Exception;
+    List<Menu> queryListByParentId(String parentId,String type) throws Exception;
 
-    List<Menu> getTree(String parentId) ;
+    List<Menu> getTree(String parentId,String type) ;
+
+    void insertPermissions(Menu menu) throws Exception;
 }

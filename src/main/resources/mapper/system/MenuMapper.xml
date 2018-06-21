@@ -3,6 +3,15 @@
 <mapper namespace="com.lzxuni.modules.system.mapper.MenuMapper">
     <!-- 根据id查询 -->
     <select id="queryListByParentId" parameterType="java.lang.String" resultType="com.lzxuni.modules.system.entity.Menu">
-        select *,name as text from sys_menu where parent_Id=#{parentId} and type='menu' order by sort_Number
+        select *,name as text from sys_menu
+        <where>
+            <if test="parentId != null and parentId != ''  ">
+                and parent_Id=#{parentId,jdbcType=VARCHAR}
+            </if>
+            <if test="type != null and type != ''  ">
+                and type=#{type,jdbcType=VARCHAR}
+            </if>
+        </where>
+        order by sort_Number
     </select>
 </mapper>

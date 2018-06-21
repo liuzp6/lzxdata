@@ -1,6 +1,9 @@
 package com.lzxuni.modules.system.entity;
 
 
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+
 /**
  *@Title RoleMenu.java
  *@description 角色菜单多对多关联表
@@ -8,7 +11,9 @@ package com.lzxuni.modules.system.entity;
  *@time 2016年11月4日 下午3:17:06
  *@version 1.0
  **/
+@TableName("sys_rolemenu")
 public class RoleMenu {
+    @TableId
 	private String id ;
 	private String roleId ;
 	private String menuId ;
