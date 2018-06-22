@@ -24,7 +24,6 @@ spring:
           request-context-attribute: request
 # 集群配置
     redis:
-        #clusterNodes: 39.107.227.83:7001,39.107.227.83:7002,39.106.54.47:7003,39.106.54.47:7004,39.107.107.107:7005,39.107.107.107:7006
         cluster:
             nodes:
                 - 192.168.254.204:7001
@@ -50,15 +49,6 @@ spring:
               test-on-borrow: true
               test-on-return: false
               test-while-idle: true
-    elasticsearch:
-        jest:
-            uris: http://192.168.254.201:9200
-    data:
-      elasticsearch:
-        cluster-name: my-application
-        cluster-nodes: 192.168.254.201:9300
-
-
 #自定义：控制shiro集群和非集群
 lzxuni:
     redis:
