@@ -3,6 +3,7 @@ package com.lzxuni.modules.system.service;
 import com.baomidou.mybatisplus.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.lzxuni.modules.common.entity.PageParameter;
+import com.lzxuni.modules.system.entity.Menu;
 import com.lzxuni.modules.system.entity.User;
 
 import java.util.List;
@@ -25,9 +26,9 @@ public interface UserService extends IService<User> {
 	List<String> queryAllPerms(String userId);
 
 	/**
-	 * 查询用户的所有菜单ID
+	 * 查询用户的所有菜单
 	 */
-	List<Long> queryAllMenuId(String userId);
+	List<Menu> queryAllMenu(String userId);
 
 	/**
 	 * 根据用户名，查询系统用户

@@ -37,6 +37,14 @@ public class Menu extends Tree{
 	private List<Menu> childNodes;
     @TableField(exist=false)
     private String text ; //树形菜单需要
+    //菜单权限需要字段
+    @TableField(exist=false)
+    private Integer f_EnabledMark;
+    @TableField(exist=false)
+    private Integer f_IsMenu;
+    @TableField(exist=false)
+    private String  f_Target;
+
     @Override
     public Boolean getHasChildren() {
         if(getChildNodes()!=null && getChildNodes().size()>0){
@@ -129,6 +137,30 @@ public class Menu extends Tree{
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Integer getF_EnabledMark() {
+        return f_EnabledMark;
+    }
+
+    public void setF_EnabledMark(Integer f_EnabledMark) {
+        this.f_EnabledMark = f_EnabledMark;
+    }
+
+    public Integer getF_IsMenu() {
+        return f_IsMenu;
+    }
+
+    public void setF_IsMenu(Integer f_IsMenu) {
+        this.f_IsMenu = f_IsMenu;
+    }
+
+    public String getF_Target() {
+        return f_Target;
+    }
+
+    public void setF_Target(String f_Target) {
+        this.f_Target = f_Target;
     }
 
     @Override

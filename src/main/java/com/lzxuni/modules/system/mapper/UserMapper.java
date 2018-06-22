@@ -1,6 +1,7 @@
 package com.lzxuni.modules.system.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.lzxuni.modules.system.entity.Menu;
 import com.lzxuni.modules.system.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -24,9 +25,9 @@ public interface UserMapper extends BaseMapper<User> {
 	List<String> queryAllPerms(String userId);
 
 	/**
-	 * 查询用户的所有菜单ID
+	 * 查询用户的所有菜单信息
 	 */
-	List<Long> queryAllMenuId(String userId);
+	List<Menu> queryAllMenu(String userId);
 
 	/**
 	 * 根据用户名，查询系统用户

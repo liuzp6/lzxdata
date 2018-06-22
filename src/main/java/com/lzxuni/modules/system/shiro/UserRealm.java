@@ -18,8 +18,7 @@ package com.lzxuni.modules.system.shiro;
 
 
 import com.lzxuni.modules.system.entity.User;
-import com.lzxuni.modules.system.mapper.UserMapper;
-import org.apache.commons.lang.StringUtils;
+import com.lzxuni.modules.system.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -32,7 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * 认证
@@ -45,9 +44,7 @@ import java.util.*;
 public class UserRealm extends AuthorizingRealm {
     @Autowired
 	@Lazy
-    private UserMapper userMapper;
-//    @Autowired
-//    private SysMenuDao sysMenuDao;
+    private UserService userService;
     
     /**
      * 授权(验证权限时调用)
@@ -55,10 +52,15 @@ public class UserRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		User user = (User)principals.getPrimaryPrincipal();
-		String userId = user.getUserId();
-		
+
 		List<String> permsList;
-		
+        try {
+            permsList = userService.queryAllPerms(user.getUserId());
+        } catch (Exception e) {
+            return null;
+        }
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.addStringPermissions(permsList);
 		//系统管理员，拥有最高权限
 //		if(userId == Constant.SUPER_ADMIN){
 //			List<SysMenuEntity> menuList = sysMenuDao.selectList(null);
@@ -69,18 +71,18 @@ public class UserRealm extends AuthorizingRealm {
 //		}else{
 //			permsList = sysUserDao.queryAllPerms(userId);
 //		}
-		permsList = new ArrayList<>();
+//		permsList = new ArrayList<>();
 		//用户权限列表
-		Set<String> permsSet = new HashSet<>();
-		for(String perms : permsList){
-			if(StringUtils.isBlank(perms)){
-				continue;
-			}
-			permsSet.addAll(Arrays.asList(perms.trim().split(",")));
-		}
-		
-		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-		info.setStringPermissions(permsSet);
+//		Set<String> permsSet = new HashSet<>();
+//		for(String perms : permsList){
+//			if(StringUtils.isBlank(perms)){
+//				continue;
+//			}
+//			permsSet.addAll(Arrays.asList(perms.trim().split(",")));
+//		}
+//
+//		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+//		info.setStringPermissions(permsSet);
 		return info;
 	}
 
@@ -95,7 +97,7 @@ public class UserRealm extends AuthorizingRealm {
 		//查询用户信息
 		User user = new User();
 		user.setUsername(token.getUsername());
-		user = userMapper.queryByUserName(user.getUsername());
+		user = userService.queryByUserName(user.getUsername());
 
 
 		//账号不存在

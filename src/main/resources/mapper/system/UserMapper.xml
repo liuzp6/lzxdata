@@ -17,17 +17,18 @@
 	</select>
     <!-- 查询用户的所有权限 -->
     <select id="queryAllPerms" resultType="string">
-		select m.perms from sys_user_role ur
-			LEFT JOIN sys_role_menu rm on ur.role_id = rm.role_id
-			LEFT JOIN sys_menu m on rm.menu_id = m.menu_id
-		where ur.user_id = #{userId}
+		select distinct m.percode from sys_roleuser ur
+			LEFT JOIN sys_rolemenu rm on ur.role_id = rm.role_id
+			LEFT JOIN sys_menu m on rm.menu_id = m.id
+		where ur.user_id = #{userId} and m.type='permission'
 	</select>
 
-    <!-- 查询用户的所有菜单ID -->
-    <select id="queryAllMenuId" resultType="String">
-		select distinct rm.menu_id from sys_user_role ur
-			LEFT JOIN sys_role_menu rm on ur.role_id = rm.role_id
-		where ur.user_id = #{userId}
+    <!-- 查询用户的所有菜单信息 -->
+    <select id="queryAllMenu" resultType="com.lzxuni.modules.system.entity.Menu">
+		select distinct m.* from sys_roleuser ur
+			LEFT JOIN sys_rolemenu rm on ur.role_id = rm.role_id
+			LEFT JOIN sys_menu m on rm.menu_id = m.id
+		where ur.user_id = #{userId} and m.type='menu' order by m.sort_number
 	</select>
 
     <select id="queryByUserName" resultType="com.lzxuni.modules.system.entity.User">

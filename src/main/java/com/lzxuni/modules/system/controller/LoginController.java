@@ -5,11 +5,13 @@ import com.google.code.kaptcha.Producer;
 import com.lzxuni.common.exception.LzxException;
 import com.lzxuni.common.utils.R;
 import com.lzxuni.common.utils.web.RequestUtils;
+import com.lzxuni.modules.system.entity.Menu;
 import com.lzxuni.modules.system.entity.User;
 import com.lzxuni.modules.system.service.SysCaptchaService;
 import com.lzxuni.modules.system.service.UserService;
 import com.lzxuni.modules.system.shiro.ShiroUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -28,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 public class LoginController {
@@ -81,15 +84,29 @@ public class LoginController {
 	}
 	// 用户session页面
 	@RequestMapping("/admin/Login/GetUserInfo.html")
-	public ModelAndView getUserInfo(String username, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("/admin/Login/GetUserInfo");
-		return mv;
+	public Object getUserInfo() {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        return R.ok(user);
+//        ModelAndView mv = new ModelAndView("/admin/Login/GetUserInfo");
 	}
 	// 菜单页面
 	@RequestMapping("/LR_SystemModule/Module/GetModuleList.html")
-	public ModelAndView getModuleList(String username, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("/admin/LR_SystemModule/Module/GetModuleList");
-		return mv;
+	public Object getModuleList() {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        List<Menu> menuList = userService.queryAllMenu(user.getUserId());
+        //循环整个菜单集合，并给菜单集合需要的属性赋值
+        for(int i=0; i<menuList.size(); i++){
+            menuList.get(i).setF_EnabledMark(1);
+            menuList.get(i).setF_IsMenu(1);
+            if("Y".equals( menuList.get(i).getIsLeaf())){
+                menuList.get(i).setF_Target("expand");
+            }else{
+                menuList.get(i).setF_Target("iframe");
+            }
+        }
+        return R.ok(menuList);
+//		ModelAndView mv = new ModelAndView("/admin/LR_SystemModule/Module/GetModuleList");
+//        return mv;
 	}
 
 

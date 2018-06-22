@@ -6,6 +6,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lzxuni.common.utils.UuidUtil;
 import com.lzxuni.modules.common.entity.PageParameter;
+import com.lzxuni.modules.system.entity.Menu;
 import com.lzxuni.modules.system.entity.SysLogEntity;
 import com.lzxuni.modules.system.entity.User;
 import com.lzxuni.modules.system.mapper.UserMapper;
@@ -41,12 +42,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
 	@Override
 	public List<String> queryAllPerms(String userId) {
-		return null;
+		return baseMapper.queryAllPerms(userId);
 	}
 
 	@Override
-	public List<Long> queryAllMenuId(String userId) {
-		return null;
+	public List<Menu> queryAllMenu(String userId) {
+		return baseMapper.queryAllMenu(userId);
 	}
 
 	@Override
