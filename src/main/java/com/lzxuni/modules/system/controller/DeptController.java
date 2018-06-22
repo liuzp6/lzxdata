@@ -75,9 +75,9 @@ public class DeptController extends BaseController {
 	}
 
 	@RequestMapping("/GetMap")
-	public ModelAndView getMap(){
-		ModelAndView mv = new ModelAndView("/admin/LR_OrganizationModule/Dept/getMap");
-		return mv;
+	public Object getMap(){
+		// {"code":200,"info":"no update","data":{}}
+		return R.ok(200,"no update",null);
 	}
 
 

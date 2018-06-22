@@ -109,8 +109,8 @@ public class DatabaseLinkController extends BaseController {
 
 
 	@RequestMapping("/GetMap")
-	public ModelAndView getMap(){
-		ModelAndView mv = new ModelAndView("/admin/LR_SystemModule/DatabaseLink/getMap");
-		return mv;
+	public Object getMap(){
+		// {"code":200,"info":"no update","data":{}}
+		return R.ok(200,"no update",null);
 	}
 }

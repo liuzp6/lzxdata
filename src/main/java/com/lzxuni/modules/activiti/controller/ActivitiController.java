@@ -84,9 +84,4 @@ public class ActivitiController extends BaseController {
 		}
 		return  R.ok("重置成功");
 	}
-	@RequestMapping("/GetMap")
-	public ModelAndView getMap(){
-		ModelAndView mv = new ModelAndView("/admin/LR_OrganizationModule/User/getMap");
-		return mv;
-	}
 }

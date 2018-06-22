@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +27,7 @@
 
             <div class="lr-input-item ">
                 <label class="name-label"></label>
-                <input id="username" name="username" type="text" placeholder="手机号/账户">
+                <input id="username" name="username" type="text" placeholder="账户">
                 <input id="rememberMe" name="rememberMe" type="hidden" value="on">
             </div>
             <div class="lr-input-item">
@@ -44,17 +43,17 @@
             </div>
             <button id="lr_login_btn" type="button"><span>登录</span></button>
             <div class="lr-login-links">
-                <a href="http://www.learun.cn/Home/Register" target="_blank" style="margin-left:20px;">注册账号</a>
+                <!--<a href="http://www.lzxuni.com/Home/Register" target="_blank" style="margin-left:20px;">注册账号</a>-->
                 <a href="#" onclick="alert('请联系管理员:13671911811')">忘记密码</a>
             </div>
-            <div class="lr-version">当前版本 V6.1.6.3</div>
+            <div class="lr-version">当前版本 V1.0.0</div>
         </div>
     </div>
     <div class="lr-layout-side right">
         <img src="Content/images/Login/bg_03.png" />
     </div>
 </div>
-<div class="lr-layout-block bottom">上海力软信息技术有限公司出品<br><a href="http://www.learun.cn" title="力软信息,敏捷框架,敏捷开发平台,快速开发平台,快速开发框架" target="_blank" style="color:#828282;">LR-ADMS 敏捷开发框架官方网站：http://www.learun.cn</a></div>
+<div class="lr-layout-block bottom">哈尔滨凌之迅网络信息技术股份有限公司出品<br><a href="http://www.lzxuni.com/" title="凌之迅信息,敏捷框架,敏捷开发平台,快速开发平台,快速开发框架" target="_blank" style="color:#828282;">凌之迅官方网站：http://www.lzxuni.com</a></div>
 
 <script src="Content/jquery/jquery-1.10.2.min.js"></script>
 <script src="Content/jquery/jquery.md5.min.js"></script>
@@ -62,13 +61,7 @@
     $.rootUrl = '/'.substr(0, '/'.length - 1);
     $.lrToken = $('<input name="__RequestVerificationToken" type="hidden" value="eBAUiZtcPpbGOncMcypgh0etE0rPTz1_cVeesHkI1lpvg-eh9a-e5Q2bZQyeyTYdXbMG1AX34UFmdQFInvqPWZovK07kte69s4kg3PjmAJo1" />').val();
 </script>
-<script>/*
- * 版 本 Learun-ADMS V6.1.6.0 力软敏捷开发框架(http://www.learun.cn)
- * Copyright (c) 2013-2017 上海力软信息技术有限公司
- * 创建人：力软-前端开发组
- * 日 期：2017.03.08
- * 描 述：登录页面前端脚本
- */
+<script>
 (function(a) {
     var b = {
         init: function() {
@@ -265,7 +258,7 @@ $(function() {
     a += "</div>";
     a += "</div>";
     a += "</ul>";
-    $("body").append(a);
+    //$("body").append(a);
     $(".menu .item").hover(function() {
         $(this).find(".lrpopover").show();
         $(this).find(".arrow").show()

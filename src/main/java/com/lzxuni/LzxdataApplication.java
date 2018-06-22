@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Import;
 @MapperScan(basePackages = {"com.lzxuni.modules.*.mapper"})
 @Import({DynamicDataSourceConfig.class})
 @EnableCaching
-
 public class LzxdataApplication  extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

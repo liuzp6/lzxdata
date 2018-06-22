@@ -155,9 +155,9 @@ public class BaseDataitemController extends BaseController {
 		return R.ok("删除成功");
 	}
 	@RequestMapping("/GetMap")
-	public ModelAndView getMap(){
-		ModelAndView mv = new ModelAndView("/admin/LR_SystemModule/DataItem/getMap");
-		return mv;
+	public Object getMap(){
+		// {"code":200,"info":"no update","data":{}}
+		return R.ok(200,"no update",null);
 	}
 }
 
