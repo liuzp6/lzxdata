@@ -43,7 +43,7 @@ public class ShiroConfig {
         //设置session过期时间为1小时(单位：毫秒)，默认为30分钟
         sessionManager.setGlobalSessionTimeout(7 * 24 * 60 * 60);
         sessionManager.setSessionValidationSchedulerEnabled(true);
-        sessionManager.setSessionIdUrlRewritingEnabled(false);
+//        sessionManager.setSessionIdUrlRewritingEnabled(false);
         sessionManager.setDeleteInvalidSessions(true);
 
 		SimpleCookie simpleCookie = new SimpleCookie();
